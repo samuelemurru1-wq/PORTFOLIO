@@ -614,7 +614,7 @@
         overflow-x: hidden !important;
         overflow-y: hidden !important;
         height: 100% !important;
-        touch-action: none !important;
+        touch-action: pan-x !important;
       }
 
       .site-header.fixed-info {
@@ -693,13 +693,15 @@
         position: fixed !important;
         left: 0 !important;
         top: 50% !important;
-        overflow-x: visible !important;
+        overflow-x: auto !important;
         overflow-y: hidden !important;
         transform: translateY(-50%);
-        opacity: 0;
-        touch-action: none !important;
-        transition: opacity 0.18s ease;
-        will-change: left, opacity;
+        opacity: 1;
+        touch-action: pan-x !important;
+        -webkit-overflow-scrolling: touch !important;
+        overscroll-behavior-x: contain !important;
+        scrollbar-width: none !important;
+        will-change: scroll-position;
       }
 
       .work-list.is-mobile-ready {
@@ -1504,6 +1506,7 @@
         workList.innerHTML = '';
         mobileGalleryOffset = 0;
         workList.style.left = '';
+        workList.scrollLeft = 0;
         appendImageBatch(items, options || { shuffle: true, primary: true });
         requestMobileGalleryLayout();
       }
@@ -1530,10 +1533,8 @@
           return;
         }
 
-        if (window.scrollX || window.scrollY) window.scrollTo(0, 0);
-        const maxTranslate = getMobileGalleryMaxTranslate();
-        mobileGalleryOffset = Math.min(maxTranslate, Math.max(0, offset));
-        workList.style.left = `${-mobileGalleryOffset}px`;
+        mobileGalleryOffset = 0;
+        workList.style.left = '';
       }
 
       function updateMobileGalleryScroll() {
@@ -1541,10 +1542,10 @@
       }
 
       function handleMobileGalleryWheel(event) {
-        if (!isMobileGalleryView()) return;
+        if (!isMobileGalleryView() || !workList) return;
+        if (Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return;
         event.preventDefault();
-        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-        setMobileGalleryOffset(mobileGalleryOffset + event.deltaY);
+        workList.scrollLeft += event.deltaY;
       }
 
       function handleMobileGalleryTouchStart(event) {
@@ -1557,11 +1558,7 @@
         if (!isMobileGalleryView() || !event.touches.length) return;
         const deltaX = event.touches[0].clientX - mobileTouchStartX;
         const deltaY = event.touches[0].clientY - mobileTouchStartY;
-        event.preventDefault();
-        if (Math.abs(deltaY) <= Math.abs(deltaX)) return;
-        setMobileGalleryOffset(mobileGalleryOffset - deltaY);
-        mobileTouchStartX = event.touches[0].clientX;
-        mobileTouchStartY = event.touches[0].clientY;
+        if (Math.abs(deltaY) > Math.abs(deltaX)) event.preventDefault();
       }
 
       function updateMobileGalleryLayout() {
@@ -1580,7 +1577,7 @@
 
         const maxTranslate = getMobileGalleryMaxTranslate();
         workList.parentElement.style.minHeight = '100svh';
-        setMobileGalleryOffset(Math.min(mobileGalleryOffset, maxTranslate));
+        workList.style.left = '';
         if (maxTranslate > 0) workList.classList.add('is-mobile-ready');
       }
 
