@@ -858,10 +858,10 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
-    "src": "assets/images/LUC LEQUEL/LUC LEQUEL gif.gif",
+    "src": "assets/images/LUC LEQUEL/luc-lequel.gif",
     "project": "LUC LEQUEL",
     "photoNumber": "",
-    "title": "LUC LEQUEL / LUC LEQUEL gif",
+    "title": "LUC LEQUEL / luc lequel",
     "description": "LUC LEQUEL",
     "projectText": "Luc Lequel entrusted me with the development of the brand’s visual\nidentity, while keeping the existing logo unchanged. The chosen\napproach is clean, minimal, and brutalist, with strong visual impact\nbuilt through a carefully crafted design system. The aesthetic\nis defined by the exclusive use of black-and-white photography,\nreinforcing a sense of timeless elegance. Social media layouts are\nclear, structured, and direct, ensuring a solid visual presence.\nAdditionally, the use of transparencies, grain, and visual distortions\nin the imagery adds depth and texture, creating a raw yet refined\nvisual language aligned with the brand’s identity.",
     "dominantColor": "#ffffff",
