@@ -2008,8 +2008,8 @@
           const displayIndex = workList.querySelectorAll('.work-item').length + 1;
           const item = document.createElement('div');
           const media = createMediaElement(data, {
-            eager: isMobileGalleryView(),
-            highPriority: isMobileGalleryView() && displayIndex <= 8
+            eager: isMobileGalleryView() && displayIndex <= 4,
+            highPriority: isMobileGalleryView() && displayIndex <= 3
           });
           item.className = 'work-item is-visible';
           item.dataset.file = data.src;

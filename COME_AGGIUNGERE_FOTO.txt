@@ -20,7 +20,11 @@ COME AGGIUNGERE FOTO, GIF E VIDEO AL PORTFOLIO
 
    python3 update_project_data.py
 
-4. Pubblica online:
+4. Ottimizza le immagini, cosi il sito carica piu veloce:
+
+   python3 optimize_media.py
+
+5. Pubblica online:
 
    cd deploy-public
    git add .
