@@ -1264,10 +1264,18 @@
 
         if (media.tagName.toLowerCase() === 'video') {
           media.src = source;
+          media.controls = false;
           media.muted = true;
+          media.defaultMuted = true;
           media.autoplay = true;
           media.loop = true;
           media.playsInline = true;
+          media.setAttribute('autoplay', '');
+          media.setAttribute('loop', '');
+          media.setAttribute('muted', '');
+          media.setAttribute('playsinline', '');
+          media.setAttribute('webkit-playsinline', '');
+          media.removeAttribute('controls');
           media.preload = options && options.eager ? 'auto' : 'metadata';
           media.setAttribute('aria-label', label);
           media.addEventListener('loadeddata', function () {
