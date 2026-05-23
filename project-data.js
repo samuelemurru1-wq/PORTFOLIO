@@ -467,6 +467,19 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
+    "src": "assets/images/LOGO DESIGN RF_LL CH2/ezgif-43d352658df26f copia.gif",
+    "project": "LOGO DESIGN RF_LL CH2",
+    "photoNumber": "",
+    "title": "LOGO DESIGN RF_LL CH2 / ezgif 43d352658df26f copia",
+    "description": "LOGO DESIGN RF_LL CH2",
+    "projectText": "When Renato asked me to design the logo for the second chapter of\nRefill Studio in collaboration with Sota, I drew inspiration from\nJapanese culture and the cotton flower, a key element of the collection\nmade with denim, canvas, and French workwear cotton. The design blends\nrural Japanese aesthetics with influences from iconic denim brands. I\nalso developed the visual assets, experimenting with different types of\npaper and transparency effects.",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
     "src": "assets/images/LOGO DESIGN RF_LL CH2/project-066.webp",
     "project": "LOGO DESIGN RF_LL CH2",
     "photoNumber": "66",
@@ -784,6 +797,19 @@ window.PORTFOLIO_IMAGES = [
       "black": 0.0344,
       "white": 0.017,
       "neutral": 0.9133
+    }
+  },
+  {
+    "src": "assets/images/LUC LEQUEL/LUC LEQUEL GIF.gif",
+    "project": "LUC LEQUEL",
+    "photoNumber": "",
+    "title": "LUC LEQUEL / LUC LEQUEL GIF",
+    "description": "LUC LEQUEL",
+    "projectText": "Luc Lequel entrusted me with the development of the brand’s visual\nidentity, while keeping the existing logo unchanged. The chosen\napproach is clean, minimal, and brutalist, with strong visual impact\nbuilt through a carefully crafted design system. The aesthetic\nis defined by the exclusive use of black-and-white photography,\nreinforcing a sense of timeless elegance. Social media layouts are\nclear, structured, and direct, ensuring a solid visual presence.\nAdditionally, the use of transparencies, grain, and visual distortions\nin the imagery adds depth and texture, creating a raw yet refined\nvisual language aligned with the brand’s identity.",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
     }
   },
   {

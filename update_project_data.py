@@ -94,7 +94,7 @@ def write_project_data(path, items):
 
 def main():
     root = Path(__file__).resolve().parent
-    public_root = root if (root / "assets" / "images").exists() else root / "deploy-public"
+    public_root = root if root.name == "deploy-public" else root / "deploy-public"
     images_root = public_root / "assets" / "images"
     project_data_path = public_root / "project-data.js"
 
