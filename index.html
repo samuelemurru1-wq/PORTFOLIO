@@ -278,7 +278,8 @@
       --item-scale: 1.82;
     }
 
-    .work-item img {
+    .work-item img,
+    .work-item video {
       display: block !important;
       width: 100% !important;
       max-width: 100% !important;
@@ -532,7 +533,8 @@
       animation: thumb-reveal 0.42s ease forwards;
     }
 
-    .index-thumb img {
+    .index-thumb img,
+    .index-thumb video {
       display: block !important;
       width: auto !important;
       height: 100% !important;
@@ -747,7 +749,8 @@
         justify-content: center !important;
       }
 
-      .work-item img {
+      .work-item img,
+      .work-item video {
         display: block !important;
         width: auto !important;
         max-width: 96vw !important;
@@ -1250,6 +1253,46 @@
         return /\.(jpg|jpeg|png|webp|gif|avif)$/i.test(path);
       }
 
+      function isVideoPath(path) {
+        return /\.(mp4|mov|webm|m4v)$/i.test(path);
+      }
+
+      function createMediaElement(data, options) {
+        const source = data && data.src ? data.src : '';
+        const media = isVideoPath(source) ? document.createElement('video') : document.createElement('img');
+        const label = data.title || data.project || 'Project media';
+
+        if (media.tagName.toLowerCase() === 'video') {
+          media.src = source;
+          media.muted = true;
+          media.autoplay = true;
+          media.loop = true;
+          media.playsInline = true;
+          media.preload = options && options.eager ? 'auto' : 'metadata';
+          media.setAttribute('aria-label', label);
+          media.addEventListener('loadeddata', function () {
+            media.classList.add('is-loaded');
+            requestMobileGalleryLayout();
+          }, { once: true });
+          media.addEventListener('canplay', function () {
+            media.play().catch(function () {});
+          }, { once: true });
+        } else {
+          media.alt = label;
+          media.loading = options && options.eager ? 'eager' : 'lazy';
+          media.decoding = 'async';
+          media.src = source;
+          if (options && options.highPriority) media.fetchPriority = 'high';
+          media.addEventListener('load', function () {
+            media.classList.add('is-loaded');
+            requestMobileGalleryLayout();
+          }, { once: true });
+          if (media.complete && media.src) media.classList.add('is-loaded');
+        }
+
+        return media;
+      }
+
       function isTextPath(path) {
         return /\.(txt|md)$/i.test(path);
       }
@@ -1706,7 +1749,7 @@
         if (!projectItems.length) return;
 
         const strip = document.createElement('div');
-        const mainImageRect = item.querySelector('img')?.getBoundingClientRect();
+        const mainImageRect = item.querySelector('img, video')?.getBoundingClientRect();
         const mainImageHeight = mainImageRect?.height || 0;
         const stripWidth = mainImageRect ? Math.max(160, window.innerWidth - mainImageRect.right - 22) : 0;
         const thumbHeight = mainImageHeight ? Math.min(mainImageHeight, Math.max(86, mainImageHeight * 0.72)) : 0;
@@ -1718,17 +1761,12 @@
 
         projectItems.forEach(function (projectItem, index) {
           const thumb = document.createElement('button');
-          const image = document.createElement('img');
+          const media = createMediaElement(projectItem, { eager: isMobileGalleryView() });
           thumb.className = 'index-thumb';
           thumb.type = 'button';
           thumb.style.animationDelay = `${Math.min(index * 0.025, 0.28)}s`;
           thumb.setAttribute('aria-label', projectItem.title || projectItem.src);
-          image.src = projectItem.src;
-          image.alt = projectItem.title || projectItem.project || 'Project image';
-          image.loading = isMobileGalleryView() ? 'eager' : 'lazy';
-          image.decoding = 'async';
-          if (isMobileGalleryView()) image.fetchPriority = displayIndex <= 8 ? 'high' : 'auto';
-          thumb.appendChild(image);
+          thumb.appendChild(media);
           thumb.addEventListener('click', function (event) {
             event.stopPropagation();
             showWorkFromIndex(projectItem.src);
@@ -1750,7 +1788,7 @@
         if (!projectItems.length) return;
 
         const strip = document.createElement('div');
-        const mainImageRect = item.querySelector('img')?.getBoundingClientRect();
+        const mainImageRect = item.querySelector('img, video')?.getBoundingClientRect();
         const mainImageHeight = mainImageRect?.height || 0;
         const stripWidth = mainImageRect ? Math.max(160, window.innerWidth - mainImageRect.right - 22) : 0;
         const thumbHeight = mainImageHeight ? Math.min(mainImageHeight, Math.max(86, mainImageHeight * 0.72)) : 0;
@@ -1762,16 +1800,12 @@
 
         projectItems.forEach(function (projectItem, index) {
           const thumb = document.createElement('button');
-          const image = document.createElement('img');
+          const media = createMediaElement(projectItem);
           thumb.className = 'index-thumb';
           thumb.type = 'button';
           thumb.style.animationDelay = `${Math.min(index * 0.025, 0.28)}s`;
           thumb.setAttribute('aria-label', projectItem.title || projectItem.src);
-          image.src = projectItem.src;
-          image.alt = projectItem.title || projectItem.project || 'Project image';
-          image.loading = 'lazy';
-          image.decoding = 'async';
-          thumb.appendChild(image);
+          thumb.appendChild(media);
           thumb.addEventListener('click', function (event) {
             event.stopPropagation();
             showWorkFromIndex(projectItem.src);
@@ -1817,16 +1851,12 @@
         project.items.forEach(function (data) {
           const thumbIndex = previewStrip.children.length;
           const thumb = document.createElement('button');
-          const image = document.createElement('img');
+          const media = createMediaElement(data);
           thumb.className = 'index-thumb';
           thumb.type = 'button';
           thumb.style.animationDelay = `${Math.min(thumbIndex * 0.025, 0.28)}s`;
           thumb.setAttribute('aria-label', data.title || data.src);
-          image.src = data.src;
-          image.alt = data.title || project.name;
-          image.loading = 'lazy';
-          image.decoding = 'async';
-          thumb.appendChild(image);
+          thumb.appendChild(media);
           thumb.addEventListener('click', function () {
             showWorkFromIndex(data.src);
           });
@@ -1977,7 +2007,10 @@
         batchItems.forEach(function (data) {
           const displayIndex = workList.querySelectorAll('.work-item').length + 1;
           const item = document.createElement('div');
-          const image = document.createElement('img');
+          const media = createMediaElement(data, {
+            eager: isMobileGalleryView(),
+            highPriority: isMobileGalleryView() && displayIndex <= 8
+          });
           item.className = 'work-item is-visible';
           item.dataset.file = data.src;
           item.dataset.primary = options.primary ? 'true' : 'false';
@@ -1987,15 +2020,7 @@
           } else if (Math.random() < 0.28) {
             item.classList.add('is-larger');
           }
-          image.alt = data.title || 'Project';
-          image.loading = 'lazy';
-          image.decoding = 'async';
-          image.src = data.src;
-          image.addEventListener('load', function () {
-            image.classList.add('is-loaded');
-            requestMobileGalleryLayout();
-          }, { once: true });
-          image.addEventListener('error', function () {
+          media.addEventListener('error', function () {
             item.remove();
             requestMobileGalleryLayout();
           }, { once: true });
@@ -2006,8 +2031,7 @@
           item.addEventListener('mouseleave', function () {
             scheduleHomeProjectStripClose(item);
           });
-          if (image.complete && image.src) image.classList.add('is-loaded');
-          item.appendChild(image);
+          item.appendChild(media);
           workList.appendChild(item);
         });
       }

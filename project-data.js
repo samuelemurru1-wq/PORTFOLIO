@@ -1,6 +1,19 @@
 // Generated from assets/images. Run `python3 update_project_data.py` after adding or removing project images.
 window.PORTFOLIO_IMAGES = [
   {
+    "src": "assets/images/ACIVODULA BUSINESS CARD/ludovica business card.jpg",
+    "project": "ACIVODULA BUSINESS CARD",
+    "photoNumber": "",
+    "title": "ACIVODULA BUSINESS CARD / ludovica business card",
+    "description": "ACIVODULA BUSINESS CARD",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
     "src": "assets/images/ADIDAS OBD SCIARPE/project-0106.jpg",
     "project": "ADIDAS OBD SCIARPE",
     "photoNumber": "106",
@@ -120,6 +133,19 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
+    "src": "assets/images/ADIDAS OBD SCIARPE/Screenshot 2024-11-08 alle 21.59.01.png",
+    "project": "ADIDAS OBD SCIARPE",
+    "photoNumber": "1",
+    "title": "ADIDAS OBD SCIARPE / project 001",
+    "description": "ADIDAS OBD SCIARPE / 1",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
     "src": "assets/images/ATELIER CORSA/project-012.jpg",
     "project": "ATELIER CORSA",
     "photoNumber": "12",
@@ -216,6 +242,32 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
+    "src": "assets/images/CARBONI/ezgif-46783691ca2c5f96.gif",
+    "project": "CARBONI",
+    "photoNumber": "96",
+    "title": "CARBONI / project 096",
+    "description": "CARBONI / 96",
+    "projectText": "Carboni is an Italian high-end jewelry brand founded by goldsmith and\ngemologist Carlotta Carboni, with the aim of combining traditional\ncraftsmanship with modern design and natural materials. Each piece\nis handmade in Italy and made to order, embracing a sustainable and\nexclusive approach. Carboni seeks to restore value to time, material,\nand artistry through unique creations shaped by skilled hands and\nconscious design.\nThe visual identity draws inspiration from the technical and\nmaterial language of high jewelry — from the precision of laboratory\nsketches and metallurgical studies to the microscopic observation of\ngemstones and alloys. At the core of the concept lies the geometry\nthat naturally forms within precious stones: crystalline structures,\nfaceting patterns, and internal symmetries become a visual metaphor for\ncraftsmanship, control, and complexity. This scientific yet sensual\napproach is balanced by refined typographic choices and a design\nsystem that combines rigorous structural grids with moments of elegant\nfluidity, evoking both the precision of the goldsmith’s hand and the\naura of timeless luxury",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/CARBONI/PORTFOLIO NUOVO copia.jpg",
+    "project": "CARBONI",
+    "photoNumber": "",
+    "title": "CARBONI / PORTFOLIO NUOVO copia",
+    "description": "CARBONI",
+    "projectText": "Carboni is an Italian high-end jewelry brand founded by goldsmith and\ngemologist Carlotta Carboni, with the aim of combining traditional\ncraftsmanship with modern design and natural materials. Each piece\nis handmade in Italy and made to order, embracing a sustainable and\nexclusive approach. Carboni seeks to restore value to time, material,\nand artistry through unique creations shaped by skilled hands and\nconscious design.\nThe visual identity draws inspiration from the technical and\nmaterial language of high jewelry — from the precision of laboratory\nsketches and metallurgical studies to the microscopic observation of\ngemstones and alloys. At the core of the concept lies the geometry\nthat naturally forms within precious stones: crystalline structures,\nfaceting patterns, and internal symmetries become a visual metaphor for\ncraftsmanship, control, and complexity. This scientific yet sensual\napproach is balanced by refined typographic choices and a design\nsystem that combines rigorous structural grids with moments of elegant\nfluidity, evoking both the precision of the goldsmith’s hand and the\naura of timeless luxury",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
     "src": "assets/images/CARBONI/project-038.jpg",
     "project": "CARBONI",
     "photoNumber": "38",
@@ -298,6 +350,19 @@ window.PORTFOLIO_IMAGES = [
     "colorScores": {
       "black": 0.0002,
       "neutral": 0.9998
+    }
+  },
+  {
+    "src": "assets/images/CARBONI/Screenshot 2026-05-23 alle 18.56.36.png",
+    "project": "CARBONI",
+    "photoNumber": "36",
+    "title": "CARBONI / project 036",
+    "description": "CARBONI / 36",
+    "projectText": "Carboni is an Italian high-end jewelry brand founded by goldsmith and\ngemologist Carlotta Carboni, with the aim of combining traditional\ncraftsmanship with modern design and natural materials. Each piece\nis handmade in Italy and made to order, embracing a sustainable and\nexclusive approach. Carboni seeks to restore value to time, material,\nand artistry through unique creations shaped by skilled hands and\nconscious design.\nThe visual identity draws inspiration from the technical and\nmaterial language of high jewelry — from the precision of laboratory\nsketches and metallurgical studies to the microscopic observation of\ngemstones and alloys. At the core of the concept lies the geometry\nthat naturally forms within precious stones: crystalline structures,\nfaceting patterns, and internal symmetries become a visual metaphor for\ncraftsmanship, control, and complexity. This scientific yet sensual\napproach is balanced by refined typographic choices and a design\nsystem that combines rigorous structural grids with moments of elegant\nfluidity, evoking both the precision of the goldsmith’s hand and the\naura of timeless luxury",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
     }
   },
   {
@@ -464,6 +529,71 @@ window.PORTFOLIO_IMAGES = [
       "black": 0.1328,
       "white": 0.1236,
       "neutral": 0.7436
+    }
+  },
+  {
+    "src": "assets/images/IMAGE RESEARCH/1:2.jpg",
+    "project": "IMAGE RESEARCH",
+    "photoNumber": "2",
+    "title": "IMAGE RESEARCH / project 002",
+    "description": "IMAGE RESEARCH / 2",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/IMAGE RESEARCH/2:3.jpg",
+    "project": "IMAGE RESEARCH",
+    "photoNumber": "3",
+    "title": "IMAGE RESEARCH / project 003",
+    "description": "IMAGE RESEARCH / 3",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/IMAGE RESEARCH/4:5.jpg",
+    "project": "IMAGE RESEARCH",
+    "photoNumber": "5",
+    "title": "IMAGE RESEARCH / project 005",
+    "description": "IMAGE RESEARCH / 5",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/IMAGE RESEARCH/cover 2 retro.jpg",
+    "project": "IMAGE RESEARCH",
+    "photoNumber": "",
+    "title": "IMAGE RESEARCH / cover 2 retro",
+    "description": "IMAGE RESEARCH",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/IMAGE RESEARCH/cover 2.jpg",
+    "project": "IMAGE RESEARCH",
+    "photoNumber": "2",
+    "title": "IMAGE RESEARCH / project 002",
+    "description": "IMAGE RESEARCH / 2",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
     }
   },
   {
@@ -1010,6 +1140,32 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
+    "src": "assets/images/POSTERS/POSTER SPAVENTAPASSERI.jpg",
+    "project": "POSTERS",
+    "photoNumber": "",
+    "title": "POSTERS / POSTER SPAVENTAPASSERI",
+    "description": "POSTERS",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/POSTERS/poster storia.png",
+    "project": "POSTERS",
+    "photoNumber": "",
+    "title": "POSTERS / poster storia",
+    "description": "POSTERS",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
     "src": "assets/images/POSTERS/project-089.jpg",
     "project": "POSTERS",
     "photoNumber": "89",
@@ -1036,6 +1192,19 @@ window.PORTFOLIO_IMAGES = [
     "colorScores": {
       "white": 0.7205,
       "neutral": 0.2795
+    }
+  },
+  {
+    "src": "assets/images/SOLO LEI/cover SOLO LEI DEF.jpg",
+    "project": "SOLO LEI",
+    "photoNumber": "",
+    "title": "SOLO LEI / cover SOLO LEI DEF",
+    "description": "SOLO LEI",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
     }
   },
   {
@@ -1646,6 +1815,19 @@ window.PORTFOLIO_IMAGES = [
       "black": 0.2015,
       "white": 0.0461,
       "neutral": 0.4695
+    }
+  },
+  {
+    "src": "assets/images/VISIONE TELAIO UNIQLO/Definitivo.MOV",
+    "project": "VISIONE TELAIO UNIQLO",
+    "photoNumber": "",
+    "title": "VISIONE TELAIO UNIQLO / Definitivo",
+    "description": "VISIONE TELAIO UNIQLO",
+    "projectText": "UNIQLO and Visione Telaio tell the story of LifeWear product innovation:\nsimple garments designed to improve everyday life. Visione Telaio\ncelebrates Blocktech during the collective’s first community ride,\nhighlighting its functionality and style. During the Social Ride, Uniqlo\npresents its innovative Blocktech and the Airism cotton shirt, customized\nwith Visione Telaio’s design. The event concludes with a DJ set and a\ncurated wine selection by Fischio in Piazzale degli Eroi. The location\nwas brought to life with posters, flags, and graphics by Visione Telaio,\ncreating a vibrant and engaging environment to celebrate style and\ninnovation.",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
     }
   },
   {
@@ -2316,6 +2498,71 @@ window.PORTFOLIO_IMAGES = [
     "colorScores": {
       "black": 0.6483,
       "neutral": 0.3517
+    }
+  },
+  {
+    "src": "assets/images/ZYRTCK MERCH/3.png",
+    "project": "ZYRTCK MERCH",
+    "photoNumber": "3",
+    "title": "ZYRTCK MERCH / project 003",
+    "description": "ZYRTCK MERCH / 3",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/ZYRTCK MERCH/4.png",
+    "project": "ZYRTCK MERCH",
+    "photoNumber": "4",
+    "title": "ZYRTCK MERCH / project 004",
+    "description": "ZYRTCK MERCH / 4",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/ZYRTCK MERCH/6.png",
+    "project": "ZYRTCK MERCH",
+    "photoNumber": "6",
+    "title": "ZYRTCK MERCH / project 006",
+    "description": "ZYRTCK MERCH / 6",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/ZYRTCK MERCH/zy binaca.png",
+    "project": "ZYRTCK MERCH",
+    "photoNumber": "",
+    "title": "ZYRTCK MERCH / zy binaca",
+    "description": "ZYRTCK MERCH",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/ZYRTCK MERCH/zy nera.png",
+    "project": "ZYRTCK MERCH",
+    "photoNumber": "",
+    "title": "ZYRTCK MERCH / zy nera",
+    "description": "ZYRTCK MERCH",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
     }
   }
 ];

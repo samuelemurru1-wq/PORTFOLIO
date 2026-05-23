@@ -4,7 +4,19 @@ import re
 from pathlib import Path
 
 
-IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".svg"}
+MEDIA_EXTENSIONS = {
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".webp",
+    ".gif",
+    ".avif",
+    ".svg",
+    ".mp4",
+    ".mov",
+    ".webm",
+    ".m4v",
+}
 
 
 def natural_key(value):
@@ -102,12 +114,12 @@ def main():
         raise SystemExit(f"Missing image folder: {images_root}")
 
     _, existing_by_src, text_by_project = read_existing_items(project_data_path)
-    image_paths = sorted(
-        [path for path in images_root.rglob("*") if path.suffix.lower() in IMAGE_EXTENSIONS],
+    media_paths = sorted(
+        [path for path in images_root.rglob("*") if path.suffix.lower() in MEDIA_EXTENSIONS],
         key=lambda path: natural_key(path.relative_to(images_root).as_posix()),
     )
 
-    items = [make_item(path, public_root, existing_by_src, text_by_project) for path in image_paths]
+    items = [make_item(path, public_root, existing_by_src, text_by_project) for path in media_paths]
     write_project_data(project_data_path, items)
 
     root_project_data = root / "project-data.js"
@@ -115,7 +127,7 @@ def main():
         write_project_data(root_project_data, items)
 
     print(f"Updated {project_data_path.relative_to(root)}")
-    print(f"Images found: {len(items)}")
+    print(f"Media found: {len(items)}")
 
 
 if __name__ == "__main__":

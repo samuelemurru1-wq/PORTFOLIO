@@ -1,6 +1,6 @@
-COME AGGIUNGERE FOTO AL PORTFOLIO
+COME AGGIUNGERE FOTO, GIF E VIDEO AL PORTFOLIO
 
-1. Metti le nuove immagini dentro:
+1. Metti i nuovi file dentro:
 
    deploy-public/assets/images/NOME PROGETTO/
 
@@ -11,6 +11,10 @@ COME AGGIUNGERE FOTO AL PORTFOLIO
 2. Apri il Terminale e vai nella cartella del sito:
 
    cd "/Users/samuelemurru/Desktop/S.M./LAVORO/IN CONTINUAZIONE/SITO STRUTTURA"
+
+   Formati supportati:
+
+   jpg, jpeg, png, webp, gif, avif, svg, mp4, mov, webm, m4v
 
 3. Aggiorna automaticamente project-data.js:
 
@@ -25,5 +29,6 @@ COME AGGIUNGERE FOTO AL PORTFOLIO
 
 Note:
 - Non cambiare maiuscole/minuscole dei nomi file dopo aver pubblicato.
-- Evita caratteri strani nei nomi file. Meglio: project-001.jpg, project-002.jpg.
+- Evita caratteri strani nei nomi file. Meglio: project-001.jpg, project-002.jpg, video-001.mp4.
+- Per i video online è meglio usare mp4 o webm. I file .mov funzionano spesso, ma sono più pesanti.
 - Se aggiungi molte immagini, caricale da Terminale con git, non dal browser GitHub.
