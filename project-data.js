@@ -413,23 +413,6 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
-    "src": "assets/images/HOLY CITY/Foto scan holy city/Foto scan holy city_10.jpg",
-    "project": "HOLY CITY",
-    "photoNumber": "10",
-    "title": "HOLY CITY / Foto scan holy city 10",
-    "description": "HOLY CITY / 10",
-    "projectText": "",
-    "dominantColor": "#6e6d67",
-    "colorCategory": "neutral",
-    "colorScores": {
-      "red": 0.0002,
-      "orange": 0.0001,
-      "black": 0.1625,
-      "white": 0.0067,
-      "neutral": 0.8305
-    }
-  },
-  {
     "src": "assets/images/HOLY CITY/Foto scan holy city/Foto scan holy city_11.jpg",
     "project": "HOLY CITY",
     "photoNumber": "11",
