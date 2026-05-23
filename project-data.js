@@ -282,48 +282,6 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
-    "src": "assets/images/CARBONI/project-039.jpg",
-    "project": "CARBONI",
-    "photoNumber": "39",
-    "title": "CARBONI / project 039",
-    "description": "CARBONI / 39",
-    "projectText": "Carboni is an Italian high-end jewelry brand founded by goldsmith and\ngemologist Carlotta Carboni, with the aim of combining traditional\ncraftsmanship with modern design and natural materials. Each piece\nis handmade in Italy and made to order, embracing a sustainable and\nexclusive approach. Carboni seeks to restore value to time, material,\nand artistry through unique creations shaped by skilled hands and\nconscious design.\nThe visual identity draws inspiration from the technical and\nmaterial language of high jewelry — from the precision of laboratory\nsketches and metallurgical studies to the microscopic observation of\ngemstones and alloys. At the core of the concept lies the geometry\nthat naturally forms within precious stones: crystalline structures,\nfaceting patterns, and internal symmetries become a visual metaphor for\ncraftsmanship, control, and complexity. This scientific yet sensual\napproach is balanced by refined typographic choices and a design\nsystem that combines rigorous structural grids with moments of elegant\nfluidity, evoking both the precision of the goldsmith’s hand and the\naura of timeless luxury",
-    "dominantColor": "#f7f8f8",
-    "colorCategory": "white",
-    "colorScores": {
-      "white": 0.905,
-      "neutral": 0.095
-    }
-  },
-  {
-    "src": "assets/images/CARBONI/project-040.jpg",
-    "project": "CARBONI",
-    "photoNumber": "40",
-    "title": "CARBONI / project 040",
-    "description": "CARBONI / 40",
-    "projectText": "Carboni is an Italian high-end jewelry brand founded by goldsmith and\ngemologist Carlotta Carboni, with the aim of combining traditional\ncraftsmanship with modern design and natural materials. Each piece\nis handmade in Italy and made to order, embracing a sustainable and\nexclusive approach. Carboni seeks to restore value to time, material,\nand artistry through unique creations shaped by skilled hands and\nconscious design.\nThe visual identity draws inspiration from the technical and\nmaterial language of high jewelry — from the precision of laboratory\nsketches and metallurgical studies to the microscopic observation of\ngemstones and alloys. At the core of the concept lies the geometry\nthat naturally forms within precious stones: crystalline structures,\nfaceting patterns, and internal symmetries become a visual metaphor for\ncraftsmanship, control, and complexity. This scientific yet sensual\napproach is balanced by refined typographic choices and a design\nsystem that combines rigorous structural grids with moments of elegant\nfluidity, evoking both the precision of the goldsmith’s hand and the\naura of timeless luxury",
-    "dominantColor": "#f9faf9",
-    "colorCategory": "white",
-    "colorScores": {
-      "white": 0.7801,
-      "neutral": 0.2199
-    }
-  },
-  {
-    "src": "assets/images/CARBONI/project-041.jpg",
-    "project": "CARBONI",
-    "photoNumber": "41",
-    "title": "CARBONI / project 041",
-    "description": "CARBONI / 41",
-    "projectText": "Carboni is an Italian high-end jewelry brand founded by goldsmith and\ngemologist Carlotta Carboni, with the aim of combining traditional\ncraftsmanship with modern design and natural materials. Each piece\nis handmade in Italy and made to order, embracing a sustainable and\nexclusive approach. Carboni seeks to restore value to time, material,\nand artistry through unique creations shaped by skilled hands and\nconscious design.\nThe visual identity draws inspiration from the technical and\nmaterial language of high jewelry — from the precision of laboratory\nsketches and metallurgical studies to the microscopic observation of\ngemstones and alloys. At the core of the concept lies the geometry\nthat naturally forms within precious stones: crystalline structures,\nfaceting patterns, and internal symmetries become a visual metaphor for\ncraftsmanship, control, and complexity. This scientific yet sensual\napproach is balanced by refined typographic choices and a design\nsystem that combines rigorous structural grids with moments of elegant\nfluidity, evoking both the precision of the goldsmith’s hand and the\naura of timeless luxury",
-    "dominantColor": "#fcfcfc",
-    "colorCategory": "white",
-    "colorScores": {
-      "white": 0.8581,
-      "neutral": 0.1419
-    }
-  },
-  {
     "src": "assets/images/CARBONI/project-045.jpeg",
     "project": "CARBONI",
     "photoNumber": "45",
@@ -563,19 +521,6 @@ window.PORTFOLIO_IMAGES = [
     "photoNumber": "5",
     "title": "IMAGE RESEARCH / project 005",
     "description": "IMAGE RESEARCH / 5",
-    "projectText": "",
-    "dominantColor": "#ffffff",
-    "colorCategory": "white",
-    "colorScores": {
-      "white": 1
-    }
-  },
-  {
-    "src": "assets/images/IMAGE RESEARCH/cover 2 retro.jpg",
-    "project": "IMAGE RESEARCH",
-    "photoNumber": "",
-    "title": "IMAGE RESEARCH / cover 2 retro",
-    "description": "IMAGE RESEARCH",
     "projectText": "",
     "dominantColor": "#ffffff",
     "colorCategory": "white",
@@ -930,10 +875,10 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
-    "src": "assets/images/LUC LEQUEL/LUC LEQUEL GIF.gif",
+    "src": "assets/images/LUC LEQUEL/LUC LEQUEL gif.gif",
     "project": "LUC LEQUEL",
     "photoNumber": "",
-    "title": "LUC LEQUEL / LUC LEQUEL GIF",
+    "title": "LUC LEQUEL / LUC LEQUEL gif",
     "description": "LUC LEQUEL",
     "projectText": "Luc Lequel entrusted me with the development of the brand’s visual\nidentity, while keeping the existing logo unchanged. The chosen\napproach is clean, minimal, and brutalist, with strong visual impact\nbuilt through a carefully crafted design system. The aesthetic\nis defined by the exclusive use of black-and-white photography,\nreinforcing a sense of timeless elegance. Social media layouts are\nclear, structured, and direct, ensuring a solid visual presence.\nAdditionally, the use of transparencies, grain, and visual distortions\nin the imagery adds depth and texture, creating a raw yet refined\nvisual language aligned with the brand’s identity.",
     "dominantColor": "#ffffff",
@@ -1163,21 +1108,6 @@ window.PORTFOLIO_IMAGES = [
     "colorCategory": "white",
     "colorScores": {
       "white": 1
-    }
-  },
-  {
-    "src": "assets/images/POSTERS/project-089.jpg",
-    "project": "POSTERS",
-    "photoNumber": "89",
-    "title": "POSTERS / project 089",
-    "description": "POSTERS / 89",
-    "projectText": "",
-    "dominantColor": "#060606",
-    "colorCategory": "black",
-    "colorScores": {
-      "black": 0.5426,
-      "white": 0.09,
-      "neutral": 0.3674
     }
   },
   {
@@ -2032,20 +1962,6 @@ window.PORTFOLIO_IMAGES = [
       "black": 0.6467,
       "white": 0.0165,
       "neutral": 0.1913
-    }
-  },
-  {
-    "src": "assets/images/VISIONE TELAIO UNIQLO/project-011.jpg",
-    "project": "VISIONE TELAIO UNIQLO",
-    "photoNumber": "11",
-    "title": "VISIONE TELAIO UNIQLO / project 011",
-    "description": "VISIONE TELAIO UNIQLO / 11",
-    "projectText": "UNIQLO and Visione Telaio tell the story of LifeWear product innovation:\nsimple garments designed to improve everyday life. Visione Telaio\ncelebrates Blocktech during the collective’s first community ride,\nhighlighting its functionality and style. During the Social Ride, Uniqlo\npresents its innovative Blocktech and the Airism cotton shirt, customized\nwith Visione Telaio’s design. The event concludes with a DJ set and a\ncurated wine selection by Fischio in Piazzale degli Eroi. The location\nwas brought to life with posters, flags, and graphics by Visione Telaio,\ncreating a vibrant and engaging environment to celebrate style and\ninnovation.",
-    "dominantColor": "#010101",
-    "colorCategory": "black",
-    "colorScores": {
-      "black": 0.9205,
-      "neutral": 0.0795
     }
   },
   {
