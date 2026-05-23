@@ -676,10 +676,29 @@
         display: none !important;
       }
 
-      .corner-bottom-left,
       .corner-bottom-right,
       .color-filter {
         display: none !important;
+      }
+
+      .corner-bottom-left {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-end !important;
+        left: 10px !important;
+        right: 10px !important;
+        bottom: 10px !important;
+        width: calc(100vw - 20px) !important;
+        max-width: calc(100vw - 20px) !important;
+      }
+
+      .corner-bottom-left .mobile-footer-left,
+      .corner-bottom-left .mobile-footer-right {
+        display: block !important;
+      }
+
+      .corner-bottom-left .mobile-footer-right {
+        text-align: right !important;
       }
 
       .work-list {
@@ -811,8 +830,8 @@
     </div>
 
     <div class="corner corner-bottom-left">
-      © 2026 Samuele Murru<br>
-      Portfolio upon request
+      <span class="mobile-footer-left">© 2026 Samuele Murru</span>
+      <span class="mobile-footer-right">Portfolio upon request</span>
     </div>
 
     <div class="corner corner-bottom-right">
