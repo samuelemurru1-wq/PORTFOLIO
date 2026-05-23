@@ -1,4 +1,4 @@
-// Generated from assets/images. Update this file when you add or remove project images.
+// Generated from assets/images. Run `python3 update_project_data.py` after adding or removing project images.
 window.PORTFOLIO_IMAGES = [
   {
     "src": "assets/images/ADIDAS OBD SCIARPE/project-0106.jpg",
@@ -301,6 +301,21 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
+    "src": "assets/images/HOLY CITY/Foto scan holy city/Foto scan holy city.jpg",
+    "project": "HOLY CITY",
+    "photoNumber": "1",
+    "title": "HOLY CITY / Foto scan holy city",
+    "description": "HOLY CITY / 1",
+    "projectText": "",
+    "dominantColor": "#85877f",
+    "colorCategory": "neutral",
+    "colorScores": {
+      "black": 0.2133,
+      "white": 0.0089,
+      "neutral": 0.7778
+    }
+  },
+  {
     "src": "assets/images/HOLY CITY/Foto scan holy city/Foto scan holy city_5.jpg",
     "project": "HOLY CITY",
     "photoNumber": "5",
@@ -449,21 +464,6 @@ window.PORTFOLIO_IMAGES = [
       "black": 0.1328,
       "white": 0.1236,
       "neutral": 0.7436
-    }
-  },
-  {
-    "src": "assets/images/HOLY CITY/Foto scan holy city/Foto scan holy city.jpg",
-    "project": "HOLY CITY",
-    "photoNumber": "1",
-    "title": "HOLY CITY / Foto scan holy city",
-    "description": "HOLY CITY / 1",
-    "projectText": "",
-    "dominantColor": "#85877f",
-    "colorCategory": "neutral",
-    "colorScores": {
-      "black": 0.2133,
-      "white": 0.0089,
-      "neutral": 0.7778
     }
   },
   {
@@ -1050,76 +1050,6 @@ window.PORTFOLIO_IMAGES = [
     "colorScores": {
       "black": 0.2063,
       "neutral": 0.7937
-    }
-  },
-  {
-    "src": "assets/images/VISIONE TELAIO/project-090.jpg",
-    "project": "VISIONE TELAIO",
-    "photoNumber": "90",
-    "title": "VISIONE TELAIO / project 090",
-    "description": "VISIONE TELAIO / 90",
-    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
-    "dominantColor": "#000000",
-    "colorCategory": "black",
-    "colorScores": {
-      "black": 0.8501,
-      "neutral": 0.1499
-    }
-  },
-  {
-    "src": "assets/images/VISIONE TELAIO/project-091.jpg",
-    "project": "VISIONE TELAIO",
-    "photoNumber": "91",
-    "title": "VISIONE TELAIO / project 091",
-    "description": "VISIONE TELAIO / 91",
-    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
-    "dominantColor": "#010101",
-    "colorCategory": "black",
-    "colorScores": {
-      "black": 0.6727,
-      "neutral": 0.3273
-    }
-  },
-  {
-    "src": "assets/images/VISIONE TELAIO/project-092.jpg",
-    "project": "VISIONE TELAIO",
-    "photoNumber": "92",
-    "title": "VISIONE TELAIO / project 092",
-    "description": "VISIONE TELAIO / 92",
-    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
-    "dominantColor": "#010101",
-    "colorCategory": "black",
-    "colorScores": {
-      "black": 0.6736,
-      "neutral": 0.3264
-    }
-  },
-  {
-    "src": "assets/images/VISIONE TELAIO/project-093.jpg",
-    "project": "VISIONE TELAIO",
-    "photoNumber": "93",
-    "title": "VISIONE TELAIO / project 093",
-    "description": "VISIONE TELAIO / 93",
-    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
-    "dominantColor": "#010101",
-    "colorCategory": "black",
-    "colorScores": {
-      "black": 0.739,
-      "neutral": 0.261
-    }
-  },
-  {
-    "src": "assets/images/VISIONE TELAIO/project-094.jpg",
-    "project": "VISIONE TELAIO",
-    "photoNumber": "94",
-    "title": "VISIONE TELAIO / project 094",
-    "description": "VISIONE TELAIO / 94",
-    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
-    "dominantColor": "#010101",
-    "colorCategory": "black",
-    "colorScores": {
-      "black": 0.6483,
-      "neutral": 0.3517
     }
   },
   {
@@ -2290,6 +2220,76 @@ window.PORTFOLIO_IMAGES = [
       "black": 0.3768,
       "white": 0.0236,
       "neutral": 0.5619
+    }
+  },
+  {
+    "src": "assets/images/VISIONE TELAIO/project-090.jpg",
+    "project": "VISIONE TELAIO",
+    "photoNumber": "90",
+    "title": "VISIONE TELAIO / project 090",
+    "description": "VISIONE TELAIO / 90",
+    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
+    "dominantColor": "#000000",
+    "colorCategory": "black",
+    "colorScores": {
+      "black": 0.8501,
+      "neutral": 0.1499
+    }
+  },
+  {
+    "src": "assets/images/VISIONE TELAIO/project-091.jpg",
+    "project": "VISIONE TELAIO",
+    "photoNumber": "91",
+    "title": "VISIONE TELAIO / project 091",
+    "description": "VISIONE TELAIO / 91",
+    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
+    "dominantColor": "#010101",
+    "colorCategory": "black",
+    "colorScores": {
+      "black": 0.6727,
+      "neutral": 0.3273
+    }
+  },
+  {
+    "src": "assets/images/VISIONE TELAIO/project-092.jpg",
+    "project": "VISIONE TELAIO",
+    "photoNumber": "92",
+    "title": "VISIONE TELAIO / project 092",
+    "description": "VISIONE TELAIO / 92",
+    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
+    "dominantColor": "#010101",
+    "colorCategory": "black",
+    "colorScores": {
+      "black": 0.6736,
+      "neutral": 0.3264
+    }
+  },
+  {
+    "src": "assets/images/VISIONE TELAIO/project-093.jpg",
+    "project": "VISIONE TELAIO",
+    "photoNumber": "93",
+    "title": "VISIONE TELAIO / project 093",
+    "description": "VISIONE TELAIO / 93",
+    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
+    "dominantColor": "#010101",
+    "colorCategory": "black",
+    "colorScores": {
+      "black": 0.739,
+      "neutral": 0.261
+    }
+  },
+  {
+    "src": "assets/images/VISIONE TELAIO/project-094.jpg",
+    "project": "VISIONE TELAIO",
+    "photoNumber": "94",
+    "title": "VISIONE TELAIO / project 094",
+    "description": "VISIONE TELAIO / 94",
+    "projectText": "Visione Telaio was born as a shared idea between Francesco and me,\nwith the goal of creating a digital archive of his bicycle collection.\nIn this initial phase, I focused on creative direction, developing a\ncoherent and innovative visual identity for the project.\nOver time, our team expanded and, following the first exhibition\nat Sota, we felt the need to evolve Visione Telaio beyond a simple\narchive. It gradually transformed into a true cycling club, dedicated\nto building a strong and engaged community. This shift culminated in\nthe official launch through a social ride sponsored by Uniqlo, which\nprovided jackets and jerseys that were later customized and distributed\nto the community.\nToday, Visione Telaio has become a collaborative space where cycling\nenthusiasts find inspiration and a sense of belonging within an active\nand engaged community.",
+    "dominantColor": "#010101",
+    "colorCategory": "black",
+    "colorScores": {
+      "black": 0.6483,
+      "neutral": 0.3517
     }
   }
 ];
