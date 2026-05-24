@@ -516,8 +516,9 @@
     .index-archive-meta {
       flex: 0 0 auto !important;
       margin: 0 !important;
-      padding: 0 !important;
+      padding: 0 0 4px 0 !important;
       color: #000000 !important;
+      line-height: 1.2 !important;
     }
 
     .index-archive-filters {
@@ -1099,6 +1100,11 @@
         const imageRootIndex = parts.indexOf('images');
         if (imageRootIndex >= 0 && parts[imageRootIndex + 1]) return parts[imageRootIndex + 1];
         return parts.length > 1 ? parts[parts.length - 2] : 'Projects';
+      }
+
+      function formatProjectDisplayName(name) {
+        const cleanName = String(name || '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+        return cleanName ? cleanName.charAt(0).toUpperCase() + cleanName.slice(1) : '';
       }
 
       function getPhotoNumberFromPath(src) {
@@ -1772,7 +1778,7 @@
         };
         const info = getProjectInfo(project);
         const placement = getProjectPlacement(project, 0);
-        return `[img. ${displayNumber}]\n${projectName}\n${placement.field || info.field}\n${info.year}\n[${projectPosition}/${projectTotal}]`;
+        return `[img. ${displayNumber}]\n${formatProjectDisplayName(projectName)}\n${placement.field || info.field}\n${info.year}\n[${projectPosition}/${projectTotal}]`;
       }
 
       function getFilteredItems() {
@@ -2059,7 +2065,7 @@
       function renderProjectPreview(project, previewTitle, previewText, previewStrip) {
         if (!project || !previewTitle || !previewText || !previewStrip) return;
         previewTitle.hidden = false;
-        previewTitle.textContent = `${project.name} (${project.items.length})`;
+        previewTitle.textContent = `${formatProjectDisplayName(project.name)} (${project.items.length})`;
         previewTitle.classList.toggle('has-text', Boolean(project.text));
         previewText.textContent = project.text || '';
         previewText.hidden = !project.text;
