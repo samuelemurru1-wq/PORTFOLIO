@@ -587,12 +587,33 @@
       margin-top: 12px !important;
     }
 
-    .index-preview-title {
+    .index-preview-header {
+      display: flex !important;
+      align-items: baseline !important;
+      justify-content: space-between !important;
+      gap: 18px !important;
+      width: 100% !important;
       margin: 0 0 6px 0 !important;
+    }
+
+    .index-preview-title {
+      flex: 0 1 auto !important;
+      margin: 0 !important;
       color: #000000 !important;
       font: inherit !important;
       font-weight: 700 !important;
       letter-spacing: inherit !important;
+    }
+
+    .index-preview-meta {
+      flex: 1 1 auto !important;
+      margin: 0 !important;
+      color: #000000 !important;
+      font: inherit !important;
+      font-weight: 700 !important;
+      letter-spacing: inherit !important;
+      text-align: right !important;
+      white-space: normal !important;
     }
 
     .index-preview-title.has-text::after,
@@ -2064,10 +2085,14 @@
         homeStripCloseTimer = null;
       }
 
-      function renderProjectPreview(project, previewTitle, previewText, previewStrip) {
-        if (!project || !previewTitle || !previewText || !previewStrip) return;
+      function renderProjectPreview(project, previewTitle, previewMeta, previewText, previewStrip) {
+        if (!project || !previewTitle || !previewMeta || !previewText || !previewStrip) return;
+        const info = getProjectInfo(project);
+        const placement = getProjectPlacement(project, 0);
         previewTitle.hidden = false;
-        previewTitle.textContent = `${formatProjectDisplayName(project.name)} (${project.items.length})`;
+        previewMeta.hidden = false;
+        previewTitle.textContent = formatProjectDisplayName(project.name);
+        previewMeta.textContent = formatProjectMeta(info, project, placement);
         previewTitle.classList.toggle('has-text', Boolean(project.text));
         previewText.textContent = project.text || '';
         previewText.hidden = !project.text;
@@ -2091,7 +2116,7 @@
         });
       }
 
-      function clearProjectPreview(list, previewTitle, previewText, previewStrip) {
+      function clearProjectPreview(list, previewTitle, previewMeta, previewText, previewStrip) {
         document.body.classList.remove('index-preview-open');
         if (list) {
           list.querySelectorAll('.index-item').forEach(function (item) {
@@ -2102,6 +2127,10 @@
           previewTitle.hidden = true;
           previewTitle.textContent = '';
           previewTitle.classList.remove('has-text');
+        }
+        if (previewMeta) {
+          previewMeta.hidden = true;
+          previewMeta.textContent = '';
         }
         if (previewText) {
           previewText.hidden = true;
@@ -2138,7 +2167,9 @@
         const labelLeft = document.createElement('div');
         const mapHover = document.createElement('div');
         const preview = document.createElement('div');
+        const previewHeader = document.createElement('div');
         const previewTitle = document.createElement('p');
+        const previewMeta = document.createElement('p');
         const previewText = document.createElement('p');
         const previewStrip = document.createElement('div');
 
@@ -2154,10 +2185,13 @@
         labelLeft.className = 'index-field-label index-field-left';
         mapHover.className = 'index-map-hover';
         preview.className = 'index-preview';
+        previewHeader.className = 'index-preview-header';
         previewTitle.className = 'index-preview-title';
+        previewMeta.className = 'index-preview-meta';
         previewText.className = 'index-preview-text';
         previewStrip.className = 'index-preview-strip';
         previewTitle.hidden = true;
+        previewMeta.hidden = true;
         previewText.hidden = true;
         archiveMeta.textContent = `Archive / ${projects.length} projects / ${archiveImageCount} images`;
         labelTop.textContent = 'Art Direction';
@@ -2185,8 +2219,9 @@
           button.style.top = placement.y + '%';
           button.classList.toggle('has-text', Boolean(project.text));
           button.textContent = `[${String(index + 1).padStart(2, '0')}]`;
-          const hoverText = formatProjectHover(info, project, placement);
-          button.setAttribute('aria-label', hoverText);
+          const hoverText = formatProjectDisplayName(project.name);
+          const ariaText = formatProjectHover(info, project, placement);
+          button.setAttribute('aria-label', ariaText);
           button.addEventListener('mouseenter', function () {
             mapHover.textContent = hoverText;
           });
@@ -2205,17 +2240,19 @@
               item.classList.remove('is-active');
             });
             button.classList.add('is-active');
-            renderProjectPreview(project, previewTitle, previewText, previewStrip);
+            renderProjectPreview(project, previewTitle, previewMeta, previewText, previewStrip);
           });
           map.appendChild(button);
         });
 
         projectIndex.addEventListener('click', function (event) {
           if (event.target.closest('.index-map-point') || event.target.closest('.index-preview')) return;
-          clearProjectPreview(map, previewTitle, previewText, previewStrip);
+          clearProjectPreview(map, previewTitle, previewMeta, previewText, previewStrip);
         });
 
-        preview.appendChild(previewTitle);
+        previewHeader.appendChild(previewTitle);
+        previewHeader.appendChild(previewMeta);
+        preview.appendChild(previewHeader);
         preview.appendChild(previewText);
         preview.appendChild(previewStrip);
         inner.appendChild(archiveBar);
@@ -2225,6 +2262,16 @@
       }
 
       function formatProjectHover(info, project, placement) {
+        return [
+          info.client,
+          info.project,
+          placement.field || info.field,
+          info.year,
+          `${String(project.items.length).padStart(2, '0')} files`
+        ].filter(Boolean).join(' / ');
+      }
+
+      function formatProjectMeta(info, project, placement) {
         return [
           info.client,
           info.project,
