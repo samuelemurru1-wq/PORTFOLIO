@@ -1435,6 +1435,70 @@
         });
       }
 
+      function isElementExportVisible(element, width, height) {
+        if (!element) return false;
+        const rect = element.getBoundingClientRect();
+        const computed = window.getComputedStyle(element);
+        return computed.display !== 'none' && computed.visibility !== 'hidden' && rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.right > 0 && rect.top < height && rect.left < width;
+      }
+
+      function drawExportElementText(context, element, options) {
+        if (!isElementExportVisible(element, window.innerWidth, window.innerHeight)) return;
+        const computed = window.getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        const fontSize = parseFloat(computed.fontSize) || 10;
+        const lineHeight = parseFloat(computed.lineHeight) || fontSize * 1.1;
+        const align = options && options.align ? options.align : computed.textAlign;
+        const text = (element.innerText || element.textContent || '').trim();
+        if (!text) return;
+        context.fillStyle = '#000000';
+        context.font = `${computed.fontWeight || 700} ${fontSize}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
+        context.textBaseline = 'top';
+        context.textAlign = align === 'right' ? 'right' : 'left';
+        wrapCanvasText(context, text, align === 'right' ? rect.right : rect.left, rect.top, rect.width || 240, lineHeight);
+      }
+
+      function drawExportAxis(context, width, height) {
+        document.querySelectorAll('.index-map-axis').forEach(function (axis) {
+          if (!isElementExportVisible(axis, width, height)) return;
+          const rect = axis.getBoundingClientRect();
+          context.fillStyle = '#000000';
+          context.fillRect(rect.left, rect.top, Math.max(1, rect.width), Math.max(1, rect.height));
+        });
+      }
+
+      function drawExportTexts(context, width, height) {
+        drawExportTextBlock(context, document.querySelector('.corner-top-left'), { align: 'left' });
+        drawExportTextBlock(context, document.querySelector('.corner-top-center'), { align: 'left' });
+        drawExportTextBlock(context, document.querySelector('.corner-top-right'), { align: 'right' });
+        drawExportTextBlock(context, document.querySelector('.corner-bottom-left'), { align: 'left' });
+        drawExportTextBlock(context, document.querySelector('.corner-bottom-right'), { align: 'right' });
+
+        document.querySelectorAll('.index-archive-meta, .index-field-label, .index-map-point, .index-map-hover, .index-preview-title, .index-preview-meta, .index-preview-text').forEach(function (element) {
+          const computed = window.getComputedStyle(element);
+          drawExportElementText(context, element, { align: computed.textAlign });
+        });
+
+        document.querySelectorAll('.work-item:hover').forEach(function (item) {
+          const text = item.dataset.caption || '';
+          if (!text) return;
+          const rect = item.getBoundingClientRect();
+          context.fillStyle = '#000000';
+          context.font = '700 10px "Helvetica Neue", Helvetica, Arial, sans-serif';
+          context.textBaseline = 'top';
+          context.textAlign = 'left';
+          wrapCanvasText(context, text, rect.right + 10, rect.top, 260, 11);
+        });
+      }
+
+      async function drawManualPageExport(context, width, height) {
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, width, height);
+        await drawVisibleMedia(context, width, height);
+        drawExportAxis(context, width, height);
+        drawExportTexts(context, width, height);
+      }
+
       async function downloadCanvasScreenshot() {
         if (!drawCanvas) return;
         const ratio = window.devicePixelRatio || 1;
@@ -1449,19 +1513,7 @@
         exportContext.fillStyle = '#ffffff';
         exportContext.fillRect(0, 0, width, height);
 
-        try {
-          await drawDomSnapshot(exportContext, width, height);
-        } catch (error) {
-          exportContext.fillStyle = '#ffffff';
-          exportContext.fillRect(0, 0, width, height);
-          drawExportTextBlock(exportContext, document.querySelector('.corner-top-left'), { align: 'left' });
-          drawExportTextBlock(exportContext, document.querySelector('.corner-top-center'), { align: 'left' });
-          drawExportTextBlock(exportContext, document.querySelector('.corner-top-right'), { align: 'right' });
-          drawExportTextBlock(exportContext, document.querySelector('.corner-bottom-left'), { align: 'left' });
-          drawExportTextBlock(exportContext, document.querySelector('.corner-bottom-right'), { align: 'right' });
-        }
-
-        await drawVisibleMedia(exportContext, width, height);
+        await drawManualPageExport(exportContext, width, height);
         exportContext.drawImage(drawCanvas, 0, 0, width, height);
 
         const link = document.createElement('a');
