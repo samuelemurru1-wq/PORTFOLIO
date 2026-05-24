@@ -361,7 +361,7 @@
       position: fixed !important;
       inset: 0 !important;
       z-index: 5000 !important;
-      padding: 210px 12px 80px 12px !important;
+      padding: 0 12px !important;
       background: #ffffff !important;
       color: #000000 !important;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
@@ -369,12 +369,124 @@
       line-height: 1.18 !important;
       letter-spacing: 0 !important;
       font-weight: 700 !important;
-      overflow-y: auto !important;
+      overflow-y: hidden !important;
     }
 
     .project-index-inner {
-      display: block !important;
-      min-height: calc(100vh - 290px) !important;
+      position: relative !important;
+      display: flex !important;
+      min-height: 100vh !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      transform: translateY(22px) !important;
+    }
+
+    .index-map {
+      position: relative !important;
+      width: 100% !important;
+      height: min(72vh, 720px) !important;
+      min-height: 560px !important;
+      margin: 0 0 28px 0 !important;
+      background: #ffffff !important;
+      overflow: visible !important;
+    }
+
+    .index-map-axis {
+      position: absolute !important;
+      z-index: 1 !important;
+      background: #000000 !important;
+      pointer-events: none !important;
+    }
+
+    .index-map-axis-x {
+      left: 132px !important;
+      right: 132px !important;
+      top: 50% !important;
+      width: auto !important;
+      height: 1px !important;
+    }
+
+    .index-map-axis-y {
+      left: 50% !important;
+      top: 10% !important;
+      width: 1px !important;
+      height: 80% !important;
+    }
+
+    .index-field-label {
+      position: absolute !important;
+      z-index: 2 !important;
+      padding: 0 !important;
+      background: #ffffff !important;
+      color: #000000 !important;
+      font: inherit !important;
+      font-weight: 700 !important;
+      line-height: 1.05 !important;
+      pointer-events: none !important;
+    }
+
+    .index-field-top {
+      top: calc(10% - 16px) !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+    }
+
+    .index-field-right {
+      top: 50% !important;
+      right: 0 !important;
+      left: auto !important;
+      transform: translateY(-50%) !important;
+      text-align: right !important;
+    }
+
+    .index-field-bottom {
+      bottom: calc(10% - 16px) !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+    }
+
+    .index-field-left {
+      top: 50% !important;
+      left: 0 !important;
+      transform: translateY(-50%) !important;
+      text-align: left !important;
+    }
+
+    .index-map-hover {
+      position: absolute !important;
+      top: 0 !important;
+      right: 0 !important;
+      z-index: 4 !important;
+      max-width: min(420px, 42vw) !important;
+      color: #000000 !important;
+      text-align: right !important;
+      pointer-events: none !important;
+    }
+
+    .index-map-point {
+      position: absolute !important;
+      z-index: 3 !important;
+      width: auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      color: #000000 !important;
+      font: inherit !important;
+      font-weight: 700 !important;
+      letter-spacing: inherit !important;
+      line-height: 1 !important;
+      text-align: center !important;
+      text-decoration: none !important;
+      transform: translate(-50%, -50%) !important;
+      cursor: pointer !important;
+    }
+
+    .index-map-point:hover,
+    .index-map-point:focus,
+    .index-map-point.is-active {
+      outline: 0 !important;
+      text-decoration: underline !important;
     }
 
     .index-project-list {
@@ -387,14 +499,18 @@
     }
 
     .index-archive-bar {
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      top: calc(50% - min(36vh, 360px) - 28px) !important;
       display: flex !important;
       align-items: baseline !important;
       justify-content: space-between !important;
       gap: 18px !important;
       width: 100% !important;
-      margin: 0 0 18px 0 !important;
-      padding: 0 0 6px 0 !important;
-      border-bottom: 1px solid #000000 !important;
+      margin: 0 0 4px 0 !important;
+      padding: 0 !important;
+      border-bottom: 0 !important;
     }
 
     .index-archive-meta {
@@ -558,6 +674,10 @@
       display: block !important;
     }
 
+    body.index-mode.index-preview-open .project-index {
+      overflow-y: auto !important;
+    }
+
     body.index-mode .work-list {
       display: none !important;
     }
@@ -602,6 +722,26 @@
     }
 
     .index-item.is-active {
+      text-decoration: underline !important;
+    }
+
+    .index-map .index-item {
+      position: absolute !important;
+      display: block !important;
+      flex: none !important;
+      width: auto !important;
+      color: #000000 !important;
+      text-align: center !important;
+      text-decoration: none !important;
+    }
+
+    .index-map .index-item.has-text::after {
+      display: none !important;
+    }
+
+    .index-map .index-item:hover,
+    .index-map .index-item:focus,
+    .index-map .index-item.is-active {
       text-decoration: underline !important;
     }
 
@@ -1486,11 +1626,32 @@
           category: 'brand-identity',
           year: '2025'
         },
+        'ACIVODULA BUSINESS CARD': {
+          client: 'Acivodula',
+          project: 'Business card',
+          field: 'Brand identity',
+          category: 'brand-identity',
+          year: '2025'
+        },
+        'IMAGE RESEARCH': {
+          client: 'Samuele Murru',
+          project: 'Image research',
+          field: 'Image Research',
+          category: 'art-direction',
+          year: '2025'
+        },
         'POSTERS': {
           client: 'Various',
           project: 'Posters',
           field: 'Poster design',
           category: 'poster-design',
+          year: '2025'
+        },
+        'SOLO LEI': {
+          client: 'Solo Lei',
+          project: 'Logo type',
+          field: 'Editorial',
+          category: 'editorial-design',
           year: '2025'
         },
         'TATO': {
@@ -1534,7 +1695,35 @@
           field: 'Art direction',
           category: 'art-direction',
           year: '2024'
+        },
+        'ZYRTCK MERCH': {
+          client: 'ZYRTCK',
+          project: 'Merch',
+          field: 'Brand identity',
+          category: 'brand-identity',
+          year: '2025'
         }
+      };
+
+      const fieldPlacements = {
+        'IMAGE RESEARCH': { field: 'Image Research', x: 16, y: 28 },
+        'HOLY CITY': { field: 'Image Research', x: 22, y: 42 },
+        'VISIONE TELAIO': { field: 'Image Research', x: 31, y: 47 },
+        'ATELIER CORSA': { field: 'Art Direction', x: 43, y: 20 },
+        'VISIONE TELAIO SOTA': { field: 'Art Direction', x: 51, y: 18 },
+        'ADIDAS OBD SCIARPE': { field: 'Art Direction', x: 58, y: 23 },
+        'VISIONE TELAIO UNIQLO': { field: 'Art Direction', x: 64, y: 18 },
+        'VISIONE TELAIO CP COMPANY': { field: 'Art Direction', x: 69, y: 27 },
+        'LOGO DESIGN RF_LL CH2': { field: 'Brand Identity', x: 78, y: 25 },
+        'CARBONI': { field: 'Brand Identity', x: 82, y: 39 },
+        'TATO': { field: 'Brand Identity', x: 74, y: 49 },
+        'LUC LEQUEL': { field: 'Brand Identity', x: 86, y: 56 },
+        'ACIVODULA BUSINESS CARD': { field: 'Brand Identity', x: 80, y: 66 },
+        'ZYRTCK MERCH': { field: 'Brand Identity', x: 88, y: 72 },
+        'VISIONE TELAIO EDITORIALE': { field: 'Editorial', x: 48, y: 68 },
+        'LOOKBOOK RF_LL': { field: 'Editorial', x: 39, y: 76 },
+        'SOLO LEI': { field: 'Editorial', x: 57, y: 79 },
+        'POSTERS': { field: 'Editorial', x: 28, y: 84 }
       };
 
       function getProjectInfo(project) {
@@ -1557,11 +1746,33 @@
         return info.category || 'art-direction';
       }
 
+      function getProjectPlacement(project, index) {
+        if (fieldPlacements[project.name]) return fieldPlacements[project.name];
+        const category = getProjectWorkCategory(project);
+        const fallbackByCategory = {
+          'art-direction': { field: 'Art Direction', x: 52 + (index % 5) * 5, y: 22 + (index % 3) * 5 },
+          'logo-design': { field: 'Brand Identity', x: 72 + (index % 4) * 4, y: 32 + (index % 4) * 7 },
+          'brand-identity': { field: 'Brand Identity', x: 76 + (index % 4) * 4, y: 42 + (index % 4) * 7 },
+          'editorial-design': { field: 'Editorial', x: 36 + (index % 5) * 5, y: 66 + (index % 4) * 6 },
+          'poster-design': { field: 'Editorial', x: 28 + (index % 4) * 6, y: 78 + (index % 3) * 5 }
+        };
+        return fallbackByCategory[category] || { field: 'Art Direction', x: 50, y: 50 };
+      }
+
       function formatWorkCaption(data, displayIndex) {
-        const displayNumber = String(displayIndex).padStart(3, '0');
+        const displayNumber = String(displayIndex).padStart(2, '0');
         const projectPosition = data.projectPosition || 1;
         const projectTotal = data.projectTotal || 1;
-        return `img. [${displayNumber}]\n${data.project || ''}\n[${projectPosition}/${projectTotal}]`;
+        const projectName = data.project || getProjectNameFromPath(data.src);
+        const project = {
+          name: projectName,
+          items: loadedItems.filter(function (item) {
+            return (item.project || getProjectNameFromPath(item.src)) === projectName;
+          })
+        };
+        const info = getProjectInfo(project);
+        const placement = getProjectPlacement(project, 0);
+        return `[img. ${displayNumber}]\n${projectName}\n${placement.field || info.field}\n${info.year}\n[${projectPosition}/${projectTotal}]`;
       }
 
       function getFilteredItems() {
@@ -1873,6 +2084,7 @@
       }
 
       function clearProjectPreview(list, previewTitle, previewText, previewStrip) {
+        document.body.classList.remove('index-preview-open');
         if (list) {
           list.querySelectorAll('.index-item').forEach(function (item) {
             item.classList.remove('is-active');
@@ -1901,13 +2113,7 @@
       function renderProjectIndex(items) {
         if (!projectIndex) return;
         const projects = groupProjects(items);
-        const categoryCounts = getProjectCounts(projects);
-        const filteredProjects = activeIndexFilter === 'all'
-          ? projects
-          : projects.filter(function (project) {
-            return getProjectWorkCategory(project) === activeIndexFilter;
-          });
-        const archiveImageCount = filteredProjects.reduce(function (total, project) {
+        const archiveImageCount = projects.reduce(function (total, project) {
           return total + project.items.length;
         }, 0);
         projectIndex.innerHTML = '';
@@ -1915,8 +2121,14 @@
         const inner = document.createElement('div');
         const archiveBar = document.createElement('div');
         const archiveMeta = document.createElement('p');
-        const archiveFilters = document.createElement('div');
-        const list = document.createElement('div');
+        const map = document.createElement('div');
+        const axisX = document.createElement('div');
+        const axisY = document.createElement('div');
+        const labelTop = document.createElement('div');
+        const labelRight = document.createElement('div');
+        const labelBottom = document.createElement('div');
+        const labelLeft = document.createElement('div');
+        const mapHover = document.createElement('div');
         const preview = document.createElement('div');
         const previewTitle = document.createElement('p');
         const previewText = document.createElement('p');
@@ -1925,86 +2137,112 @@
         inner.className = 'project-index-inner';
         archiveBar.className = 'index-archive-bar';
         archiveMeta.className = 'index-archive-meta';
-        archiveFilters.className = 'index-archive-filters';
-        list.className = 'index-project-list';
+        map.className = 'index-map';
+        axisX.className = 'index-map-axis index-map-axis-x';
+        axisY.className = 'index-map-axis index-map-axis-y';
+        labelTop.className = 'index-field-label index-field-top';
+        labelRight.className = 'index-field-label index-field-right';
+        labelBottom.className = 'index-field-label index-field-bottom';
+        labelLeft.className = 'index-field-label index-field-left';
+        mapHover.className = 'index-map-hover';
         preview.className = 'index-preview';
         previewTitle.className = 'index-preview-title';
         previewText.className = 'index-preview-text';
         previewStrip.className = 'index-preview-strip';
         previewTitle.hidden = true;
         previewText.hidden = true;
-        archiveMeta.textContent = `Archive / ${filteredProjects.length} projects / ${archiveImageCount} images`;
-
-        workFilterOptions.forEach(function (filter) {
-          if (filter.value !== 'all' && !categoryCounts[filter.value]) return;
-          const button = document.createElement('button');
-          button.className = 'index-filter-button';
-          button.type = 'button';
-          button.dataset.indexFilter = filter.value;
-          button.textContent = filter.label;
-          button.classList.toggle('is-active', filter.value === activeIndexFilter);
-          button.addEventListener('click', function () {
-            activeIndexFilter = filter.value;
-            renderProjectIndex(loadedItems);
-          });
-          archiveFilters.appendChild(button);
-        });
+        archiveMeta.textContent = `Archive / ${projects.length} projects / ${archiveImageCount} images`;
+        labelTop.textContent = 'Art Direction';
+        labelRight.textContent = 'Brand Identity';
+        labelBottom.textContent = 'Editorial';
+        labelLeft.textContent = 'Image Research';
 
         archiveBar.appendChild(archiveMeta);
-        archiveBar.appendChild(archiveFilters);
 
-        const tableHead = document.createElement('div');
-        tableHead.className = 'index-table-head';
-        ['Clients', 'Projects', 'Design field', 'Anno', 'Files'].forEach(function (label) {
-          const cell = document.createElement('span');
-          cell.textContent = label;
-          tableHead.appendChild(cell);
-        });
-        list.appendChild(tableHead);
+        map.appendChild(axisX);
+        map.appendChild(axisY);
+        map.appendChild(labelTop);
+        map.appendChild(labelRight);
+        map.appendChild(labelBottom);
+        map.appendChild(labelLeft);
+        map.appendChild(mapHover);
 
-        filteredProjects.forEach(function (project, index) {
+        projects.forEach(function (project, index) {
           const button = document.createElement('button');
           const info = getProjectInfo(project);
-          button.className = 'index-item';
+          const placement = getProjectPlacement(project, index);
+          button.className = 'index-map-point index-item';
           button.type = 'button';
+          button.style.left = placement.x + '%';
+          button.style.top = placement.y + '%';
           button.classList.toggle('has-text', Boolean(project.text));
-          button.innerHTML = '';
-          const row = document.createElement('span');
-          row.className = 'index-row';
-          [
-            info.client,
-            `[${String(index + 1).padStart(2, '0')}]${info.project}`,
-            workFilterLabels[getProjectWorkCategory(project)] || info.field,
-            info.year,
-            String(project.items.length).padStart(2, '0')
-          ].forEach(function (value) {
-            const cell = document.createElement('span');
-            cell.textContent = value;
-            row.appendChild(cell);
+          button.textContent = `[${String(index + 1).padStart(2, '0')}]`;
+          const hoverText = formatProjectHover(info, project, placement);
+          button.setAttribute('aria-label', hoverText);
+          button.addEventListener('mouseenter', function () {
+            mapHover.textContent = hoverText;
           });
-          button.appendChild(row);
+          button.addEventListener('mouseleave', function () {
+            mapHover.textContent = '';
+          });
+          button.addEventListener('focus', function () {
+            mapHover.textContent = hoverText;
+          });
+          button.addEventListener('blur', function () {
+            mapHover.textContent = '';
+          });
           button.addEventListener('click', function () {
-            list.querySelectorAll('.index-item').forEach(function (item) {
+            document.body.classList.add('index-preview-open');
+            map.querySelectorAll('.index-map-point').forEach(function (item) {
               item.classList.remove('is-active');
             });
             button.classList.add('is-active');
             renderProjectPreview(project, previewTitle, previewText, previewStrip);
           });
-          list.appendChild(button);
+          map.appendChild(button);
         });
 
         projectIndex.addEventListener('click', function (event) {
-          if (event.target.closest('.index-item') || event.target.closest('.index-preview')) return;
-          clearProjectPreview(list, previewTitle, previewText, previewStrip);
+          if (event.target.closest('.index-map-point') || event.target.closest('.index-preview')) return;
+          clearProjectPreview(map, previewTitle, previewText, previewStrip);
         });
 
         preview.appendChild(previewTitle);
         preview.appendChild(previewText);
         preview.appendChild(previewStrip);
         inner.appendChild(archiveBar);
-        inner.appendChild(list);
+        inner.appendChild(map);
         inner.appendChild(preview);
         projectIndex.appendChild(inner);
+      }
+
+      function formatProjectHover(info, project, placement) {
+        return [
+          info.client,
+          info.project,
+          placement.field || info.field,
+          info.year,
+          `${String(project.items.length).padStart(2, '0')} files`
+        ].filter(Boolean).join(' / ');
+      }
+
+      function formatHomeHover(data) {
+        const projectName = data.project || getProjectNameFromPath(data.src);
+        const projectItems = loadedItems.filter(function (item) {
+          return (item.project || getProjectNameFromPath(item.src)) === projectName;
+        });
+        const project = {
+          name: projectName,
+          items: projectItems.length ? projectItems : [data],
+          text: data.projectText || ''
+        };
+        const info = getProjectInfo(project);
+        const placement = getProjectPlacement(project, 0);
+        return formatProjectHover(info, project, placement);
+      }
+
+      function formatHomeCaption(data, displayIndex) {
+        return formatWorkCaption(data, displayIndex);
       }
 
       function appendImageBatch(items, options) {
@@ -2022,7 +2260,7 @@
           item.className = 'work-item is-visible';
           item.dataset.file = data.src;
           item.dataset.primary = options.primary ? 'true' : 'false';
-          item.dataset.caption = formatWorkCaption(data, displayIndex);
+          item.dataset.caption = formatHomeCaption(data, displayIndex);
           if (options.focusSrc === data.src) {
             item.classList.add('is-focus');
           } else if (Math.random() < 0.28) {
@@ -2032,13 +2270,6 @@
             item.remove();
             requestMobileGalleryLayout();
           }, { once: true });
-          item.addEventListener('mouseenter', function () {
-            cancelHomeProjectStripClose();
-            openHomeProjectStrip(item, data);
-          });
-          item.addEventListener('mouseleave', function () {
-            scheduleHomeProjectStripClose(item);
-          });
           item.appendChild(media);
           workList.appendChild(item);
         });
@@ -2169,13 +2400,8 @@
         viewToggle.addEventListener('click', function () {
           document.body.classList.toggle('text-only-mode');
           const isTextOnly = document.body.classList.contains('text-only-mode');
-          document.body.classList.remove('index-mode');
           viewToggle.textContent = isTextOnly ? 'Home' : 'Canvas';
           viewToggle.setAttribute('aria-pressed', String(isTextOnly));
-          if (indexToggle) {
-            indexToggle.textContent = 'Index';
-            indexToggle.setAttribute('aria-pressed', 'false');
-          }
           clearDrawCanvas();
         });
       }
@@ -2185,6 +2411,14 @@
           document.body.classList.toggle('index-mode');
           const isIndex = document.body.classList.contains('index-mode');
           if (isIndex) {
+            document.body.classList.remove('text-only-mode');
+            if (viewToggle) {
+              viewToggle.textContent = 'Canvas';
+              viewToggle.setAttribute('aria-pressed', 'false');
+            }
+            clearDrawCanvas();
+          } else {
+            document.body.classList.remove('index-preview-open');
             document.body.classList.remove('text-only-mode');
             if (viewToggle) {
               viewToggle.textContent = 'Canvas';
