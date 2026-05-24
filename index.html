@@ -1350,6 +1350,91 @@
         });
       }
 
+      function prepareExportClone(rootClone, width, height) {
+        const cloneDrawCanvas = rootClone.querySelector('#draw-canvas');
+        if (cloneDrawCanvas) cloneDrawCanvas.remove();
+        rootClone.querySelectorAll('script').forEach(function (script) {
+          script.remove();
+        });
+        rootClone.querySelectorAll('img').forEach(function (image) {
+          if (image.getAttribute('src')) image.setAttribute('src', image.src);
+          image.removeAttribute('loading');
+        });
+        rootClone.querySelectorAll('video').forEach(function (video) {
+          if (video.getAttribute('src')) video.setAttribute('src', video.currentSrc || video.src);
+          video.removeAttribute('controls');
+        });
+        rootClone.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+        rootClone.style.width = width + 'px';
+        rootClone.style.height = height + 'px';
+        const clonedBody = rootClone.querySelector('body');
+        if (clonedBody) {
+          clonedBody.style.width = width + 'px';
+          clonedBody.style.minHeight = height + 'px';
+          clonedBody.style.margin = '0';
+        }
+      }
+
+      function drawDomSnapshot(context, width, height) {
+        return new Promise(function (resolve, reject) {
+          const clone = document.documentElement.cloneNode(true);
+          prepareExportClone(clone, width, height);
+          const serialized = new XMLSerializer().serializeToString(clone);
+          const svg = [
+            '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '">',
+            '<foreignObject width="100%" height="100%">',
+            serialized,
+            '</foreignObject>',
+            '</svg>'
+          ].join('');
+          const image = new Image();
+          const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+          const url = URL.createObjectURL(svgBlob);
+          image.onload = function () {
+            context.drawImage(image, 0, 0, width, height);
+            URL.revokeObjectURL(url);
+            resolve();
+          };
+          image.onerror = function () {
+            URL.revokeObjectURL(url);
+            reject(new Error('Unable to render page snapshot'));
+          };
+          image.src = url;
+        });
+      }
+
+      function getVisibleMediaElements(width, height) {
+        return Array.from(document.querySelectorAll('img, video')).filter(function (media) {
+          const rect = media.getBoundingClientRect();
+          return rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.right > 0 && rect.top < height && rect.left < width;
+        });
+      }
+
+      async function drawVisibleMedia(context, width, height) {
+        const mediaElements = getVisibleMediaElements(width, height);
+        await Promise.all(mediaElements.map(function (media) {
+          if (media.tagName.toLowerCase() === 'img') {
+            if (media.complete && media.naturalWidth) return Promise.resolve();
+            return media.decode ? media.decode().catch(function () {}) : Promise.resolve();
+          }
+          return Promise.resolve();
+        }));
+
+        mediaElements.forEach(function (media) {
+          const rect = media.getBoundingClientRect();
+          try {
+            context.save();
+            context.beginPath();
+            context.rect(rect.left, rect.top, rect.width, rect.height);
+            context.clip();
+            context.drawImage(media, rect.left, rect.top, rect.width, rect.height);
+            context.restore();
+          } catch (error) {
+            context.restore();
+          }
+        });
+      }
+
       async function downloadCanvasScreenshot() {
         if (!drawCanvas) return;
         const ratio = window.devicePixelRatio || 1;
@@ -1364,44 +1449,20 @@
         exportContext.fillStyle = '#ffffff';
         exportContext.fillRect(0, 0, width, height);
 
-        const visibleImages = Array.from(document.querySelectorAll('.work-item img')).filter(function (image) {
-          const rect = image.getBoundingClientRect();
-          return image.complete && rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.right > 0 && rect.top < height && rect.left < width;
-        });
+        try {
+          await drawDomSnapshot(exportContext, width, height);
+        } catch (error) {
+          exportContext.fillStyle = '#ffffff';
+          exportContext.fillRect(0, 0, width, height);
+          drawExportTextBlock(exportContext, document.querySelector('.corner-top-left'), { align: 'left' });
+          drawExportTextBlock(exportContext, document.querySelector('.corner-top-center'), { align: 'left' });
+          drawExportTextBlock(exportContext, document.querySelector('.corner-top-right'), { align: 'right' });
+          drawExportTextBlock(exportContext, document.querySelector('.corner-bottom-left'), { align: 'left' });
+          drawExportTextBlock(exportContext, document.querySelector('.corner-bottom-right'), { align: 'right' });
+        }
 
-        await Promise.all(visibleImages.map(function (image) {
-          if (image.complete && image.naturalWidth) return Promise.resolve();
-          return image.decode ? image.decode().catch(function () {}) : Promise.resolve();
-        }));
-
-        visibleImages.forEach(function (image) {
-          const rect = image.getBoundingClientRect();
-          exportContext.save();
-          exportContext.beginPath();
-          exportContext.rect(rect.left, rect.top, rect.width, rect.height);
-          exportContext.clip();
-          exportContext.drawImage(image, rect.left, rect.top, rect.width, rect.height);
-          exportContext.restore();
-        });
-
+        await drawVisibleMedia(exportContext, width, height);
         exportContext.drawImage(drawCanvas, 0, 0, width, height);
-
-        const textCanvas = document.createElement('canvas');
-        const textContext = textCanvas.getContext('2d');
-        textCanvas.width = exportCanvas.width;
-        textCanvas.height = exportCanvas.height;
-        textContext.setTransform(ratio, 0, 0, ratio, 0, 0);
-        textContext.fillStyle = '#ffffff';
-        drawExportTextBlock(textContext, document.querySelector('.corner-top-left'), { align: 'left' });
-        drawExportTextBlock(textContext, document.querySelector('.corner-top-center'), { align: 'left' });
-        drawExportTextBlock(textContext, document.querySelector('.corner-top-right'), { align: 'right' });
-        drawExportTextBlock(textContext, document.querySelector('.corner-bottom-left'), { align: 'left' });
-        drawExportTextBlock(textContext, document.querySelector('.corner-bottom-right'), { align: 'right' });
-
-        exportContext.save();
-        exportContext.globalCompositeOperation = 'difference';
-        exportContext.drawImage(textCanvas, 0, 0, width, height);
-        exportContext.restore();
 
         const link = document.createElement('a');
         link.href = exportCanvas.toDataURL('image/png');
