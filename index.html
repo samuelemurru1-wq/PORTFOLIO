@@ -146,6 +146,15 @@
       display: block !important;
     }
 
+    body.index-mode .corner-top-left {
+      pointer-events: none !important;
+    }
+
+    body.index-mode .nav-controls,
+    body.index-mode .view-toggle {
+      pointer-events: auto !important;
+    }
+
     .archive-summary {
       display: none !important;
       position: fixed !important;
@@ -165,10 +174,11 @@
       margin-top: 8px !important;
       width: 260px !important;
       max-width: 260px !important;
-      max-height: 58vh !important;
+      max-height: 28vh !important;
       overflow: auto !important;
       white-space: normal !important;
       line-height: 1.16 !important;
+      pointer-events: none !important;
     }
 
     body.index-mode .legend-panel.is-open {
@@ -180,10 +190,6 @@
       margin: 0 0 4px 0 !important;
       color: inherit !important;
       text-decoration: none !important;
-    }
-
-    .legend-item:hover {
-      text-decoration: underline !important;
     }
 
     .draw-prompt {
