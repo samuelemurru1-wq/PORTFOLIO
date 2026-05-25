@@ -86,9 +86,9 @@
     }
 
     .corner-top-center {
-      top: 170px !important;
+      top: 50% !important;
       left: 12px !important;
-      transform: none !important;
+      transform: translateY(-50%) !important;
       width: 260px !important;
       max-width: 260px !important;
       text-align: left !important;
@@ -111,8 +111,8 @@
     }
 
     .view-toggle {
-      display: inline-block !important;
-      margin: 0 !important;
+      display: block !important;
+      margin: 0 0 6px 0 !important;
       padding: 0 !important;
       border: 0 !important;
       background: transparent !important;
@@ -131,14 +131,6 @@
 
     .view-toggle:focus {
       outline: 0 !important;
-    }
-
-    .view-toggle + .view-toggle::before {
-      content: "|";
-      display: inline-block;
-      margin: 0 4px;
-      color: #000000;
-      text-decoration: none;
     }
 
     .color-filter {
