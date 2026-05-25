@@ -1827,7 +1827,7 @@
         const info = getProjectInfo(project);
         const placement = getProjectPlacement(project, 0);
         const mapNumber = getProjectMapNumber(projectName);
-        return `[img. ${displayNumber}]\nIndex [${mapNumber}] ${formatProjectDisplayName(projectName)}\n${placement.field || info.field}\n${info.year}\n[${projectPosition}/${projectTotal}]`;
+        return `[img. ${displayNumber}]\n${formatProjectDisplayName(projectName)}\nindex ref. [${mapNumber}]\n${placement.field || info.field}\n${info.year}\n[${projectPosition}/${projectTotal}]`;
       }
 
       function getFilteredItems() {
