@@ -163,10 +163,12 @@
     .legend-panel {
       display: none !important;
       margin-top: 8px !important;
-      width: min(520px, calc(65vw - 24px)) !important;
-      max-height: 45vh !important;
+      width: 260px !important;
+      max-width: 260px !important;
+      max-height: 58vh !important;
       overflow: auto !important;
       white-space: normal !important;
+      line-height: 1.16 !important;
     }
 
     body.index-mode .legend-panel.is-open {
@@ -175,8 +177,12 @@
 
     .legend-item {
       display: block !important;
-      margin: 0 0 2px 0 !important;
+      margin: 0 0 4px 0 !important;
       color: inherit !important;
+      text-decoration: none !important;
+    }
+
+    .legend-item:hover {
       text-decoration: underline !important;
     }
 
