@@ -980,8 +980,7 @@
         <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
         <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw</button>
         <p id="draw-prompt" class="draw-prompt" hidden>
-          <strong id="draw-word">Umbrella</strong>
-          <span>make a drawing of this word</span>
+          <span>Prompt: <strong id="draw-word">umbrella</strong></span>
         </p>
       </div>
     </div>
@@ -1242,8 +1241,8 @@
       function updateDrawToggleLabel() {
         if (!viewToggle) return;
         const isTextOnly = document.body.classList.contains('text-only-mode');
-        viewToggle.textContent = isTextOnly ? 'Back to works' : 'Draw';
-        if (drawWord) drawWord.textContent = drawingWord.charAt(0).toUpperCase() + drawingWord.slice(1);
+        viewToggle.textContent = isTextOnly ? 'Works' : 'Draw';
+        if (drawWord) drawWord.textContent = drawingWord;
         if (drawPrompt) drawPrompt.hidden = !isTextOnly;
       }
 
