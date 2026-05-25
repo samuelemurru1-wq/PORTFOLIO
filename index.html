@@ -1805,6 +1805,14 @@
         return fallbackByCategory[category] || { field: 'Art Direction', x: 50, y: 50 };
       }
 
+      function getProjectMapNumber(projectName) {
+        const projects = groupProjects(loadedItems);
+        const projectIndex = projects.findIndex(function (project) {
+          return project.name === projectName;
+        });
+        return projectIndex >= 0 ? String(projectIndex + 1).padStart(2, '0') : '--';
+      }
+
       function formatWorkCaption(data, displayIndex) {
         const displayNumber = String(displayIndex).padStart(2, '0');
         const projectPosition = data.projectPosition || 1;
@@ -1818,7 +1826,8 @@
         };
         const info = getProjectInfo(project);
         const placement = getProjectPlacement(project, 0);
-        return `[img. ${displayNumber}]\n${formatProjectDisplayName(projectName)}\n${placement.field || info.field}\n${info.year}\n[${projectPosition}/${projectTotal}]`;
+        const mapNumber = getProjectMapNumber(projectName);
+        return `[img. ${displayNumber}]\n[${mapNumber}] ${formatProjectDisplayName(projectName)}\n${placement.field || info.field}\n${info.year}\n[${projectPosition}/${projectTotal}]`;
       }
 
       function getFilteredItems() {
