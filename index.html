@@ -74,7 +74,7 @@
     }
 
     .corner-top-left {
-      width: 520px !important;
+      width: 720px !important;
       max-width: calc(65vw - 24px) !important;
     }
 
@@ -159,8 +159,8 @@
     .color-filter {
       display: block !important;
       margin-top: 8px !important;
-      white-space: normal !important;
-      width: 320px !important;
+      white-space: nowrap !important;
+      width: 720px !important;
       max-width: 100% !important;
       line-height: 1.2 !important;
     }
@@ -192,7 +192,9 @@
     }
 
     .color-filter.is-open .color-filter-options {
-      display: block !important;
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      align-items: baseline !important;
     }
 
     .color-filter-button {
@@ -249,7 +251,7 @@
       max-width: calc(710px * var(--item-scale)) !important;
       min-width: calc(439px * var(--item-scale)) !important;
       min-height: 0 !important;
-      margin: 0 auto 12px auto !important;
+      margin: 0 auto 0 auto !important;
       padding: 0 !important;
       opacity: 1 !important;
       visibility: visible !important;
