@@ -133,6 +133,24 @@
       outline: 0 !important;
     }
 
+    .draw-prompt {
+      display: none !important;
+      margin: 10px 0 0 0 !important;
+      max-width: 180px !important;
+      font-weight: 700 !important;
+      line-height: 1.08 !important;
+      white-space: normal !important;
+    }
+
+    .draw-prompt strong,
+    .draw-prompt span {
+      display: block !important;
+    }
+
+    body.text-only-mode .draw-prompt {
+      display: block !important;
+    }
+
     .color-filter {
       display: block !important;
       margin-top: 8px !important;
@@ -951,7 +969,11 @@
 
     <div class="corner corner-top-center">
       <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
-      <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw: umbrella</button>
+      <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw</button>
+      <p id="draw-prompt" class="draw-prompt" hidden>
+        <strong id="draw-word">Draw: umbrella</strong>
+        <span>draw the word above</span>
+      </p>
     </div>
 
     <div class="corner corner-top-right">
@@ -985,6 +1007,8 @@
       const workList = document.querySelector('.work-list');
       const viewToggle = document.getElementById('view-toggle');
       const indexToggle = document.getElementById('index-toggle');
+      const drawPrompt = document.getElementById('draw-prompt');
+      const drawWord = document.getElementById('draw-word');
       const colorFilter = document.getElementById('color-filter');
       const filterToggle = document.getElementById('filter-toggle');
       const projectIndex = document.getElementById('project-index');
@@ -1208,7 +1232,9 @@
       function updateDrawToggleLabel() {
         if (!viewToggle) return;
         const isTextOnly = document.body.classList.contains('text-only-mode');
-        viewToggle.textContent = isTextOnly ? 'Home' : `Draw: ${drawingWord}`;
+        viewToggle.textContent = isTextOnly ? 'Home' : 'Draw';
+        if (drawWord) drawWord.textContent = `Draw: ${drawingWord}`;
+        if (drawPrompt) drawPrompt.hidden = !isTextOnly;
       }
 
       function wrapCanvasText(context, text, x, y, maxWidth, lineHeight) {
