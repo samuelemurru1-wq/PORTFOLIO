@@ -1036,6 +1036,24 @@
       let mobileTouchStartY = 0;
       let mobileGalleryOffset = 0;
 
+      const drawingWords = [
+        'umbrella',
+        'bicycle',
+        'chair',
+        'lamp',
+        'shoe',
+        'flower',
+        'camera',
+        'moon',
+        'key',
+        'hat',
+        'radio',
+        'house',
+        'cloud',
+        'watch',
+        'glasses'
+      ];
+
       const workFilterOptions = [
         { value: 'all', label: 'All' },
         { value: 'brand-identity', label: 'Brand identity' },
@@ -1244,6 +1262,17 @@
         viewToggle.textContent = isTextOnly ? 'Works' : 'Draw';
         if (drawWord) drawWord.textContent = drawingWord;
         if (drawPrompt) drawPrompt.hidden = !isTextOnly;
+      }
+
+      function chooseDrawingWord() {
+        if (!drawingWords.length) return;
+        let nextWord = drawingWords[Math.floor(Math.random() * drawingWords.length)];
+        if (drawingWords.length > 1) {
+          while (nextWord === drawingWord) {
+            nextWord = drawingWords[Math.floor(Math.random() * drawingWords.length)];
+          }
+        }
+        drawingWord = nextWord;
       }
 
       function wrapCanvasText(context, text, x, y, maxWidth, lineHeight) {
@@ -2505,6 +2534,7 @@
         viewToggle.addEventListener('click', function () {
           document.body.classList.toggle('text-only-mode');
           const isTextOnly = document.body.classList.contains('text-only-mode');
+          if (isTextOnly) chooseDrawingWord();
           updateDrawToggleLabel();
           viewToggle.setAttribute('aria-pressed', String(isTextOnly));
           clearDrawCanvas();
