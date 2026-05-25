@@ -138,6 +138,36 @@
       margin-top: 8px !important;
     }
 
+    .archive-summary {
+      display: none !important;
+      margin: 8px 0 0 0 !important;
+      white-space: normal !important;
+    }
+
+    body.index-mode .archive-summary {
+      display: block !important;
+    }
+
+    .legend-panel {
+      display: none !important;
+      margin-top: 8px !important;
+      width: min(520px, calc(65vw - 24px)) !important;
+      max-height: 45vh !important;
+      overflow: auto !important;
+      white-space: normal !important;
+    }
+
+    .legend-panel.is-open {
+      display: block !important;
+    }
+
+    .legend-item {
+      display: block !important;
+      margin: 0 0 2px 0 !important;
+      color: inherit !important;
+      text-decoration: underline !important;
+    }
+
     .draw-prompt {
       display: none !important;
       margin: 10px 0 0 0 !important;
@@ -943,10 +973,18 @@
       pointer-events: none !important;
     }
 
-    body.text-only-mode .draw-canvas {
+    body.text-only-mode .draw-canvas,
+    body.drawing-frozen .draw-canvas {
       display: block !important;
+    }
+
+    body.text-only-mode .draw-canvas {
       pointer-events: auto !important;
       cursor: crosshair !important;
+    }
+
+    body.drawing-frozen:not(.text-only-mode) .draw-canvas {
+      pointer-events: none !important;
     }
 
   </style>
@@ -979,6 +1017,9 @@
       <div class="nav-controls">
         <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
         <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw</button>
+        <button id="legend-toggle" class="view-toggle" type="button" aria-expanded="false">Legend</button>
+        <p id="archive-summary" class="archive-summary" hidden>Archive / 0 projects / 0 images</p>
+        <div id="legend-panel" class="legend-panel" hidden></div>
         <p id="draw-prompt" class="draw-prompt" hidden>
           <span>draw a: <strong id="draw-word">umbrella</strong></span>
         </p>
@@ -1018,6 +1059,9 @@
       const indexToggle = document.getElementById('index-toggle');
       const drawPrompt = document.getElementById('draw-prompt');
       const drawWord = document.getElementById('draw-word');
+      const legendToggle = document.getElementById('legend-toggle');
+      const legendPanel = document.getElementById('legend-panel');
+      const archiveSummary = document.getElementById('archive-summary');
       const colorFilter = document.getElementById('color-filter');
       const filterToggle = document.getElementById('filter-toggle');
       const projectIndex = document.getElementById('project-index');
@@ -1026,6 +1070,7 @@
 
       let lastDrawPoint = null;
       let isDrawing = false;
+      let hasDrawn = false;
       let drawingWord = 'umbrella';
       let activeWorkFilter = 'all';
       let activeIndexFilter = 'all';
@@ -1198,6 +1243,8 @@
         if (!drawCanvas || !drawContext) return;
         drawContext.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
         lastDrawPoint = null;
+        hasDrawn = false;
+        document.body.classList.remove('drawing-frozen');
       }
 
       function getDrawPoint(event) {
@@ -1231,6 +1278,8 @@
         if (!drawContext) return;
         event.preventDefault();
         isDrawing = true;
+        hasDrawn = true;
+        document.body.classList.add('drawing-frozen');
         const point = getDrawPoint(event);
         lastDrawPoint = point;
         drawDot(point);
@@ -2237,6 +2286,21 @@
         }, {});
       }
 
+      function updateLegend(projects, archiveImageCount) {
+        if (archiveSummary) {
+          archiveSummary.textContent = `Archive / ${projects.length} projects / ${archiveImageCount} images`;
+          archiveSummary.hidden = false;
+        }
+        if (!legendPanel) return;
+        legendPanel.innerHTML = '';
+        projects.forEach(function (project, index) {
+          const row = document.createElement('div');
+          row.className = 'legend-item';
+          row.textContent = `[${String(index + 1).padStart(2, '0')}] ${formatProjectDisplayName(project.name)}`;
+          legendPanel.appendChild(row);
+        });
+      }
+
       function renderProjectIndex(items) {
         if (!projectIndex) return;
         const projects = groupProjects(items);
@@ -2284,6 +2348,7 @@
         previewMeta.hidden = true;
         previewText.hidden = true;
         archiveMeta.textContent = `Archive / ${projects.length} projects / ${archiveImageCount} images`;
+        updateLegend(projects, archiveImageCount);
         labelTop.textContent = 'Art Direction';
         labelRight.textContent = 'Brand Identity';
         labelBottom.textContent = 'Editorial';
@@ -2345,7 +2410,6 @@
         preview.appendChild(previewHeader);
         preview.appendChild(previewText);
         preview.appendChild(previewStrip);
-        inner.appendChild(archiveBar);
         inner.appendChild(map);
         inner.appendChild(preview);
         projectIndex.appendChild(inner);
@@ -2515,6 +2579,14 @@
         });
       }
 
+      if (legendToggle && legendPanel) {
+        legendToggle.addEventListener('click', function () {
+          const isOpen = legendPanel.classList.toggle('is-open');
+          legendPanel.hidden = !isOpen;
+          legendToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+      }
+
       window.addEventListener('scroll', function () {
         if (isMobileGalleryView()) {
           window.scrollTo(0, 0);
@@ -2537,7 +2609,7 @@
           if (isTextOnly) chooseDrawingWord();
           updateDrawToggleLabel();
           viewToggle.setAttribute('aria-pressed', String(isTextOnly));
-          clearDrawCanvas();
+          if (!isTextOnly && hasDrawn) document.body.classList.add('drawing-frozen');
         });
       }
 
@@ -2551,7 +2623,7 @@
               updateDrawToggleLabel();
               viewToggle.setAttribute('aria-pressed', 'false');
             }
-            clearDrawCanvas();
+            if (hasDrawn) document.body.classList.add('drawing-frozen');
           } else {
             document.body.classList.remove('index-preview-open');
             document.body.classList.remove('text-only-mode');
@@ -2559,7 +2631,7 @@
               updateDrawToggleLabel();
               viewToggle.setAttribute('aria-pressed', 'false');
             }
-            clearDrawCanvas();
+            if (hasDrawn) document.body.classList.add('drawing-frozen');
           }
           indexToggle.textContent = isIndex ? 'Home' : 'Index';
           indexToggle.setAttribute('aria-pressed', String(isIndex));
