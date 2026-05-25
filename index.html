@@ -138,9 +138,21 @@
       margin-top: 8px !important;
     }
 
+    #legend-toggle {
+      display: none !important;
+    }
+
+    body.index-mode #legend-toggle {
+      display: block !important;
+    }
+
     .archive-summary {
       display: none !important;
-      margin: 8px 0 0 0 !important;
+      position: fixed !important;
+      left: 12px !important;
+      bottom: 36px !important;
+      z-index: 10000 !important;
+      margin: 0 !important;
       white-space: normal !important;
     }
 
@@ -157,7 +169,7 @@
       white-space: normal !important;
     }
 
-    .legend-panel.is-open {
+    body.index-mode .legend-panel.is-open {
       display: block !important;
     }
 
@@ -1003,17 +1015,6 @@
       <p>
         <a href="https://www.instagram.com/samuelemurru3/" target="_blank" class="contact-link">Instagram</a> | <a href="mailto:samuelemurru1@gmail.com" class="contact-link">Mail</a>
       </p>
-      <div id="color-filter" class="color-filter" aria-label="Filter by work type">
-        <button id="filter-toggle" class="filter-toggle" type="button" aria-expanded="false">Filter</button>
-        <div class="color-filter-options">
-          <button class="color-filter-button is-active" type="button" data-work-filter="all">All</button>
-          <button class="color-filter-button" type="button" data-work-filter="brand-identity">Brand identity</button>
-          <button class="color-filter-button" type="button" data-work-filter="logo-design">Logo design</button>
-          <button class="color-filter-button" type="button" data-work-filter="editorial-design">Editorial design</button>
-          <button class="color-filter-button" type="button" data-work-filter="art-direction">Art direction</button>
-          <button class="color-filter-button" type="button" data-work-filter="poster-design">Poster</button>
-        </div>
-      </div>
       <div class="nav-controls">
         <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
         <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw</button>
@@ -2627,6 +2628,11 @@
           } else {
             document.body.classList.remove('index-preview-open');
             document.body.classList.remove('text-only-mode');
+            if (legendPanel) {
+              legendPanel.classList.remove('is-open');
+              legendPanel.hidden = true;
+            }
+            if (legendToggle) legendToggle.setAttribute('aria-expanded', 'false');
             if (viewToggle) {
               updateDrawToggleLabel();
               viewToggle.setAttribute('aria-pressed', 'false');
