@@ -138,60 +138,6 @@
       margin-top: 8px !important;
     }
 
-    #legend-toggle {
-      display: none !important;
-    }
-
-    body.index-mode #legend-toggle {
-      display: block !important;
-    }
-
-    body.index-mode .corner-top-left {
-      pointer-events: none !important;
-    }
-
-    body.index-mode .nav-controls,
-    body.index-mode .view-toggle {
-      pointer-events: auto !important;
-    }
-
-    .archive-summary {
-      display: none !important;
-      position: fixed !important;
-      left: 12px !important;
-      bottom: 36px !important;
-      z-index: 10000 !important;
-      margin: 0 !important;
-      white-space: normal !important;
-    }
-
-    body.index-mode .archive-summary {
-      display: block !important;
-    }
-
-    .legend-panel {
-      display: none !important;
-      margin-top: 8px !important;
-      width: 260px !important;
-      max-width: 260px !important;
-      max-height: 28vh !important;
-      overflow: auto !important;
-      white-space: normal !important;
-      line-height: 1.16 !important;
-      pointer-events: none !important;
-    }
-
-    body.index-mode .legend-panel.is-open {
-      display: block !important;
-    }
-
-    .legend-item {
-      display: block !important;
-      margin: 0 0 4px 0 !important;
-      color: inherit !important;
-      text-decoration: none !important;
-    }
-
     .draw-prompt {
       display: none !important;
       margin: 10px 0 0 0 !important;
@@ -1030,9 +976,6 @@
       <div class="nav-controls">
         <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
         <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw</button>
-        <button id="legend-toggle" class="view-toggle" type="button" aria-expanded="false">Legend</button>
-        <p id="archive-summary" class="archive-summary" hidden>Archive / 0 projects / 0 images</p>
-        <div id="legend-panel" class="legend-panel" hidden></div>
         <p id="draw-prompt" class="draw-prompt" hidden>
           <span>draw a: <strong id="draw-word">umbrella</strong></span>
         </p>
@@ -1072,9 +1015,6 @@
       const indexToggle = document.getElementById('index-toggle');
       const drawPrompt = document.getElementById('draw-prompt');
       const drawWord = document.getElementById('draw-word');
-      const legendToggle = document.getElementById('legend-toggle');
-      const legendPanel = document.getElementById('legend-panel');
-      const archiveSummary = document.getElementById('archive-summary');
       const colorFilter = document.getElementById('color-filter');
       const filterToggle = document.getElementById('filter-toggle');
       const projectIndex = document.getElementById('project-index');
@@ -2299,21 +2239,6 @@
         }, {});
       }
 
-      function updateLegend(projects, archiveImageCount) {
-        if (archiveSummary) {
-          archiveSummary.textContent = `Archive / ${projects.length} projects / ${archiveImageCount} images`;
-          archiveSummary.hidden = false;
-        }
-        if (!legendPanel) return;
-        legendPanel.innerHTML = '';
-        projects.forEach(function (project, index) {
-          const row = document.createElement('div');
-          row.className = 'legend-item';
-          row.textContent = `[${String(index + 1).padStart(2, '0')}] ${formatProjectDisplayName(project.name)}`;
-          legendPanel.appendChild(row);
-        });
-      }
-
       function renderProjectIndex(items) {
         if (!projectIndex) return;
         const projects = groupProjects(items);
@@ -2361,7 +2286,6 @@
         previewMeta.hidden = true;
         previewText.hidden = true;
         archiveMeta.textContent = `Archive / ${projects.length} projects / ${archiveImageCount} images`;
-        updateLegend(projects, archiveImageCount);
         labelTop.textContent = 'Art Direction';
         labelRight.textContent = 'Brand Identity';
         labelBottom.textContent = 'Editorial';
@@ -2423,6 +2347,7 @@
         preview.appendChild(previewHeader);
         preview.appendChild(previewText);
         preview.appendChild(previewStrip);
+        inner.appendChild(archiveBar);
         inner.appendChild(map);
         inner.appendChild(preview);
         projectIndex.appendChild(inner);
@@ -2592,14 +2517,6 @@
         });
       }
 
-      if (legendToggle && legendPanel) {
-        legendToggle.addEventListener('click', function () {
-          const isOpen = legendPanel.classList.toggle('is-open');
-          legendPanel.hidden = !isOpen;
-          legendToggle.setAttribute('aria-expanded', String(isOpen));
-        });
-      }
-
       window.addEventListener('scroll', function () {
         if (isMobileGalleryView()) {
           window.scrollTo(0, 0);
@@ -2640,11 +2557,6 @@
           } else {
             document.body.classList.remove('index-preview-open');
             document.body.classList.remove('text-only-mode');
-            if (legendPanel) {
-              legendPanel.classList.remove('is-open');
-              legendPanel.hidden = true;
-            }
-            if (legendToggle) legendToggle.setAttribute('aria-expanded', 'false');
             if (viewToggle) {
               updateDrawToggleLabel();
               viewToggle.setAttribute('aria-pressed', 'false');
