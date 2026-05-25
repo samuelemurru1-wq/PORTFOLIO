@@ -111,8 +111,8 @@
     }
 
     .view-toggle {
-      display: block !important;
-      margin: 0 0 4px 0 !important;
+      display: inline-block !important;
+      margin: 0 !important;
       padding: 0 !important;
       border: 0 !important;
       background: transparent !important;
@@ -131,6 +131,14 @@
 
     .view-toggle:focus {
       outline: 0 !important;
+    }
+
+    .view-toggle + .view-toggle::before {
+      content: "|";
+      display: inline-block;
+      margin: 0 4px;
+      color: #000000;
+      text-decoration: none;
     }
 
     .color-filter {
