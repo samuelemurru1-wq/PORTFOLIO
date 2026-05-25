@@ -87,9 +87,9 @@
 
     .corner-top-center {
       top: 12px !important;
-      left: min(calc(65vw + 18px), 560px) !important;
-      width: 180px !important;
-      max-width: 180px !important;
+      left: 50% !important;
+      width: 260px !important;
+      max-width: 260px !important;
       text-align: left !important;
       white-space: nowrap !important;
     }
@@ -129,33 +129,6 @@
     }
 
     .view-toggle:focus {
-      outline: 0 !important;
-    }
-
-    .canvas-download,
-    .canvas-prompt {
-      display: none !important;
-    }
-
-    .canvas-prompt {
-      margin-top: 8px !important;
-      padding: 0 !important;
-      border: 0 !important;
-      background: transparent !important;
-      color: inherit !important;
-      font: inherit !important;
-      font-weight: 700 !important;
-      letter-spacing: inherit !important;
-      text-align: left !important;
-      cursor: pointer !important;
-      text-decoration: underline !important;
-    }
-
-    .canvas-prompt:hover {
-      text-decoration: underline !important;
-    }
-
-    .canvas-prompt:focus {
       outline: 0 !important;
     }
 
@@ -224,20 +197,6 @@
 
     body.index-mode .color-filter {
       display: none !important;
-    }
-
-    body.text-only-mode .canvas-download,
-    body.text-only-mode .canvas-prompt {
-      display: inline-block !important;
-    }
-
-    body.text-only-mode .canvas-prompt {
-      display: block !important;
-      width: min(360px, calc(100vw - 24px)) !important;
-      margin-top: 12px !important;
-      font-size: 22px !important;
-      line-height: 0.95 !important;
-      white-space: normal !important;
     }
 
     main {
@@ -991,9 +950,7 @@
 
     <div class="corner corner-top-center">
       <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
-      <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Canvas</button>
-      <button id="download-canvas" class="view-toggle canvas-download" type="button">Download</button>
-      <button id="canvas-prompt" class="canvas-prompt" type="button">Draw: --</button>
+      <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw: umbrella</button>
     </div>
 
     <div class="corner corner-top-right">
@@ -1027,8 +984,6 @@
       const workList = document.querySelector('.work-list');
       const viewToggle = document.getElementById('view-toggle');
       const indexToggle = document.getElementById('index-toggle');
-      const downloadCanvas = document.getElementById('download-canvas');
-      const canvasPrompt = document.getElementById('canvas-prompt');
       const colorFilter = document.getElementById('color-filter');
       const filterToggle = document.getElementById('filter-toggle');
       const projectIndex = document.getElementById('project-index');
@@ -1037,7 +992,7 @@
 
       let lastDrawPoint = null;
       let isDrawing = false;
-      let drawingWord = '';
+      let drawingWord = 'umbrella';
       let activeWorkFilter = 'all';
       let activeIndexFilter = 'all';
       let loadedItems = [];
@@ -1046,34 +1001,6 @@
       let mobileTouchStartX = 0;
       let mobileTouchStartY = 0;
       let mobileGalleryOffset = 0;
-
-      const drawingWords = [
-        'duck',
-        'phone',
-        'bicycle',
-        'lamp',
-        'chair',
-        'key',
-        'glasses',
-        'pizza',
-        'shoe',
-        'flower',
-        'watch',
-        'house',
-        'cloud',
-        'hand',
-        'mug',
-        'hat',
-        'radio',
-        'ice cream',
-        'star',
-        'backpack',
-        'camera',
-        'toothbrush',
-        'umbrella',
-        'train',
-        'moon'
-      ];
 
       const workFilterOptions = [
         { value: 'all', label: 'All' },
@@ -1277,15 +1204,10 @@
         }
       }
 
-      function setRandomDrawingWord() {
-        let nextWord = drawingWords[Math.floor(Math.random() * drawingWords.length)];
-        if (drawingWords.length > 1) {
-          while (nextWord === drawingWord) {
-            nextWord = drawingWords[Math.floor(Math.random() * drawingWords.length)];
-          }
-        }
-        drawingWord = nextWord;
-        if (canvasPrompt) canvasPrompt.textContent = `Draw: ${drawingWord}`;
+      function updateDrawToggleLabel() {
+        if (!viewToggle) return;
+        const isTextOnly = document.body.classList.contains('text-only-mode');
+        viewToggle.textContent = isTextOnly ? 'Home' : `Draw: ${drawingWord}`;
       }
 
       function wrapCanvasText(context, text, x, y, maxWidth, lineHeight) {
@@ -1501,29 +1423,6 @@
         await drawVisibleMedia(context, width, height);
         drawExportAxis(context, width, height);
         drawExportTexts(context, width, height);
-      }
-
-      async function downloadCanvasScreenshot() {
-        if (!drawCanvas) return;
-        const ratio = window.devicePixelRatio || 1;
-        const exportCanvas = document.createElement('canvas');
-        const exportContext = exportCanvas.getContext('2d');
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-
-        exportCanvas.width = Math.floor(width * ratio);
-        exportCanvas.height = Math.floor(height * ratio);
-        exportContext.setTransform(ratio, 0, 0, ratio, 0, 0);
-        exportContext.fillStyle = '#ffffff';
-        exportContext.fillRect(0, 0, width, height);
-
-        await drawManualPageExport(exportContext, width, height);
-        exportContext.drawImage(drawCanvas, 0, 0, width, height);
-
-        const link = document.createElement('a');
-        link.href = exportCanvas.toDataURL('image/png');
-        link.download = `samuele-murru-canvas-${drawingWord}.png`;
-        link.click();
       }
 
       function shuffle(array) {
@@ -2507,7 +2406,7 @@
       updateLastModified();
       updateViewportSize();
       resizeDrawCanvas();
-      setRandomDrawingWord();
+      updateDrawToggleLabel();
       window.setInterval(updateCurrentTime, 1000);
       window.addEventListener('resize', function () {
         updateViewportSize();
@@ -2525,17 +2424,6 @@
         drawCanvas.addEventListener('pointerup', stopDrawing);
         drawCanvas.addEventListener('pointercancel', stopDrawing);
         drawCanvas.addEventListener('pointerleave', stopDrawing);
-      }
-
-      if (downloadCanvas) {
-        downloadCanvas.addEventListener('click', downloadCanvasScreenshot);
-      }
-
-      if (canvasPrompt) {
-        canvasPrompt.addEventListener('click', function () {
-          setRandomDrawingWord();
-          clearDrawCanvas();
-        });
       }
 
       if (colorFilter) {
@@ -2572,7 +2460,7 @@
         viewToggle.addEventListener('click', function () {
           document.body.classList.toggle('text-only-mode');
           const isTextOnly = document.body.classList.contains('text-only-mode');
-          viewToggle.textContent = isTextOnly ? 'Home' : 'Canvas';
+          updateDrawToggleLabel();
           viewToggle.setAttribute('aria-pressed', String(isTextOnly));
           clearDrawCanvas();
         });
@@ -2585,7 +2473,7 @@
           if (isIndex) {
             document.body.classList.remove('text-only-mode');
             if (viewToggle) {
-              viewToggle.textContent = 'Canvas';
+              updateDrawToggleLabel();
               viewToggle.setAttribute('aria-pressed', 'false');
             }
             clearDrawCanvas();
@@ -2593,7 +2481,7 @@
             document.body.classList.remove('index-preview-open');
             document.body.classList.remove('text-only-mode');
             if (viewToggle) {
-              viewToggle.textContent = 'Canvas';
+              updateDrawToggleLabel();
               viewToggle.setAttribute('aria-pressed', 'false');
             }
             clearDrawCanvas();
