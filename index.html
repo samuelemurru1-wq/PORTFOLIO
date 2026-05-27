@@ -520,13 +520,14 @@
       position: absolute !important;
       left: 50% !important;
       right: auto !important;
-      top: 150px !important;
+      top: 132px !important;
       z-index: 5 !important;
       display: flex !important;
       align-items: baseline !important;
       justify-content: space-between !important;
       gap: 18px !important;
       width: auto !important;
+      height: 28px !important;
       transform: translateX(-50%) !important;
       margin: 0 0 4px 0 !important;
       padding: 0 !important;
@@ -590,7 +591,11 @@
 
     .index-view-switch:hover::before,
     .index-view-switch:focus::before {
-      transform: translateX(-50%) scale(1.18) !important;
+      transform: translateX(-50%) !important;
+    }
+
+    body.index-list-mode .index-archive-bar {
+      top: 132px !important;
     }
 
     body.index-mode.index-preview-open .index-archive-bar {
@@ -1059,7 +1064,7 @@
       body.index-list-mode .index-archive-bar {
         left: 50% !important;
         right: auto !important;
-        top: 292px !important;
+        top: 262px !important;
         transform: translateX(-50%) !important;
       }
 
