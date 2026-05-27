@@ -534,11 +534,17 @@
       white-space: nowrap !important;
     }
 
-    .index-archive-meta {
+    .index-view-switch {
+      position: relative !important;
       flex: 0 0 auto !important;
+      display: inline-grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      align-items: center !important;
+      min-width: 92px !important;
       margin: 0 !important;
-      padding: 0 0 6px 0 !important;
-      border: 0 !important;
+      padding: 2px !important;
+      border: 1px solid #000000 !important;
+      border-radius: 999px !important;
       background: #ffffff !important;
       color: #000000 !important;
       font: inherit !important;
@@ -546,7 +552,48 @@
       letter-spacing: inherit !important;
       line-height: 1.2 !important;
       cursor: pointer !important;
-      text-decoration: underline !important;
+      overflow: hidden !important;
+      text-decoration: none !important;
+    }
+
+    .index-view-switch::before {
+      content: "" !important;
+      position: absolute !important;
+      left: 2px !important;
+      top: 2px !important;
+      bottom: 2px !important;
+      width: calc(50% - 2px) !important;
+      border-radius: 999px !important;
+      background: #000000 !important;
+      transform: translateX(0) !important;
+      transition: transform 0.2s ease !important;
+      z-index: 0 !important;
+    }
+
+    body.index-list-mode .index-view-switch::before {
+      transform: translateX(100%) !important;
+    }
+
+    .index-view-switch span {
+      position: relative !important;
+      z-index: 1 !important;
+      display: block !important;
+      padding: 2px 8px 3px 8px !important;
+      text-align: center !important;
+      color: #000000 !important;
+      transition: color 0.2s ease !important;
+    }
+
+    .index-view-switch span:first-child {
+      color: #ffffff !important;
+    }
+
+    body.index-list-mode .index-view-switch span:first-child {
+      color: #000000 !important;
+    }
+
+    body.index-list-mode .index-view-switch span:last-child {
+      color: #ffffff !important;
     }
 
     body.index-mode.index-preview-open .index-archive-bar {
@@ -1552,7 +1599,7 @@
         drawExportTextBlock(context, document.querySelector('.corner-bottom-left'), { align: 'left' });
         drawExportTextBlock(context, document.querySelector('.corner-bottom-right'), { align: 'right' });
 
-        document.querySelectorAll('.index-archive-meta, .index-field-label, .index-map-point, .index-map-hover, .index-preview-title, .index-preview-meta, .index-preview-text').forEach(function (element) {
+        document.querySelectorAll('.index-view-switch, .index-field-label, .index-map-point, .index-map-hover, .index-preview-title, .index-preview-meta, .index-preview-text').forEach(function (element) {
           const computed = window.getComputedStyle(element);
           drawExportElementText(context, element, { align: computed.textAlign });
         });
@@ -2328,14 +2375,11 @@
       function renderProjectIndex(items) {
         if (!projectIndex) return;
         const projects = groupProjects(items);
-        const archiveImageCount = projects.reduce(function (total, project) {
-          return total + project.items.length;
-        }, 0);
         projectIndex.innerHTML = '';
 
         const inner = document.createElement('div');
         const archiveBar = document.createElement('div');
-        const archiveMeta = document.createElement('button');
+        const indexViewSwitch = document.createElement('button');
         const map = document.createElement('div');
         const classicList = document.createElement('div');
         const tableHead = document.createElement('div');
@@ -2355,8 +2399,10 @@
 
         inner.className = 'project-index-inner';
         archiveBar.className = 'index-archive-bar';
-        archiveMeta.className = 'index-archive-meta';
-        archiveMeta.type = 'button';
+        indexViewSwitch.className = 'index-view-switch';
+        indexViewSwitch.type = 'button';
+        indexViewSwitch.setAttribute('aria-label', 'Switch index view');
+        indexViewSwitch.setAttribute('aria-pressed', String(document.body.classList.contains('index-list-mode')));
         map.className = 'index-map';
         classicList.className = 'index-project-list';
         tableHead.className = 'index-table-head';
@@ -2376,13 +2422,17 @@
         previewTitle.hidden = true;
         previewMeta.hidden = true;
         previewText.hidden = true;
-        archiveMeta.textContent = `Archive / ${projects.length} projects / ${archiveImageCount} images`;
         labelTop.textContent = 'Art Direction';
         labelRight.textContent = 'Brand Identity';
         labelBottom.textContent = 'Editorial';
         labelLeft.textContent = 'Image Research';
 
-        archiveBar.appendChild(archiveMeta);
+        ['Map', 'List'].forEach(function (label) {
+          const option = document.createElement('span');
+          option.textContent = label;
+          indexViewSwitch.appendChild(option);
+        });
+        archiveBar.appendChild(indexViewSwitch);
 
         ['No.', 'Project', 'Design field', 'Year', 'Files'].forEach(function (label) {
           const cell = document.createElement('span');
@@ -2391,8 +2441,9 @@
         });
         classicList.appendChild(tableHead);
 
-        archiveMeta.addEventListener('click', function () {
-          document.body.classList.toggle('index-list-mode');
+        indexViewSwitch.addEventListener('click', function () {
+          const isList = document.body.classList.toggle('index-list-mode');
+          indexViewSwitch.setAttribute('aria-pressed', String(isList));
           clearProjectPreview(inner, previewTitle, previewMeta, previewText, previewStrip);
         });
 
@@ -2462,7 +2513,7 @@
         });
 
         projectIndex.addEventListener('click', function (event) {
-          if (event.target.closest('.index-item') || event.target.closest('.index-preview') || event.target.closest('.index-archive-meta')) return;
+          if (event.target.closest('.index-item') || event.target.closest('.index-preview') || event.target.closest('.index-view-switch')) return;
           clearProjectPreview(inner, previewTitle, previewMeta, previewText, previewStrip);
         });
 
