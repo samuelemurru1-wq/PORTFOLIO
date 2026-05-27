@@ -495,6 +495,7 @@
       gap: 0 !important;
       overflow: visible !important;
       padding: 0 0 18px 0 !important;
+      text-align: center !important;
       white-space: normal !important;
     }
 
@@ -503,8 +504,8 @@
     }
 
     body.index-list-mode .project-index-inner {
-      justify-content: flex-start !important;
-      padding-top: 218px !important;
+      justify-content: center !important;
+      padding-top: 0 !important;
       transform: none !important;
     }
 
@@ -563,7 +564,7 @@
     .index-view-switch::before {
       content: "" !important;
       position: absolute !important;
-      left: 25% !important;
+      left: 20% !important;
       top: auto !important;
       bottom: 0 !important;
       width: 6px !important;
@@ -576,7 +577,7 @@
     }
 
     body.index-list-mode .index-view-switch::before {
-      left: 75% !important;
+      left: 80% !important;
     }
 
     .index-view-switch span {
@@ -1055,8 +1056,9 @@
       }
 
       body.index-list-mode .project-index-inner {
-        min-height: auto !important;
-        padding-top: 330px !important;
+        min-height: 100vh !important;
+        justify-content: center !important;
+        padding-top: 0 !important;
         transform: none !important;
       }
 
@@ -1071,7 +1073,7 @@
       body.index-list-mode .index-table-head,
       body.index-list-mode .index-row {
         grid-template-columns: auto auto !important;
-        column-gap: 6px !important;
+        column-gap: 10px !important;
       }
 
       body.index-list-mode .index-table-head span:nth-child(n+3),
@@ -2513,6 +2515,8 @@
             mapHover.textContent = '';
           });
           button.addEventListener('click', openIndexedProject);
+          row.addEventListener('mouseenter', openIndexedProject);
+          row.addEventListener('focus', openIndexedProject);
           row.addEventListener('click', openIndexedProject);
           map.appendChild(button);
           classicList.appendChild(row);
@@ -2556,10 +2560,7 @@
       }
 
       function formatProjectListName(info, project) {
-        const client = info.client || formatProjectDisplayName(project.name);
-        const title = info.project || '';
-        if (!title || title.toLowerCase() === client.toLowerCase()) return client;
-        return `${client} / ${title}`;
+        return info.client || formatProjectDisplayName(project.name);
       }
 
       function formatHomeHover(data) {
