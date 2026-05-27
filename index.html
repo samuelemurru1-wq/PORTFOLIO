@@ -159,7 +159,7 @@
       display: block !important;
     }
 
-    body.text-only-mode .draw-prompt {
+    body.drawing-active .draw-prompt {
       display: block !important;
     }
 
@@ -543,9 +543,9 @@
       grid-template-columns: 1fr 1fr !important;
       align-items: center !important;
       justify-items: center !important;
-      width: 92px !important;
-      min-width: 92px !important;
-      column-gap: 18px !important;
+      width: 76px !important;
+      min-width: 76px !important;
+      column-gap: 10px !important;
       margin: 0 !important;
       padding: 0 0 11px 0 !important;
       border: 0 !important;
@@ -564,7 +564,7 @@
     .index-view-switch::before {
       content: "" !important;
       position: absolute !important;
-      left: 20% !important;
+      left: 18px !important;
       top: auto !important;
       bottom: 0 !important;
       width: 6px !important;
@@ -577,7 +577,7 @@
     }
 
     body.index-list-mode .index-view-switch::before {
-      left: 80% !important;
+      left: 58px !important;
     }
 
     .index-view-switch span {
@@ -587,6 +587,7 @@
       padding: 0 !important;
       text-align: center !important;
       color: #000000 !important;
+      text-decoration: underline !important;
       transition: opacity 0.2s ease !important;
     }
 
@@ -641,10 +642,10 @@
 
     .index-table-head,
     .index-row {
-      display: grid !important;
-      grid-template-columns: auto auto !important;
-      column-gap: 10px !important;
+      display: inline-flex !important;
+      gap: 12px !important;
       align-items: baseline !important;
+      justify-content: center !important;
       width: auto !important;
     }
 
@@ -653,7 +654,7 @@
     }
 
     .index-row {
-      padding: 0 0 6px 0 !important;
+      padding: 0 0 10px 0 !important;
       color: #000000 !important;
     }
 
@@ -665,17 +666,16 @@
       letter-spacing: inherit !important;
       text-align: center !important;
       cursor: pointer !important;
-      justify-content: center !important;
       margin: 0 auto !important;
     }
 
     .index-row span:first-child {
-      text-align: right !important;
-      min-width: 38px !important;
+      text-align: center !important;
+      min-width: 0 !important;
     }
 
     .index-row span:nth-child(2) {
-      text-align: left !important;
+      text-align: center !important;
     }
 
     .index-row span:nth-child(n+3) {
@@ -694,6 +694,14 @@
       min-width: 0 !important;
       padding-right: 2px !important;
       margin-top: 12px !important;
+    }
+
+    body.index-list-mode .index-preview {
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 44px !important;
+      margin-top: 0 !important;
     }
 
     .index-preview-header {
@@ -1092,17 +1100,17 @@
       pointer-events: none !important;
     }
 
-    body.text-only-mode .draw-canvas,
+    body.drawing-active .draw-canvas,
     body.drawing-frozen .draw-canvas {
       display: block !important;
     }
 
-    body.text-only-mode .draw-canvas {
+    body.drawing-active .draw-canvas {
       pointer-events: auto !important;
       cursor: crosshair !important;
     }
 
-    body.drawing-frozen:not(.text-only-mode) .draw-canvas {
+    body.drawing-frozen:not(.drawing-active) .draw-canvas {
       pointer-events: none !important;
     }
 
@@ -1179,6 +1187,7 @@
       let loadedItems = [];
       let isAppendingBatch = false;
       let homeStripCloseTimer = null;
+      let indexHoverTimer = null;
       let mobileTouchStartX = 0;
       let mobileTouchStartY = 0;
       let mobileGalleryOffset = 0;
@@ -1376,7 +1385,7 @@
       }
 
       function startDrawing(event) {
-        if (!document.body.classList.contains('text-only-mode')) return;
+        if (!document.body.classList.contains('drawing-active')) return;
         if (!drawContext) return;
         event.preventDefault();
         isDrawing = true;
@@ -1389,7 +1398,7 @@
       }
 
       function moveDrawing(event) {
-        if (!isDrawing || !document.body.classList.contains('text-only-mode')) return;
+        if (!isDrawing || !document.body.classList.contains('drawing-active')) return;
         event.preventDefault();
         drawStroke(getDrawPoint(event));
       }
@@ -1409,10 +1418,10 @@
 
       function updateDrawToggleLabel() {
         if (!viewToggle) return;
-        const isTextOnly = document.body.classList.contains('text-only-mode');
-        viewToggle.textContent = isTextOnly ? 'Works' : 'Draw';
+        const isDrawingActive = document.body.classList.contains('drawing-active');
+        viewToggle.textContent = isDrawingActive ? 'Works' : 'Draw';
         if (drawWord) drawWord.textContent = drawingWord;
-        if (drawPrompt) drawPrompt.hidden = !isTextOnly;
+        if (drawPrompt) drawPrompt.hidden = !isDrawingActive;
       }
 
       function chooseDrawingWord() {
@@ -2494,6 +2503,7 @@
             row.appendChild(cell);
           });
           function openIndexedProject() {
+            window.clearTimeout(indexHoverTimer);
             document.body.classList.add('index-preview-open');
             inner.querySelectorAll('.index-item').forEach(function (item) {
               item.classList.remove('is-active');
@@ -2501,6 +2511,10 @@
             button.classList.add('is-active');
             row.classList.add('is-active');
             renderProjectPreview(project, previewTitle, previewMeta, previewText, previewStrip);
+          }
+          function scheduleIndexedProject() {
+            window.clearTimeout(indexHoverTimer);
+            indexHoverTimer = window.setTimeout(openIndexedProject, 140);
           }
           button.addEventListener('mouseenter', function () {
             mapHover.textContent = hoverText;
@@ -2515,7 +2529,10 @@
             mapHover.textContent = '';
           });
           button.addEventListener('click', openIndexedProject);
-          row.addEventListener('mouseenter', openIndexedProject);
+          row.addEventListener('mouseenter', scheduleIndexedProject);
+          row.addEventListener('mouseleave', function () {
+            window.clearTimeout(indexHoverTimer);
+          });
           row.addEventListener('focus', openIndexedProject);
           row.addEventListener('click', openIndexedProject);
           map.appendChild(button);
@@ -2726,25 +2743,17 @@
 
       if (viewToggle) {
         viewToggle.addEventListener('click', function () {
-          document.body.classList.remove('index-mode');
-          document.body.classList.remove('index-list-mode');
-          document.body.classList.remove('index-preview-open');
-          if (indexToggle) {
-            indexToggle.textContent = 'Index';
-            indexToggle.setAttribute('aria-pressed', 'false');
-          }
-          document.body.classList.toggle('text-only-mode');
-          const isTextOnly = document.body.classList.contains('text-only-mode');
-          if (isTextOnly) chooseDrawingWord();
+          document.body.classList.toggle('drawing-active');
+          const isDrawingActive = document.body.classList.contains('drawing-active');
+          if (isDrawingActive) chooseDrawingWord();
           updateDrawToggleLabel();
-          viewToggle.setAttribute('aria-pressed', String(isTextOnly));
-          if (!isTextOnly && hasDrawn) document.body.classList.add('drawing-frozen');
+          viewToggle.setAttribute('aria-pressed', String(isDrawingActive));
+          if (!isDrawingActive && hasDrawn) document.body.classList.add('drawing-frozen');
         });
       }
 
       if (indexToggle) {
         indexToggle.addEventListener('click', function () {
-          document.body.classList.remove('text-only-mode');
           document.body.classList.toggle('index-mode');
           const isIndex = document.body.classList.contains('index-mode');
           if (isIndex) {
