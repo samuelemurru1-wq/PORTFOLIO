@@ -540,61 +540,57 @@
       display: inline-grid !important;
       grid-template-columns: 1fr 1fr !important;
       align-items: center !important;
-      min-width: 116px !important;
+      justify-items: center !important;
+      width: 92px !important;
+      min-width: 92px !important;
+      column-gap: 18px !important;
       margin: 0 !important;
-      padding: 3px !important;
-      border: 1px solid #000000 !important;
-      border-radius: 999px !important;
-      background: #ffffff !important;
+      padding: 0 0 11px 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
       color: #000000 !important;
       font: inherit !important;
       font-weight: 700 !important;
       letter-spacing: inherit !important;
       line-height: 1.2 !important;
       cursor: pointer !important;
-      overflow: hidden !important;
+      overflow: visible !important;
       text-decoration: none !important;
-      box-shadow: inset 0 0 0 1px #ffffff !important;
     }
 
     .index-view-switch::before {
       content: "" !important;
       position: absolute !important;
-      left: 2px !important;
-      top: 2px !important;
-      bottom: 2px !important;
-      width: calc(50% - 2px) !important;
-      border-radius: 999px !important;
+      left: 25% !important;
+      top: auto !important;
+      bottom: 0 !important;
+      width: 6px !important;
+      height: 6px !important;
+      border-radius: 50% !important;
       background: #000000 !important;
-      transform: translateX(0) !important;
-      transition: transform 0.2s ease !important;
+      transform: translateX(-50%) !important;
+      transition: left 0.24s ease !important;
       z-index: 0 !important;
     }
 
     body.index-list-mode .index-view-switch::before {
-      transform: translateX(100%) !important;
+      left: 75% !important;
     }
 
     .index-view-switch span {
       position: relative !important;
       z-index: 1 !important;
       display: block !important;
-      padding: 3px 10px 4px 10px !important;
+      padding: 0 !important;
       text-align: center !important;
       color: #000000 !important;
-      transition: color 0.2s ease !important;
+      transition: opacity 0.2s ease !important;
     }
 
-    .index-view-switch span:first-child {
-      color: #ffffff !important;
-    }
-
-    body.index-list-mode .index-view-switch span:first-child {
-      color: #000000 !important;
-    }
-
-    body.index-list-mode .index-view-switch span:last-child {
-      color: #ffffff !important;
+    .index-view-switch:hover::before,
+    .index-view-switch:focus::before {
+      transform: translateX(-50%) scale(1.18) !important;
     }
 
     body.index-mode.index-preview-open .index-archive-bar {
@@ -641,7 +637,7 @@
     .index-row {
       display: grid !important;
       grid-template-columns: auto auto !important;
-      column-gap: 6px !important;
+      column-gap: 10px !important;
       align-items: baseline !important;
       width: auto !important;
     }
@@ -665,6 +661,15 @@
       cursor: pointer !important;
       justify-content: center !important;
       margin: 0 auto !important;
+    }
+
+    .index-row span:first-child {
+      text-align: right !important;
+      min-width: 38px !important;
+    }
+
+    .index-row span:nth-child(2) {
+      text-align: left !important;
     }
 
     .index-row span:nth-child(n+3) {
@@ -2472,7 +2477,7 @@
           row.setAttribute('aria-label', ariaText);
           [
             displayNumber,
-            formatProjectDisplayName(project.name),
+            formatProjectListName(info, project),
             placement.field || info.field,
             info.year,
             String(project.items.length).padStart(2, '0')
@@ -2543,6 +2548,13 @@
           info.year,
           `${String(project.items.length).padStart(2, '0')} files`
         ].filter(Boolean).join(' / ');
+      }
+
+      function formatProjectListName(info, project) {
+        const client = info.client || formatProjectDisplayName(project.name);
+        const title = info.project || '';
+        if (!title || title.toLowerCase() === client.toLowerCase()) return client;
+        return `${client} / ${title}`;
       }
 
       function formatHomeHover(data) {
