@@ -267,11 +267,15 @@
     }
 
     .work-item.is-larger {
-      --item-scale: 1.5;
+      --item-scale: 1.34;
+    }
+
+    .work-item.is-smaller {
+      --item-scale: 0.82;
     }
 
     .work-item.is-focus {
-      --item-scale: 1.82;
+      --item-scale: 1.62;
     }
 
     .work-item img,
@@ -486,12 +490,30 @@
     }
 
     .index-project-list {
-      display: grid !important;
+      display: none !important;
       width: 100% !important;
       gap: 0 !important;
       overflow: visible !important;
       padding: 0 0 18px 0 !important;
       white-space: normal !important;
+    }
+
+    body.index-list-mode .project-index {
+      overflow-y: auto !important;
+    }
+
+    body.index-list-mode .project-index-inner {
+      justify-content: flex-start !important;
+      padding-top: 128px !important;
+      transform: none !important;
+    }
+
+    body.index-list-mode .index-map {
+      display: none !important;
+    }
+
+    body.index-list-mode .index-project-list {
+      display: block !important;
     }
 
     .index-archive-bar {
@@ -519,6 +541,21 @@
       color: #000000 !important;
       line-height: 1.2 !important;
       background: #ffffff !important;
+    }
+
+    .index-view-toggle {
+      flex: 0 0 auto !important;
+      margin: 0 !important;
+      padding: 0 0 6px 0 !important;
+      border: 0 !important;
+      background: #ffffff !important;
+      color: #000000 !important;
+      font: inherit !important;
+      font-weight: 700 !important;
+      letter-spacing: inherit !important;
+      line-height: 1.2 !important;
+      cursor: pointer !important;
+      text-decoration: underline !important;
     }
 
     body.index-mode.index-preview-open .index-archive-bar {
@@ -580,6 +617,23 @@
     .index-row {
       padding: 0 0 7px 0 !important;
       color: #000000 !important;
+    }
+
+    .index-row {
+      border: 0 !important;
+      background: transparent !important;
+      font: inherit !important;
+      font-weight: 700 !important;
+      letter-spacing: inherit !important;
+      text-align: left !important;
+      cursor: pointer !important;
+    }
+
+    .index-row:hover,
+    .index-row:focus,
+    .index-row.is-active {
+      outline: 0 !important;
+      text-decoration: underline !important;
     }
 
     .index-preview {
@@ -903,6 +957,7 @@
 
       .work-item,
       .work-item.is-larger,
+      .work-item.is-smaller,
       .work-item.is-focus {
         --item-scale: 1 !important;
         flex: 0 0 auto !important;
@@ -941,6 +996,34 @@
       body.index-mode .work-list,
       body.text-only-mode .work-list {
         display: block !important;
+      }
+
+      body.index-list-mode .project-index {
+        overflow-y: auto !important;
+      }
+
+      body.index-list-mode .project-index-inner {
+        min-height: auto !important;
+        padding-top: 250px !important;
+        transform: none !important;
+      }
+
+      body.index-list-mode .index-archive-bar {
+        left: 20px !important;
+        right: auto !important;
+        top: 216px !important;
+        transform: none !important;
+      }
+
+      body.index-list-mode .index-table-head,
+      body.index-list-mode .index-row {
+        grid-template-columns: 44px minmax(0, 1fr) !important;
+        column-gap: 10px !important;
+      }
+
+      body.index-list-mode .index-table-head span:nth-child(n+3),
+      body.index-list-mode .index-row span:nth-child(n+3) {
+        display: none !important;
       }
     }
 
@@ -2030,8 +2113,9 @@
 
       function showWorkFromIndex(src) {
         document.body.classList.remove('index-mode');
+        document.body.classList.remove('index-list-mode');
         if (indexToggle) {
-          indexToggle.textContent = 'Home';
+          indexToggle.textContent = 'Index';
           indexToggle.setAttribute('aria-pressed', 'false');
         }
 
@@ -2261,7 +2345,10 @@
         const inner = document.createElement('div');
         const archiveBar = document.createElement('div');
         const archiveMeta = document.createElement('p');
+        const indexViewToggle = document.createElement('button');
         const map = document.createElement('div');
+        const classicList = document.createElement('div');
+        const tableHead = document.createElement('div');
         const axisX = document.createElement('div');
         const axisY = document.createElement('div');
         const labelTop = document.createElement('div');
@@ -2279,7 +2366,12 @@
         inner.className = 'project-index-inner';
         archiveBar.className = 'index-archive-bar';
         archiveMeta.className = 'index-archive-meta';
+        indexViewToggle.className = 'index-view-toggle';
+        indexViewToggle.type = 'button';
+        indexViewToggle.textContent = document.body.classList.contains('index-list-mode') ? 'Map' : 'List';
         map.className = 'index-map';
+        classicList.className = 'index-project-list';
+        tableHead.className = 'index-table-head';
         axisX.className = 'index-map-axis index-map-axis-x';
         axisY.className = 'index-map-axis index-map-axis-y';
         labelTop.className = 'index-field-label index-field-top';
@@ -2303,6 +2395,20 @@
         labelLeft.textContent = 'Image Research';
 
         archiveBar.appendChild(archiveMeta);
+        archiveBar.appendChild(indexViewToggle);
+
+        ['No.', 'Project', 'Design field', 'Year', 'Files'].forEach(function (label) {
+          const cell = document.createElement('span');
+          cell.textContent = label;
+          tableHead.appendChild(cell);
+        });
+        classicList.appendChild(tableHead);
+
+        indexViewToggle.addEventListener('click', function () {
+          const isList = document.body.classList.toggle('index-list-mode');
+          indexViewToggle.textContent = isList ? 'Map' : 'List';
+          clearProjectPreview(inner, previewTitle, previewMeta, previewText, previewStrip);
+        });
 
         map.appendChild(axisX);
         map.appendChild(axisY);
@@ -2314,17 +2420,43 @@
 
         projects.forEach(function (project, index) {
           const button = document.createElement('button');
+          const row = document.createElement('button');
           const info = getProjectInfo(project);
           const placement = getProjectPlacement(project, index);
+          const displayNumber = `[${String(index + 1).padStart(2, '0')}]`;
           button.className = 'index-map-point index-item';
           button.type = 'button';
           button.style.left = placement.x + '%';
           button.style.top = placement.y + '%';
           button.classList.toggle('has-text', Boolean(project.text));
-          button.textContent = `[${String(index + 1).padStart(2, '0')}]`;
+          button.textContent = displayNumber;
           const hoverText = formatProjectDisplayName(project.name);
           const ariaText = formatProjectHover(info, project, placement);
           button.setAttribute('aria-label', ariaText);
+          row.className = 'index-row index-item';
+          row.type = 'button';
+          row.classList.toggle('has-text', Boolean(project.text));
+          row.setAttribute('aria-label', ariaText);
+          [
+            displayNumber,
+            formatProjectDisplayName(project.name),
+            placement.field || info.field,
+            info.year,
+            String(project.items.length).padStart(2, '0')
+          ].forEach(function (value) {
+            const cell = document.createElement('span');
+            cell.textContent = value;
+            row.appendChild(cell);
+          });
+          function openIndexedProject() {
+            document.body.classList.add('index-preview-open');
+            inner.querySelectorAll('.index-item').forEach(function (item) {
+              item.classList.remove('is-active');
+            });
+            button.classList.add('is-active');
+            row.classList.add('is-active');
+            renderProjectPreview(project, previewTitle, previewMeta, previewText, previewStrip);
+          }
           button.addEventListener('mouseenter', function () {
             mapHover.textContent = hoverText;
           });
@@ -2337,20 +2469,15 @@
           button.addEventListener('blur', function () {
             mapHover.textContent = '';
           });
-          button.addEventListener('click', function () {
-            document.body.classList.add('index-preview-open');
-            map.querySelectorAll('.index-map-point').forEach(function (item) {
-              item.classList.remove('is-active');
-            });
-            button.classList.add('is-active');
-            renderProjectPreview(project, previewTitle, previewMeta, previewText, previewStrip);
-          });
+          button.addEventListener('click', openIndexedProject);
+          row.addEventListener('click', openIndexedProject);
           map.appendChild(button);
+          classicList.appendChild(row);
         });
 
         projectIndex.addEventListener('click', function (event) {
-          if (event.target.closest('.index-map-point') || event.target.closest('.index-preview')) return;
-          clearProjectPreview(map, previewTitle, previewMeta, previewText, previewStrip);
+          if (event.target.closest('.index-item') || event.target.closest('.index-preview') || event.target.closest('.index-view-toggle')) return;
+          clearProjectPreview(inner, previewTitle, previewMeta, previewText, previewStrip);
         });
 
         previewHeader.appendChild(previewTitle);
@@ -2360,6 +2487,7 @@
         preview.appendChild(previewStrip);
         inner.appendChild(archiveBar);
         inner.appendChild(map);
+        inner.appendChild(classicList);
         inner.appendChild(preview);
         projectIndex.appendChild(inner);
       }
@@ -2421,8 +2549,10 @@
           item.dataset.caption = formatHomeCaption(data, displayIndex);
           if (options.focusSrc === data.src) {
             item.classList.add('is-focus');
-          } else if (Math.random() < 0.28) {
+          } else if (displayIndex % 7 === 0 || displayIndex % 11 === 0) {
             item.classList.add('is-larger');
+          } else if (displayIndex % 5 === 0 || displayIndex % 9 === 0) {
+            item.classList.add('is-smaller');
           }
           media.addEventListener('error', function () {
             item.remove();
@@ -2546,9 +2676,10 @@
       if (viewToggle) {
         viewToggle.addEventListener('click', function () {
           document.body.classList.remove('index-mode');
+          document.body.classList.remove('index-list-mode');
           document.body.classList.remove('index-preview-open');
           if (indexToggle) {
-            indexToggle.textContent = 'Home';
+            indexToggle.textContent = 'Index';
             indexToggle.setAttribute('aria-pressed', 'false');
           }
           document.body.classList.toggle('text-only-mode');
@@ -2573,13 +2704,14 @@
             if (hasDrawn) document.body.classList.add('drawing-frozen');
           } else {
             document.body.classList.remove('index-preview-open');
+            document.body.classList.remove('index-list-mode');
             if (viewToggle) {
               updateDrawToggleLabel();
               viewToggle.setAttribute('aria-pressed', 'false');
             }
             if (hasDrawn) document.body.classList.add('drawing-frozen');
           }
-          indexToggle.textContent = isIndex ? 'Works' : 'Home';
+          indexToggle.textContent = isIndex ? 'Works' : 'Index';
           indexToggle.setAttribute('aria-pressed', String(isIndex));
         });
       }
