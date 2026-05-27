@@ -516,14 +516,14 @@
     body.index-list-mode .index-project-list {
       position: fixed !important;
       left: 50% !important;
-      top: 58px !important;
+      top: 50% !important;
       z-index: 4 !important;
       display: flex !important;
       width: auto !important;
       flex-direction: column !important;
       align-items: center !important;
       justify-content: flex-start !important;
-      transform: translateX(-50%) !important;
+      transform: translate(-50%, -50%) !important;
     }
 
     .index-archive-bar {
@@ -744,11 +744,8 @@
 
     .index-preview-title.has-text::after,
     .index-item.has-text::after {
-      content: "●" !important;
-      position: absolute !important;
-      right: 0 !important;
-      top: 0 !important;
-      color: #00b050 !important;
+      content: none !important;
+      display: none !important;
     }
 
     .index-preview-text {
@@ -1912,7 +1909,7 @@
         },
         'IMAGE RESEARCH': {
           client: 'Samuele Murru',
-          project: 'Image research',
+          project: 'Poster',
           field: 'Image Research',
           category: 'art-direction',
           year: '2025'
@@ -1974,7 +1971,7 @@
           year: '2024'
         },
         'ZYRTCK MERCH': {
-          client: 'ZYRTCK',
+          client: 'Zyrtck',
           project: 'Merch',
           field: 'Brand identity',
           category: 'brand-identity',
@@ -2575,6 +2572,7 @@
       }
 
       function formatProjectListName(info, project) {
+        if (project.name === 'IMAGE RESEARCH') return 'Poster';
         return info.client || formatProjectDisplayName(project.name);
       }
 
