@@ -970,7 +970,7 @@
 
   </style>
 </head>
-<body>
+<body class="index-mode">
   <canvas id="draw-canvas" class="draw-canvas" aria-hidden="true"></canvas>
 
   <header class="site-header fixed-info">
@@ -985,7 +985,7 @@
         <a href="https://www.instagram.com/samuelemurru3/" target="_blank" class="contact-link">Instagram</a> | <a href="mailto:samuelemurru1@gmail.com" class="contact-link">Mail</a>
       </p>
       <div class="nav-controls">
-        <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
+        <button id="index-toggle" class="view-toggle" type="button" aria-pressed="true">Works</button>
         <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw</button>
         <p id="draw-prompt" class="draw-prompt" hidden>
           <span>draw a: <strong id="draw-word">umbrella</strong></span>
@@ -2031,7 +2031,7 @@
       function showWorkFromIndex(src) {
         document.body.classList.remove('index-mode');
         if (indexToggle) {
-          indexToggle.textContent = 'Index';
+          indexToggle.textContent = 'Home';
           indexToggle.setAttribute('aria-pressed', 'false');
         }
 
@@ -2545,6 +2545,12 @@
 
       if (viewToggle) {
         viewToggle.addEventListener('click', function () {
+          document.body.classList.remove('index-mode');
+          document.body.classList.remove('index-preview-open');
+          if (indexToggle) {
+            indexToggle.textContent = 'Home';
+            indexToggle.setAttribute('aria-pressed', 'false');
+          }
           document.body.classList.toggle('text-only-mode');
           const isTextOnly = document.body.classList.contains('text-only-mode');
           if (isTextOnly) chooseDrawingWord();
@@ -2556,10 +2562,10 @@
 
       if (indexToggle) {
         indexToggle.addEventListener('click', function () {
+          document.body.classList.remove('text-only-mode');
           document.body.classList.toggle('index-mode');
           const isIndex = document.body.classList.contains('index-mode');
           if (isIndex) {
-            document.body.classList.remove('text-only-mode');
             if (viewToggle) {
               updateDrawToggleLabel();
               viewToggle.setAttribute('aria-pressed', 'false');
@@ -2567,14 +2573,13 @@
             if (hasDrawn) document.body.classList.add('drawing-frozen');
           } else {
             document.body.classList.remove('index-preview-open');
-            document.body.classList.remove('text-only-mode');
             if (viewToggle) {
               updateDrawToggleLabel();
               viewToggle.setAttribute('aria-pressed', 'false');
             }
             if (hasDrawn) document.body.classList.add('drawing-frozen');
           }
-          indexToggle.textContent = isIndex ? 'Home' : 'Index';
+          indexToggle.textContent = isIndex ? 'Works' : 'Home';
           indexToggle.setAttribute('aria-pressed', String(isIndex));
         });
       }
