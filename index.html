@@ -514,7 +514,16 @@
     }
 
     body.index-list-mode .index-project-list {
-      display: block !important;
+      position: fixed !important;
+      left: 50% !important;
+      top: 58px !important;
+      z-index: 4 !important;
+      display: flex !important;
+      width: auto !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      transform: translateX(-50%) !important;
     }
 
     .index-archive-bar {
@@ -1080,8 +1089,7 @@
 
       body.index-list-mode .index-table-head,
       body.index-list-mode .index-row {
-        grid-template-columns: auto auto !important;
-        column-gap: 10px !important;
+        gap: 10px !important;
       }
 
       body.index-list-mode .index-table-head span:nth-child(n+3),
@@ -1187,7 +1195,6 @@
       let loadedItems = [];
       let isAppendingBatch = false;
       let homeStripCloseTimer = null;
-      let indexHoverTimer = null;
       let mobileTouchStartX = 0;
       let mobileTouchStartY = 0;
       let mobileGalleryOffset = 0;
@@ -2503,7 +2510,6 @@
             row.appendChild(cell);
           });
           function openIndexedProject() {
-            window.clearTimeout(indexHoverTimer);
             document.body.classList.add('index-preview-open');
             inner.querySelectorAll('.index-item').forEach(function (item) {
               item.classList.remove('is-active');
@@ -2511,10 +2517,6 @@
             button.classList.add('is-active');
             row.classList.add('is-active');
             renderProjectPreview(project, previewTitle, previewMeta, previewText, previewStrip);
-          }
-          function scheduleIndexedProject() {
-            window.clearTimeout(indexHoverTimer);
-            indexHoverTimer = window.setTimeout(openIndexedProject, 140);
           }
           button.addEventListener('mouseenter', function () {
             mapHover.textContent = hoverText;
@@ -2529,10 +2531,6 @@
             mapHover.textContent = '';
           });
           button.addEventListener('click', openIndexedProject);
-          row.addEventListener('mouseenter', scheduleIndexedProject);
-          row.addEventListener('mouseleave', function () {
-            window.clearTimeout(indexHoverTimer);
-          });
           row.addEventListener('focus', openIndexedProject);
           row.addEventListener('click', openIndexedProject);
           map.appendChild(button);
