@@ -538,15 +538,6 @@
       flex: 0 0 auto !important;
       margin: 0 !important;
       padding: 0 0 6px 0 !important;
-      color: #000000 !important;
-      line-height: 1.2 !important;
-      background: #ffffff !important;
-    }
-
-    .index-view-toggle {
-      flex: 0 0 auto !important;
-      margin: 0 !important;
-      padding: 0 0 6px 0 !important;
       border: 0 !important;
       background: #ffffff !important;
       color: #000000 !important;
@@ -2344,8 +2335,7 @@
 
         const inner = document.createElement('div');
         const archiveBar = document.createElement('div');
-        const archiveMeta = document.createElement('p');
-        const indexViewToggle = document.createElement('button');
+        const archiveMeta = document.createElement('button');
         const map = document.createElement('div');
         const classicList = document.createElement('div');
         const tableHead = document.createElement('div');
@@ -2366,9 +2356,7 @@
         inner.className = 'project-index-inner';
         archiveBar.className = 'index-archive-bar';
         archiveMeta.className = 'index-archive-meta';
-        indexViewToggle.className = 'index-view-toggle';
-        indexViewToggle.type = 'button';
-        indexViewToggle.textContent = document.body.classList.contains('index-list-mode') ? 'Map' : 'List';
+        archiveMeta.type = 'button';
         map.className = 'index-map';
         classicList.className = 'index-project-list';
         tableHead.className = 'index-table-head';
@@ -2395,7 +2383,6 @@
         labelLeft.textContent = 'Image Research';
 
         archiveBar.appendChild(archiveMeta);
-        archiveBar.appendChild(indexViewToggle);
 
         ['No.', 'Project', 'Design field', 'Year', 'Files'].forEach(function (label) {
           const cell = document.createElement('span');
@@ -2404,9 +2391,8 @@
         });
         classicList.appendChild(tableHead);
 
-        indexViewToggle.addEventListener('click', function () {
-          const isList = document.body.classList.toggle('index-list-mode');
-          indexViewToggle.textContent = isList ? 'Map' : 'List';
+        archiveMeta.addEventListener('click', function () {
+          document.body.classList.toggle('index-list-mode');
           clearProjectPreview(inner, previewTitle, previewMeta, previewText, previewStrip);
         });
 
@@ -2476,7 +2462,7 @@
         });
 
         projectIndex.addEventListener('click', function (event) {
-          if (event.target.closest('.index-item') || event.target.closest('.index-preview') || event.target.closest('.index-view-toggle')) return;
+          if (event.target.closest('.index-item') || event.target.closest('.index-preview') || event.target.closest('.index-archive-meta')) return;
           clearProjectPreview(inner, previewTitle, previewMeta, previewText, previewStrip);
         });
 
