@@ -101,6 +101,12 @@
       left: 12px !important;
       top: auto !important;
       text-align: left !important;
+      line-height: 1.08 !important;
+    }
+
+    .corner-bottom-left .mobile-footer-left,
+    .corner-bottom-left .mobile-footer-right {
+      display: block !important;
     }
 
     .corner-bottom-right {
@@ -514,6 +520,10 @@
       background: #ffffff !important;
     }
 
+    body.index-mode.index-preview-open .index-archive-bar {
+      display: none !important;
+    }
+
     .index-archive-filters {
       display: flex !important;
       flex-wrap: wrap !important;
@@ -843,9 +853,7 @@
       }
 
       .corner-bottom-left {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: flex-end !important;
+        display: block !important;
         left: 10px !important;
         right: 10px !important;
         bottom: 10px !important;
@@ -859,7 +867,7 @@
       }
 
       .corner-bottom-left .mobile-footer-right {
-        text-align: right !important;
+        text-align: left !important;
       }
 
       .work-list {
