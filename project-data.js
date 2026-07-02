@@ -1160,7 +1160,7 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
-    "src": "assets/images/TATO/POST .JPG",
+    "src": "assets/images/TATO/POST 1.JPG",
     "project": "TATO",
     "photoNumber": "1",
     "title": "TATO / project 001",
@@ -1275,6 +1275,32 @@ window.PORTFOLIO_IMAGES = [
     "colorScores": {
       "black": 0.2063,
       "neutral": 0.7937
+    }
+  },
+  {
+    "src": "assets/images/TATO/tato-video-desktop.mp4",
+    "project": "TATO",
+    "photoNumber": "",
+    "title": "TATO / sito desktop",
+    "description": "TATO",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
+    "src": "assets/images/TATO/tato-video-mobile.mp4",
+    "project": "TATO",
+    "photoNumber": "",
+    "title": "TATO / sito mobile",
+    "description": "TATO",
+    "projectText": "",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
     }
   },
   {
