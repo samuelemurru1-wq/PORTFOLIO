@@ -1134,6 +1134,19 @@ window.PORTFOLIO_IMAGES = [
     }
   },
   {
+    "src": "assets/images/TATO/tato-video.mp4",
+    "project": "TATO",
+    "photoNumber": "",
+    "title": "TATO / sito",
+    "description": "TATO",
+    "projectText": "TATO is an independent fashion label based in Rome, founded with the intention of building a strong visual language around a minimal and precise aesthetic. The brand operates through seasonal drops, combining garment design with a coherent communication system across digital and print.\n\nThe work on TATO focused on developing the brand's digital presence — from the overall identity system to the website design and art direction of the collection imagery. The site was conceived as an extension of the garments themselves: a clean, editorial environment that lets the clothes speak without distraction. Typography, spacing, and motion were treated with the same rigor applied to the product, building a digital experience that feels considered and intentional.\n\n<a href=\"https://tatorm.com\" target=\"_blank\">tatorm.com</a>",
+    "dominantColor": "#ffffff",
+    "colorCategory": "white",
+    "colorScores": {
+      "white": 1
+    }
+  },
+  {
     "src": "assets/images/TATO/logo tato.svg",
     "project": "TATO",
     "photoNumber": "1",
@@ -1275,32 +1288,6 @@ window.PORTFOLIO_IMAGES = [
     "colorScores": {
       "black": 0.2063,
       "neutral": 0.7937
-    }
-  },
-  {
-    "src": "assets/images/TATO/tato-video-desktop.mp4",
-    "project": "TATO",
-    "photoNumber": "",
-    "title": "TATO / sito desktop",
-    "description": "TATO",
-    "projectText": "",
-    "dominantColor": "#ffffff",
-    "colorCategory": "white",
-    "colorScores": {
-      "white": 1
-    }
-  },
-  {
-    "src": "assets/images/TATO/tato-video-mobile.mp4",
-    "project": "TATO",
-    "photoNumber": "",
-    "title": "TATO / sito mobile",
-    "description": "TATO",
-    "projectText": "",
-    "dominantColor": "#ffffff",
-    "colorCategory": "white",
-    "colorScores": {
-      "white": 1
     }
   },
   {
