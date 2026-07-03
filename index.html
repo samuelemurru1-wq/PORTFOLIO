@@ -1363,7 +1363,30 @@
       pointer-events: none !important;
     }
 
+
+    /* Dark mode */
+    html.dark body { background: #111111 !important; color: #ffffff !important; }
+    html.dark main { background: #111111 !important; }
+    html.dark .work-list { background: #111111 !important; }
+    html.dark .project-index { background: #111111 !important; color: #ffffff !important; }
+    html.dark .work-item::after { color: #ffffff !important; }
+    html.dark .index-map-axis { background: #ffffff !important; }
+    html.dark .index-field-label { color: #ffffff !important; }
+    html.dark .index-map-hover { color: #ffffff !important; }
+    html.dark .index-map-point { color: #ffffff !important; }
+    html.dark .index-view-switch { color: #ffffff !important; }
+    html.dark .index-view-switch span { color: #ffffff !important; }
+    html.dark .index-view-switch::before { background: #ffffff !important; }
+    html.dark .index-item { color: #ffffff !important; }
+    html.dark .index-map .index-item { color: #ffffff !important; }
+    html.dark .index-row { color: #ffffff !important; }
+    html.dark .index-preview-title,
+    html.dark .index-preview-meta,
+    html.dark .index-preview-text,
+    html.dark .index-preview-text a { color: #ffffff !important; }
+
   </style>
+  <script>(function(){var t=localStorage.getItem('samuele-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark');})()</script>
 </head>
 <body>
   <canvas id="draw-canvas" class="draw-canvas" aria-hidden="true"></canvas>
@@ -1381,6 +1404,7 @@
       <div class="nav-controls">
         <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
         <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw</button>
+        <button id="dark-toggle" class="view-toggle" type="button" aria-pressed="false">Dark</button>
         <p id="draw-prompt" class="draw-prompt" hidden>
           <span>draw a: <strong id="draw-word">umbrella</strong></span>
         </p>
@@ -1600,7 +1624,7 @@
         drawContext.lineCap = 'round';
         drawContext.lineJoin = 'round';
         drawContext.lineWidth = 2;
-        drawContext.strokeStyle = '#000000';
+        drawContext.strokeStyle = document.documentElement.classList.contains('dark') ? '#ffffff' : '#000000';
       }
 
       function clearDrawCanvas() {
@@ -1619,7 +1643,7 @@
         if (!drawContext) return;
         drawContext.beginPath();
         drawContext.arc(point.x, point.y, 2.2, 0, Math.PI * 2);
-        drawContext.fillStyle = '#000000';
+        drawContext.fillStyle = document.documentElement.classList.contains('dark') ? '#ffffff' : '#000000';
         drawContext.fill();
       }
 
@@ -3125,6 +3149,17 @@
 
       renderImages(fallbackItems);
       loadAllImages().then(renderImages);
+
+      const darkToggle = document.getElementById('dark-toggle');
+      if (darkToggle) {
+        const isDark = () => document.documentElement.classList.contains('dark');
+        darkToggle.textContent = isDark() ? 'Light' : 'Dark';
+        darkToggle.addEventListener('click', function () {
+          const nowDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem('samuele-theme', nowDark ? 'dark' : 'light');
+          darkToggle.textContent = nowDark ? 'Light' : 'Dark';
+        });
+      }
     });
   </script>
 </body>
