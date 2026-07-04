@@ -1379,8 +1379,14 @@
       width: 34px !important;
       height: 18px !important;
       background: #ffffff !important;
+      border: 1.5px solid #000000 !important;
       border-radius: 9px !important;
       transition: none !important;
+      box-sizing: border-box !important;
+    }
+    html.dark .dark-switch-track {
+      background: #000000 !important;
+      border-color: #ffffff !important;
     }
     .dark-switch-track::before {
       content: '' !important;
@@ -1393,7 +1399,7 @@
       border-radius: 50% !important;
       transition: transform 0.2s !important;
     }
-    html.dark .dark-switch-track::before { transform: translateX(16px) !important; }
+    html.dark .dark-switch-track::before { transform: translateX(16px) !important; background: #ffffff !important; }
 
     /* Dark mode */
     html.dark { background-color: #000000 !important; }
