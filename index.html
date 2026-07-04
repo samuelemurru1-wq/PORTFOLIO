@@ -1365,29 +1365,22 @@
 
 
     /* Dark mode toggle switch */
-    .dark-switch-wrap {
-      position: fixed !important;
-      top: 175px !important;
-      left: 12px !important;
-      z-index: 10000 !important;
-      pointer-events: auto !important;
-    }
     .dark-switch {
-      display: flex !important;
-      align-items: center !important;
-      gap: 8px !important;
+      display: block !important;
+      margin: 0 0 6px 0 !important;
       cursor: pointer !important;
       user-select: none !important;
+      pointer-events: auto !important;
     }
     .dark-switch input { position: absolute !important; opacity: 0 !important; width: 0 !important; height: 0 !important; }
     .dark-switch-track {
       position: relative !important;
+      display: inline-block !important;
       width: 34px !important;
       height: 18px !important;
-      background: #000000 !important;
+      background: #ffffff !important;
       border-radius: 9px !important;
-      flex-shrink: 0 !important;
-      transition: background 0.2s !important;
+      transition: none !important;
     }
     .dark-switch-track::before {
       content: '' !important;
@@ -1396,13 +1389,11 @@
       height: 12px !important;
       left: 3px !important;
       top: 3px !important;
-      background: #ffffff !important;
+      background: #000000 !important;
       border-radius: 50% !important;
       transition: transform 0.2s !important;
     }
-    html.dark .dark-switch-track { background: #ffffff !important; }
-    html.dark .dark-switch-track::before { background: #000000 !important; transform: translateX(16px) !important; }
-    @media (max-width: 700px) { .dark-switch-wrap { display: none !important; } }
+    html.dark .dark-switch-track::before { transform: translateX(16px) !important; }
 
     /* Dark mode */
     html.dark { background-color: #000000 !important; }
@@ -1436,13 +1427,6 @@
 <body>
   <canvas id="draw-canvas" class="draw-canvas" aria-hidden="true"></canvas>
 
-  <div class="dark-switch-wrap">
-    <label class="dark-switch" title="Dark mode">
-      <input type="checkbox" id="dark-toggle">
-      <span class="dark-switch-track"></span>
-    </label>
-  </div>
-
   <header class="site-header fixed-info">
     <div class="corner corner-top-left">
       <p>
@@ -1456,6 +1440,10 @@
       <div class="nav-controls">
         <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
         <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw</button>
+        <label class="dark-switch" title="Dark mode">
+          <input type="checkbox" id="dark-toggle">
+          <span class="dark-switch-track"></span>
+        </label>
         <p id="draw-prompt" class="draw-prompt" hidden>
           <span>draw a: <strong id="draw-word">umbrella</strong></span>
         </p>
