@@ -1427,6 +1427,13 @@
 <body>
   <canvas id="draw-canvas" class="draw-canvas" aria-hidden="true"></canvas>
 
+  <div class="dark-switch-wrap" style="position:fixed;z-index:10000;pointer-events:auto;">
+    <label class="dark-switch" title="Dark mode">
+      <input type="checkbox" id="dark-toggle">
+      <span class="dark-switch-track"></span>
+    </label>
+  </div>
+
   <header class="site-header fixed-info">
     <div class="corner corner-top-left">
       <p>
@@ -1440,10 +1447,6 @@
       <div class="nav-controls">
         <button id="index-toggle" class="view-toggle" type="button" aria-pressed="false">Index</button>
         <button id="view-toggle" class="view-toggle" type="button" aria-pressed="false">Draw</button>
-        <label class="dark-switch" title="Dark mode">
-          <input type="checkbox" id="dark-toggle">
-          <span class="dark-switch-track"></span>
-        </label>
         <p id="draw-prompt" class="draw-prompt" hidden>
           <span>draw a: <strong id="draw-word">umbrella</strong></span>
         </p>
@@ -3190,6 +3193,15 @@
       loadAllImages().then(renderImages);
 
       const darkToggle = document.getElementById('dark-toggle');
+      const darkSwitchWrap = document.querySelector('.dark-switch-wrap');
+      function positionDarkSwitch() {
+        if (!darkSwitchWrap || !viewToggle) return;
+        const r = viewToggle.getBoundingClientRect();
+        darkSwitchWrap.style.top = (r.bottom + 6) + 'px';
+        darkSwitchWrap.style.left = r.left + 'px';
+      }
+      positionDarkSwitch();
+      window.addEventListener('resize', positionDarkSwitch);
       if (darkToggle) {
         darkToggle.checked = document.documentElement.classList.contains('dark');
         darkToggle.addEventListener('change', function () {
