@@ -2699,14 +2699,14 @@
             indexViewSwitch.classList.add('is-back');
             indexViewSwitch.setAttribute('aria-label', 'Back to index');
             indexViewSwitch.setAttribute('aria-pressed', 'false');
-            indexViewSwitch.textContent = '← Back';
+            indexViewSwitch.textContent = 'Back';
             return;
           }
           indexViewSwitch.classList.remove('is-back');
           indexViewSwitch.setAttribute('aria-label', 'Switch index view');
           const isList = document.body.classList.contains('index-list-mode');
           indexViewSwitch.setAttribute('aria-pressed', String(isList));
-          indexViewSwitch.textContent = isList ? '→ Map' : '→ List';
+          indexViewSwitch.textContent = isList ? 'Map' : 'List';
         }
 
         updateIndexViewSwitch();
