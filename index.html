@@ -1364,40 +1364,21 @@
     }
 
 
-    /* Dark mode toggle switch */
+    /* Dark mode toggle text */
     .dark-switch-wrap {
       display: block !important;
       margin-top: 8px !important;
       pointer-events: auto !important;
     }
-    .dark-switch {
-      display: block !important;
+    #dark-toggle-btn {
+      background: none !important;
+      border: none !important;
+      padding: 0 !important;
       cursor: pointer !important;
+      font: inherit !important;
+      color: inherit !important;
       user-select: none !important;
-      pointer-events: auto !important;
     }
-    .dark-switch input { position: absolute !important; opacity: 0 !important; width: 0 !important; height: 0 !important; }
-    .dark-switch-track {
-      position: relative !important;
-      display: inline-block !important;
-      width: 34px !important;
-      height: 18px !important;
-      background: #ffffff !important;
-      border-radius: 9px !important;
-      transition: none !important;
-    }
-    .dark-switch-track::before {
-      content: '' !important;
-      position: absolute !important;
-      width: 12px !important;
-      height: 12px !important;
-      left: 3px !important;
-      top: 3px !important;
-      background: #000000 !important;
-      border-radius: 50% !important;
-      transition: transform 0.2s !important;
-    }
-    html.dark .dark-switch-track::before { transform: translateX(16px) !important; }
 
     /* Dark mode */
     html.dark { background-color: #000000 !important; }
@@ -1453,10 +1434,7 @@
     <div class="corner corner-top-right">
       <span id="viewport-size">0x0</span> ,&nbsp; X: <span id="mouse-x">0px</span>, Y: <span id="mouse-y">0px</span>
       <div class="dark-switch-wrap">
-        <label class="dark-switch" title="Dark mode">
-          <input type="checkbox" id="dark-toggle">
-          <span class="dark-switch-track"></span>
-        </label>
+        <button id="dark-toggle-btn" title="Dark mode"></button>
       </div>
     </div>
 
@@ -3195,13 +3173,17 @@
       renderImages(fallbackItems);
       loadAllImages().then(renderImages);
 
-      const darkToggle = document.getElementById('dark-toggle');
-      if (darkToggle) {
-        darkToggle.checked = document.documentElement.classList.contains('dark');
-        darkToggle.addEventListener('change', function () {
-          const nowDark = this.checked;
+      const darkToggleBtn = document.getElementById('dark-toggle-btn');
+      if (darkToggleBtn) {
+        const updateLabel = () => {
+          darkToggleBtn.textContent = document.documentElement.classList.contains('dark') ? 'Light' : 'Dark';
+        };
+        updateLabel();
+        darkToggleBtn.addEventListener('click', function () {
+          const nowDark = !document.documentElement.classList.contains('dark');
           document.documentElement.classList.toggle('dark', nowDark);
           localStorage.setItem('samuele-theme', nowDark ? 'dark' : 'light');
+          updateLabel();
         });
       }
     });
