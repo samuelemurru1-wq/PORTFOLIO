@@ -573,19 +573,11 @@
     }
 
     .index-view-switch {
-      position: relative !important;
       flex: 0 0 auto !important;
-      display: inline-grid !important;
-      grid-template-columns: 1fr 1fr !important;
-      align-items: center !important;
-      justify-items: center !important;
-      width: 76px !important;
-      min-width: 76px !important;
-      column-gap: 10px !important;
+      display: inline-block !important;
       margin: 0 !important;
-      padding: 0 0 11px 0 !important;
+      padding: 0 !important;
       border: 0 !important;
-      border-radius: 0 !important;
       background: transparent !important;
       color: #000000 !important;
       font: inherit !important;
@@ -593,55 +585,11 @@
       letter-spacing: inherit !important;
       line-height: 1.2 !important;
       cursor: pointer !important;
-      overflow: visible !important;
-      text-decoration: none !important;
-    }
-
-    .index-view-switch::before {
-      content: "" !important;
-      position: absolute !important;
-      left: 18px !important;
-      top: auto !important;
-      bottom: 0 !important;
-      width: 6px !important;
-      height: 6px !important;
-      border-radius: 50% !important;
-      background: #000000 !important;
-      transform: translateX(-50%) !important;
-      transition: left 0.24s ease !important;
-      z-index: 0 !important;
-    }
-
-    body.index-list-mode .index-view-switch::before {
-      left: 58px !important;
+      text-decoration: underline !important;
     }
 
     .index-view-switch span {
-      position: relative !important;
-      z-index: 1 !important;
-      display: block !important;
-      padding: 0 !important;
-      text-align: center !important;
       color: #000000 !important;
-      text-decoration: underline !important;
-      transition: opacity 0.2s ease !important;
-    }
-
-    .index-view-switch:hover::before,
-    .index-view-switch:focus::before {
-      transform: translateX(-50%) !important;
-    }
-
-    .index-view-switch.is-back {
-      display: block !important;
-      width: auto !important;
-      min-width: 0 !important;
-      padding-bottom: 0 !important;
-      text-align: center !important;
-    }
-
-    .index-view-switch.is-back::before {
-      display: none !important;
     }
 
     body.index-list-mode .index-archive-bar {
@@ -1394,8 +1342,6 @@
     html.dark .index-map-hover { color: #ffffff !important; }
     html.dark .index-map-point { color: #ffffff !important; }
     html.dark .index-view-switch { color: #ffffff !important; }
-    html.dark .index-view-switch span { color: #ffffff !important; }
-    html.dark .index-view-switch::before { background: #ffffff !important; }
     html.dark .index-item { color: #ffffff !important; }
     html.dark .index-map .index-item { color: #ffffff !important; }
     html.dark .index-row { color: #ffffff !important; }
@@ -1403,9 +1349,7 @@
     html.dark .index-preview-meta,
     html.dark .index-preview-text,
     html.dark .index-preview-text a { color: #ffffff !important; }
-    html.dark body.index-hover-preview-open .index-view-switch,
-    html.dark body.index-hover-preview-open .index-view-switch span { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
-    html.dark body.index-hover-preview-open .index-view-switch::before { background: #ffffff !important; }
+    html.dark body.index-hover-preview-open .index-view-switch { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
 
   </style>
   <script>(function(){var t=localStorage.getItem('samuele-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark');})()</script>
@@ -2752,22 +2696,17 @@
         function updateIndexViewSwitch() {
           indexViewSwitch.innerHTML = '';
           if (document.body.classList.contains('index-preview-open')) {
-            const backLabel = document.createElement('span');
-            backLabel.textContent = 'Back';
             indexViewSwitch.classList.add('is-back');
             indexViewSwitch.setAttribute('aria-label', 'Back to index');
             indexViewSwitch.setAttribute('aria-pressed', 'false');
-            indexViewSwitch.appendChild(backLabel);
+            indexViewSwitch.textContent = '← Back';
             return;
           }
           indexViewSwitch.classList.remove('is-back');
           indexViewSwitch.setAttribute('aria-label', 'Switch index view');
-          indexViewSwitch.setAttribute('aria-pressed', String(document.body.classList.contains('index-list-mode')));
-          ['Map', 'List'].forEach(function (label) {
-            const option = document.createElement('span');
-            option.textContent = label;
-            indexViewSwitch.appendChild(option);
-          });
+          const isList = document.body.classList.contains('index-list-mode');
+          indexViewSwitch.setAttribute('aria-pressed', String(isList));
+          indexViewSwitch.textContent = isList ? '→ Map' : '→ List';
         }
 
         updateIndexViewSwitch();
