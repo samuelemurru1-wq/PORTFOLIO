@@ -604,6 +604,7 @@ body:has(.info-panel.open) #site-footer {
   opacity: 1;
 }
 .project-thumbs-inner { display: flex; gap: 2px; }
+.project-thumb-row { display: flex; gap: 2px; flex-shrink: 0; }
 
 .project-thumb {
   flex-shrink: 0;
@@ -738,15 +739,27 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
     display: none;
   }
 
-  /* Testo del progetto: larghezza ridotta su mobile */
-  .project-text-wrap {
-    width: 160px;
+  /* Mobile: layout colonna — testo sopra full-width, foto sotto in strip */
+  .project-thumbs-inner {
+    flex-direction: column;
   }
-
-  /* Foto attive: stessa altezza del text-wrap (400px base) → nessuno spazio vuoto */
+  .project-item.active .project-text-wrap {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
+  }
+  .project-item.active .project-thumbs {
+    max-height: none;
+  }
+  .project-thumb-row {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .project-thumb-row::-webkit-scrollbar { display: none; }
   .project-item.active .project-thumb {
-    height: 400px;
-    max-height: 50vh;
+    height: 220px;
+    max-height: 35vh;
   }
 
   /* Info panel: colonne impilate */

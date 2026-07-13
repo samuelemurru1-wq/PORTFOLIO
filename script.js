@@ -923,12 +923,16 @@ function buildList() {
     }
     thumbsInner.appendChild(textWrap);
 
+    // Media in separate row — on mobile this becomes a horizontal strip below the text
+    const thumbsRow = document.createElement('div');
+    thumbsRow.className = 'project-thumb-row';
+
     (p.videos || []).forEach(src => {
       const vid = document.createElement('video');
       vid.src = src; vid.autoplay = true; vid.loop = true;
       vid.muted = true; vid.setAttribute('playsinline', '');
       vid.className = 'project-thumb';
-      thumbsInner.appendChild(vid);
+      thumbsRow.appendChild(vid);
     });
 
     const gifs = p.images.filter(s => s.toLowerCase().endsWith('.gif'));
@@ -940,10 +944,19 @@ function buildList() {
       el.addEventListener('click', e => {
         if (item.classList.contains('active')) { e.stopPropagation(); openLightbox(src); }
       });
-      thumbsInner.appendChild(el);
+      thumbsRow.appendChild(el);
     });
 
+    thumbsInner.appendChild(thumbsRow);
     thumbsOuter.appendChild(thumbsInner);
+
+    // Wheel: redirect vertical scroll to horizontal on desktop
+    thumbsOuter.addEventListener('wheel', e => {
+      if (item.classList.contains('active') && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        thumbsOuter.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
 
     item.appendChild(header);
     item.appendChild(thumbsOuter);
