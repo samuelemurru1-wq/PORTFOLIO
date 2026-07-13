@@ -97,6 +97,7 @@ ul { list-style: none; }
   transition: background-color 0.5s var(--ease-inout), color 0.5s var(--ease-inout);
 }
 .site-title { font-weight: 700; }
+.arrow-neue { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 .more-btn   { font-weight: 700; transition: opacity 0.15s; }
 .more-btn:hover { opacity: 0.65; }
 .meta-display {
