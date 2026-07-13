@@ -807,10 +807,7 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
     grid-template-columns: 1fr;
   }
 
-  /* Nascondi meta-display (orologio/data) su mobile — troppo stretto */
-  .meta-display {
-    display: none;
-  }
+  /* Meta-display su mobile: solo dimensione schermo, senza orologio/coordinate */
 
   /* Filter panel: scroll orizzontale invece di wrap */
   .filter-panel {

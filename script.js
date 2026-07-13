@@ -505,9 +505,14 @@ function onMouseMove(e) {
   updateMeta();
 }
 function updateMeta() {
-  const x = Math.round(lastMouse.clientX || 0);
-  const y = Math.round(lastMouse.clientY || 0);
-  metaDisplay.textContent = `${window.innerWidth}×${window.innerHeight} , X: ${x}px, Y: ${y}px`;
+  const isMobile = window.innerWidth <= 640;
+  if (isMobile) {
+    metaDisplay.textContent = `${window.innerWidth}×${window.innerHeight}`;
+  } else {
+    const x = Math.round(lastMouse.clientX || 0);
+    const y = Math.round(lastMouse.clientY || 0);
+    metaDisplay.textContent = `${window.innerWidth}×${window.innerHeight} , X: ${x}px, Y: ${y}px`;
+  }
 }
 
 // ─── CLOCK ───
