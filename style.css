@@ -743,7 +743,12 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
     width: 160px;
   }
   .project-item.active .project-text-wrap {
-    height: 260px;
+    height: 260px !important;
+    max-height: 40vh !important;
+  }
+
+  /* Container thumbnails: clippato all'altezza delle foto */
+  .project-item.active .project-thumbs {
     max-height: 40vh;
   }
 
