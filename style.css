@@ -738,9 +738,13 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
     display: none;
   }
 
-  /* Testo del progetto: larghezza ridotta su mobile */
+  /* Testo del progetto: larghezza e altezza ridotte su mobile */
   .project-text-wrap {
     width: 160px;
+  }
+  .project-item.active .project-text-wrap {
+    height: 260px;
+    max-height: 40vh;
   }
 
   /* Foto attive: più alte su mobile */
