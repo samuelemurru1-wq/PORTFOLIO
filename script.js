@@ -419,6 +419,21 @@ function init() {
     indexStage.scrollLeft += (e.deltaY + e.deltaX) * 0.2;
   }, { passive: false });
 
+  // Mobile: sia swipe orizzontale che verticale scorrono l'archive
+  let _atX = 0, _atY = 0;
+  indexStage.addEventListener('touchstart', e => {
+    _atX = e.touches[0].clientX;
+    _atY = e.touches[0].clientY;
+  }, { passive: true });
+  indexStage.addEventListener('touchmove', e => {
+    const dx = _atX - e.touches[0].clientX;
+    const dy = _atY - e.touches[0].clientY;
+    _atX = e.touches[0].clientX;
+    _atY = e.touches[0].clientY;
+    e.preventDefault();
+    indexStage.scrollLeft += dx + dy;
+  }, { passive: false });
+
   updateMeta();
 }
 
