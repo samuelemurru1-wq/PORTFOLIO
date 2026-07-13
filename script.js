@@ -558,7 +558,7 @@ function buildIndex() {
       .map(f => 'assets/' + folderMap[p.id] + '/' + f)
       .filter(src => !src.toLowerCase().endsWith('.gif'));
     const picks = [...gifs, ...pickedImgs];
-    picks.forEach(src => {
+    picks.forEach((src, idx) => {
       const item = document.createElement('div');
       item.className = 'index-item';
       item.dataset.projectId = p.id;
@@ -566,6 +566,8 @@ function buildIndex() {
       el.src = src;
       el.alt = '';
       el.loading = num <= 5 ? 'eager' : 'lazy';
+      el.style.cursor = 'zoom-in';
+      el.addEventListener('click', () => openLightbox(src, picks, idx));
       addCaption(item);
       item.appendChild(el);
       indexStrip.appendChild(item);
@@ -968,8 +970,8 @@ function buildList() {
     thumbsInner.appendChild(thumbsRow);
     thumbsOuter.appendChild(thumbsInner);
 
-    // Wheel: redirect vertical → horizontal only when item active and not at scroll boundary
-    thumbsOuter.addEventListener('wheel', e => {
+    // Wheel: redirect vertical → horizontal only when hovering the photo strip
+    thumbsRow.addEventListener('wheel', e => {
       if (!item.classList.contains('active')) return;
       if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
       const atEnd   = e.deltaY > 0 && thumbsOuter.scrollLeft >= thumbsOuter.scrollWidth - thumbsOuter.clientWidth - 1;
