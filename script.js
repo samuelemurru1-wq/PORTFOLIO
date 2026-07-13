@@ -27,14 +27,14 @@ const PROJECTS = [
       img('VISIONE TELAIO UNIQLO/project-021.JPG'),
       img('VISIONE TELAIO UNIQLO/project-023.JPG'),
       img('VISIONE TELAIO UNIQLO/project-035.jpeg'),
-      img('VISIONE TELAIO UNIQLO/project-052.png'),
+      img('VISIONE TELAIO UNIQLO/project-052.jpg'),
       img('VISIONE TELAIO UNIQLO/project-053.jpeg'),
       img('VISIONE TELAIO UNIQLO/project-055.jpg'),
       img('VISIONE TELAIO UNIQLO/project-068.jpeg'),
       img('VISIONE TELAIO UNIQLO/project-070.JPG'),
       img('VISIONE TELAIO UNIQLO/project-071.JPG'),
       img('VISIONE TELAIO UNIQLO/project-087.jpg'),
-      img('VISIONE TELAIO UNIQLO/project-0101.png'),
+      img('VISIONE TELAIO UNIQLO/project-0101.jpg'),
       img('VISIONE TELAIO UNIQLO/project-0115.jpg'),
       img('VISIONE TELAIO UNIQLO/project-0116.jpg'),
       img('VISIONE TELAIO UNIQLO/project-0117.jpg'),
@@ -89,7 +89,7 @@ const PROJECTS = [
       img('VISIONE TELAIO SOTA/project-044.JPG'),
       img('VISIONE TELAIO SOTA/project-047.JPG'),
       img('VISIONE TELAIO SOTA/project-050.JPG'),
-      img('VISIONE TELAIO SOTA/project-069.PNG'),
+      img('VISIONE TELAIO SOTA/project-069.jpg'),
       img('VISIONE TELAIO SOTA/project-072.JPG'),
     ]
   },
@@ -255,7 +255,7 @@ const PROJECTS = [
     cover: img('ATELIER CORSA/project-012.jpg'),
     images: [
       img('ATELIER CORSA/project-073.jpg'),
-      img('ATELIER CORSA/project-0104.png'),
+      img('ATELIER CORSA/project-0104.jpg'),
       img('ATELIER CORSA/project-012.jpg'),
       img('ATELIER CORSA/project-013.jpg'),
       img('ATELIER CORSA/project-0114.jpg'),
@@ -331,7 +331,7 @@ const indexPicks = {
   '08': ['project-074.jpg', 'project-077.jpg', 'project-082.jpg'],
   '09': ['POST 1.JPG', 'POST 4.JPG'],
   '10': ['project-038.jpg', 'project-045.jpeg'],
-  '11': ['project-012.jpg', 'project-073.jpg', 'project-0104.png'],
+  '11': ['project-012.jpg', 'project-073.jpg', 'project-0104.jpg'],
   '12': ['Foto scan holy city/Foto scan holy city.jpg', 'Foto scan holy city/Foto scan holy city_5.jpg', 'Foto scan holy city/Foto scan holy city_11.jpg'],
   '13': ['project-0106.jpg', 'project-0109.jpg'],
   '14': ['cover 2.jpg', '1:2.jpg', '2:3.jpg'],
@@ -562,7 +562,7 @@ function buildIndex() {
       item.dataset.projectId = p.id;
       const vid = document.createElement('video');
       vid.src = src;
-      vid.preload = 'none';
+      vid.preload = 'metadata';
       vid.loop = true;
       vid.muted = true;
       vid.setAttribute('playsinline', '');
@@ -604,7 +604,7 @@ function buildIndex() {
         v.pause();
       }
     });
-  }, { root: indexStage, rootMargin: '200px' });
+  }, { root: indexStage, rootMargin: '800px' });
 
   indexStrip.querySelectorAll('.index-video').forEach(v => vidObserver.observe(v));
 }
