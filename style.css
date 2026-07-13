@@ -427,6 +427,9 @@ body:has(.info-panel.open) #site-footer {
   border: none;
   line-height: 1;
   transform-origin: 0 0;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   transition: background-color 0.5s var(--ease-inout), color 0.5s var(--ease-inout), opacity 0.15s;
 }
 .map-dot-3d:hover { opacity: 0.6; }

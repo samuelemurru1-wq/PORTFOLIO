@@ -561,9 +561,8 @@ function buildIndex() {
       item.className = 'index-item';
       item.dataset.projectId = p.id;
       const vid = document.createElement('video');
-      vid.dataset.src = src;
+      vid.src = src;
       vid.preload = 'none';
-      vid.autoplay = true;
       vid.loop = true;
       vid.muted = true;
       vid.setAttribute('playsinline', '');
@@ -598,12 +597,14 @@ function buildIndex() {
   const vidObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const v = entry.target;
-      if (entry.isIntersecting && !v.src && v.dataset.src) {
-        v.src = v.dataset.src;
+      if (entry.isIntersecting) {
+        if (v.readyState === 0) v.load();
         v.play().catch(() => {});
+      } else {
+        v.pause();
       }
     });
-  }, { root: indexStrip, rootMargin: '300px' });
+  }, { root: indexStage, rootMargin: '200px' });
 
   indexStrip.querySelectorAll('.index-video').forEach(v => vidObserver.observe(v));
 }
