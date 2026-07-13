@@ -406,7 +406,13 @@ function init() {
   navItems.forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.view)));
   document.addEventListener('keydown', onKey);
   document.addEventListener('mousemove', onMouseMove);
-  lightbox.addEventListener('click', closeLightbox);
+  let _lbTouchX = 0, _lbSwiped = false;
+  lightbox.addEventListener('touchstart', e => { _lbTouchX = e.touches[0].clientX; _lbSwiped = false; }, { passive: true });
+  lightbox.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - _lbTouchX;
+    if (Math.abs(dx) > 40) { _lbSwiped = true; lightboxNav(dx < 0 ? 1 : -1); }
+  });
+  lightbox.addEventListener('click', () => { if (_lbSwiped) { _lbSwiped = false; return; } closeLightbox(); });
   initWorksLinks();
   syncListColumns();
   window.addEventListener('resize', () => { updateMeta(); syncListColumns(); });
@@ -583,17 +589,30 @@ function buildIndex() {
 }
 
 // ─── LIGHTBOX ───
-function openLightbox(src) {
-  lightboxImg.src = src;
+let lightboxImages = [];
+let lightboxIndex  = 0;
+
+function openLightbox(src, images, index) {
+  lightboxImages = images || [src];
+  lightboxIndex  = index !== undefined ? index : 0;
+  lightboxImg.src = lightboxImages[lightboxIndex];
   lightbox.classList.add('open');
 }
-function closeLightbox() {
-  lightbox.classList.remove('open');
+function closeLightbox() { lightbox.classList.remove('open'); }
+function lightboxNav(dir) {
+  if (lightboxImages.length <= 1) return;
+  lightboxIndex = (lightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
+  lightboxImg.src = lightboxImages[lightboxIndex];
 }
 
 // ─── KEYBOARD ───
 function onKey(e) {
   if (e.key === 'Escape') { closeLightbox(); return; }
+  if (lightbox.classList.contains('open')) {
+    if (e.key === 'ArrowRight') { lightboxNav(1);  return; }
+    if (e.key === 'ArrowLeft')  { lightboxNav(-1); return; }
+    return;
+  }
   if (currentView !== 'index') return;
   const step = indexStage.clientWidth * 0.6;
   if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   indexStage.scrollBy({ left: -step, behavior: 'smooth' });
@@ -937,12 +956,13 @@ function buildList() {
 
     const gifs = p.images.filter(s => s.toLowerCase().endsWith('.gif'));
     const imgs = p.images.filter(s => !s.toLowerCase().endsWith('.gif'));
-    [...gifs, ...imgs].forEach(src => {
+    const allImgSrcs = [...gifs, ...imgs];
+    allImgSrcs.forEach((src, idx) => {
       const el = document.createElement('img');
       el.src = src; el.alt = ''; el.loading = 'lazy';
       el.className = 'project-thumb';
       el.addEventListener('click', e => {
-        if (item.classList.contains('active')) { e.stopPropagation(); openLightbox(src); }
+        if (item.classList.contains('active')) { e.stopPropagation(); openLightbox(src, allImgSrcs, idx); }
       });
       thumbsRow.appendChild(el);
     });
@@ -950,12 +970,15 @@ function buildList() {
     thumbsInner.appendChild(thumbsRow);
     thumbsOuter.appendChild(thumbsInner);
 
-    // Wheel: redirect vertical scroll to horizontal on desktop
+    // Wheel: redirect vertical → horizontal only when item active and not at scroll boundary
     thumbsOuter.addEventListener('wheel', e => {
-      if (item.classList.contains('active') && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        thumbsOuter.scrollLeft += e.deltaY;
-      }
+      if (!item.classList.contains('active')) return;
+      if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
+      const atEnd   = e.deltaY > 0 && thumbsOuter.scrollLeft >= thumbsOuter.scrollWidth - thumbsOuter.clientWidth - 1;
+      const atStart = e.deltaY < 0 && thumbsOuter.scrollLeft <= 0;
+      if (atEnd || atStart) return;
+      e.preventDefault();
+      thumbsOuter.scrollLeft += e.deltaY;
     }, { passive: false });
 
     item.appendChild(header);

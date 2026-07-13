@@ -739,6 +739,25 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
     display: none;
   }
 
+  /* Archive: didascalie sempre visibili su mobile (niente hover) */
+  .index-caption {
+    transform: scale(1);
+    transition: none;
+  }
+  .index-caption > div {
+    opacity: 1;
+    transition: none;
+  }
+
+  /* Strip foto mobile: passa scroll verticale al parent */
+  .project-thumb-row {
+    touch-action: pan-x;
+  }
+  /* Thumbs container: non clippa verticalmente su mobile */
+  .project-item.active .project-thumbs {
+    overflow: visible;
+  }
+
   /* Mappa: foto più piccole su mobile */
   .map-photo-3d {
     max-height: 116px;
