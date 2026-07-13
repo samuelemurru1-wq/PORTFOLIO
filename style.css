@@ -764,6 +764,11 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
     transition: none;
   }
 
+  /* Archive: JS gestisce tutti gli assi touch */
+  .index-stage {
+    touch-action: none;
+  }
+
   /* Strip foto mobile: passa scroll verticale al parent */
   .project-thumb-row {
     touch-action: pan-x;
