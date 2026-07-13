@@ -738,24 +738,15 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
     display: none;
   }
 
-  /* Testo del progetto: larghezza e altezza ridotte su mobile */
+  /* Testo del progetto: larghezza ridotta su mobile */
   .project-text-wrap {
     width: 160px;
   }
-  .project-item.active .project-text-wrap {
-    height: 260px !important;
-    max-height: 40vh !important;
-  }
 
-  /* Container thumbnails: clippato all'altezza delle foto */
-  .project-item.active .project-thumbs {
-    max-height: 40vh;
-  }
-
-  /* Foto attive: più alte su mobile */
+  /* Foto attive: stessa altezza del text-wrap (400px base) → nessuno spazio vuoto */
   .project-item.active .project-thumb {
-    height: 260px;
-    max-height: 40vh;
+    height: 400px;
+    max-height: 50vh;
   }
 
   /* Info panel: colonne impilate */
