@@ -406,13 +406,11 @@ function init() {
   navItems.forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.view)));
   document.addEventListener('keydown', onKey);
   document.addEventListener('mousemove', onMouseMove);
-  let _lbTouchX = 0, _lbSwiped = false;
-  lightbox.addEventListener('touchstart', e => { _lbTouchX = e.touches[0].clientX; _lbSwiped = false; }, { passive: true });
-  lightbox.addEventListener('touchend',   e => {
-    const dx = e.changedTouches[0].clientX - _lbTouchX;
-    if (Math.abs(dx) > 40) { _lbSwiped = true; lightboxNav(dx < 0 ? 1 : -1); }
+  document.getElementById('lightbox-close').addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+  lightbox.addEventListener('click', e => {
+    if (lightboxImages.length <= 1) { closeLightbox(); return; }
+    e.clientX < window.innerWidth / 2 ? lightboxNav(-1) : lightboxNav(1);
   });
-  lightbox.addEventListener('click', () => { if (_lbSwiped) { _lbSwiped = false; return; } closeLightbox(); });
   initWorksLinks();
   syncListColumns();
   window.addEventListener('resize', () => { updateMeta(); syncListColumns(); });
