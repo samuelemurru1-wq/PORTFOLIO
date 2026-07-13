@@ -739,6 +739,12 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
     display: none;
   }
 
+  /* Mappa: foto più piccole su mobile */
+  .map-photo-3d {
+    max-height: 80px;
+    max-width: 95px;
+  }
+
   /* Mobile: layout colonna — testo sopra full-width, foto sotto in strip */
   .project-thumbs-inner {
     flex-direction: column;
