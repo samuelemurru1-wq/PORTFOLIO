@@ -431,7 +431,7 @@ function init() {
     _atX = e.touches[0].clientX;
     _atY = e.touches[0].clientY;
     e.preventDefault();
-    indexStage.scrollLeft += (dx + dy) * 2.5;
+    indexStage.scrollLeft += (dx + dy) * 1.8;
   }, { passive: false });
 
   updateMeta();
