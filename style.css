@@ -741,8 +741,8 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
 
   /* Mappa: foto più piccole su mobile */
   .map-photo-3d {
-    max-height: 80px;
-    max-width: 95px;
+    max-height: 110px;
+    max-width: 130px;
   }
 
   /* Mobile: layout colonna — testo sopra full-width, foto sotto in strip */
