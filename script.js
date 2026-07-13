@@ -976,7 +976,8 @@ function initFilterPanel() {
   const allChip = document.createElement('button');
   allChip.className = 'filter-chip active';
   allChip.textContent = 'All';
-  allChip.addEventListener('click', () => {
+  allChip.addEventListener('click', e => {
+    e.stopPropagation();
     activeAreas.clear();
     applyFilter();
   });
@@ -986,7 +987,8 @@ function initFilterPanel() {
     const chip = document.createElement('button');
     chip.className = 'filter-chip';
     chip.textContent = area;
-    chip.addEventListener('click', () => {
+    chip.addEventListener('click', e => {
+      e.stopPropagation();
       if (activeAreas.has(area)) activeAreas.delete(area);
       else activeAreas.add(area);
       applyFilter();
@@ -994,7 +996,16 @@ function initFilterPanel() {
     panel.appendChild(chip);
   });
 
-  btn.addEventListener('click', () => panel.classList.toggle('open'));
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    panel.classList.toggle('open');
+  });
+
+  document.addEventListener('click', e => {
+    if (!panel.contains(e.target) && e.target !== btn) {
+      panel.classList.remove('open');
+    }
+  });
 
   function applyFilter() {
     const none = activeAreas.size === 0;
