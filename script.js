@@ -416,7 +416,7 @@ function init() {
   window.addEventListener('resize', () => { updateMeta(); syncListColumns(); });
   indexStage.addEventListener('wheel', e => {
     e.preventDefault();
-    indexStage.scrollLeft += (e.deltaY + e.deltaX) * 0.2;
+    indexStage.scrollLeft += (e.deltaY + e.deltaX) * 0.5;
   }, { passive: false });
 
   // Mobile: sia swipe orizzontale che verticale scorrono l'archive
@@ -431,7 +431,7 @@ function init() {
     _atX = e.touches[0].clientX;
     _atY = e.touches[0].clientY;
     e.preventDefault();
-    indexStage.scrollLeft += (dx + dy) * 1.8;
+    indexStage.scrollLeft += (dx + dy) * 2.8;
   }, { passive: false });
 
   updateMeta();
