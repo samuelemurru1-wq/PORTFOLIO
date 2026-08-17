@@ -805,12 +805,19 @@ function buildMap() {
       _hideDotPopup();
     });
 
+    const closeDotPhoto = () => {
+      if (!photo3d) return;
+      const idx = xyBB.findIndex(b => b.el === photo3d);
+      if (idx !== -1) xyBB.splice(idx, 1);
+      photo3d.remove(); photo3d = null;
+      dot.style.opacity = '';
+      dot.style.pointerEvents = '';
+    };
+
     dot.addEventListener('click', e => {
       e.stopPropagation();
       if (photo3d) {
-        const idx = xyBB.findIndex(b => b.el === photo3d);
-        if (idx !== -1) xyBB.splice(idx, 1);
-        photo3d.remove(); photo3d = null; dot.style.opacity = '';
+        closeDotPhoto();
       } else {
         if (!allMedia.length) return;
         const src = allMedia[Math.floor(Math.random() * allMedia.length)];
@@ -822,11 +829,13 @@ function buildMap() {
           mediaEl.muted = true;   mediaEl.playsInline = true;
         }
         mediaEl.src = src;
+        mediaEl.addEventListener('click', e => { e.stopPropagation(); closeDotPhoto(); });
         scene.appendChild(mediaEl);
         xyBB.push({el: mediaEl, x, y, z, tx: '-50%', ty: '-100%'});
         applyRot();
         photo3d = mediaEl;
-        dot.style.opacity = '0.45';
+        dot.style.opacity = '0';
+        dot.style.pointerEvents = 'none';
       }
     });
     scene.appendChild(dot);
