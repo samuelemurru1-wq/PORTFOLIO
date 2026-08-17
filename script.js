@@ -226,6 +226,28 @@ const PROJECTS = [
     ]
   },
   {
+    id: '14',
+    client: 'Personal Project',
+    name: 'ARCHIVIO ROMANESE',
+    area: 'Web Design & Photography',
+    year: '2026',
+    mapX: 48, mapY: 60, mapZ: 35,
+    description: 'Archivio Romanese is a project cataloguing the photographic memory of Romana, a municipality in the province of Sassari with fewer than five hundred inhabitants. Each photograph enters the archive with a record: subject, inscriptions, conservation status, provenance where known. Village football team, family photographs, celebrations, countryside, shops that no longer exist. Material that no institution records, but that continues to circulate in the drawers and albums of those who preserve it. The archive grows through donation. Anyone who holds polaroids, prints or negatives connected to Romana can reach the archive directly for a cataloguing record.',
+    videos: [
+      img('ARCHIVIO ROMANESE/archivio-video.mp4'),
+      img('ARCHIVIO ROMANESE/archivio-screen.mp4'),
+    ],
+    cover: img('ARCHIVIO ROMANESE/POSTER ROMAENESE.jpg'),
+    images: [
+      img('ARCHIVIO ROMANESE/POSTER ROMAENESE.jpg'),
+      img('ARCHIVIO ROMANESE/IMG_8585.PNG'),
+      img('ARCHIVIO ROMANESE/IMG_8587.PNG'),
+      img('ARCHIVIO ROMANESE/Screenshot 2026-07-31 alle 14.46.24.png'),
+      img('ARCHIVIO ROMANESE/Screenshot 2026-07-31 alle 14.46.38.png'),
+      img('ARCHIVIO ROMANESE/Screenshot 2026-07-31 alle 14.47.38.png'),
+    ]
+  },
+  {
     id: '10',
     client: 'Carboni',
     name: 'Logo',
@@ -298,28 +320,6 @@ const PROJECTS = [
       img('ADIDAS OBD SCIARPE/project-0109.jpg'),
       img('ADIDAS OBD SCIARPE/project-0110.jpg'),
       img('ADIDAS OBD SCIARPE/project-0111.jpg'),
-    ]
-  },
-  {
-    id: '14',
-    client: 'Personal Project',
-    name: 'Archivio Romanese',
-    area: 'Photography & Archive',
-    year: '2026',
-    mapX: 48, mapY: 60, mapZ: 35,
-    description: 'Archivio Romanese is a project cataloguing the photographic memory of Romana, a municipality in the province of Sassari with fewer than five hundred inhabitants. Each photograph enters the archive with a record: subject, inscriptions, conservation status, provenance where known. Village football team, family photographs, celebrations, countryside, shops that no longer exist. Material that no institution records, but that continues to circulate in the drawers and albums of those who preserve it. The archive grows through donation. Anyone who holds polaroids, prints or negatives connected to Romana can reach the archive directly for a cataloguing record.',
-    videos: [
-      img('ARCHIVIO ROMANESE/archivio-video.mp4'),
-      img('ARCHIVIO ROMANESE/archivio-screen.mp4'),
-    ],
-    cover: img('ARCHIVIO ROMANESE/POSTER ROMAENESE.jpg'),
-    images: [
-      img('ARCHIVIO ROMANESE/POSTER ROMAENESE.jpg'),
-      img('ARCHIVIO ROMANESE/IMG_8585.PNG'),
-      img('ARCHIVIO ROMANESE/IMG_8587.PNG'),
-      img('ARCHIVIO ROMANESE/Screenshot 2026-07-31 alle 14.46.24.png'),
-      img('ARCHIVIO ROMANESE/Screenshot 2026-07-31 alle 14.46.38.png'),
-      img('ARCHIVIO ROMANESE/Screenshot 2026-07-31 alle 14.47.38.png'),
     ]
   },
 ];
