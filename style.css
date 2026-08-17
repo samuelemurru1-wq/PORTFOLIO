@@ -490,7 +490,8 @@ body:has(.info-panel.open) #site-footer {
   height: auto;
   object-fit: contain;
   object-position: bottom center;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   transform-origin: 0 0;
 }
 
