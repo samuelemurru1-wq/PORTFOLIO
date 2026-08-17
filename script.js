@@ -234,7 +234,7 @@ const PROJECTS = [
     mapX: 48, mapY: 60, mapZ: 35,
     description: 'Archivio Romanese is a project cataloguing the photographic memory of Romana, a municipality in the province of Sassari with fewer than five hundred inhabitants. Each photograph enters the archive with a record: subject, inscriptions, conservation status, provenance where known. Village football team, family photographs, celebrations, countryside, shops that no longer exist. Material that no institution records, but that continues to circulate in the drawers and albums of those who preserve it. The archive grows through donation. Anyone who holds polaroids, prints or negatives connected to Romana can reach the archive directly for a cataloguing record.',
     link: { text: '↳ View site', url: 'https://archivioromanese.com/' },
-    mapVideo: img('ARCHIVIO ROMANESE/POSTER ROMAENESE.jpg'),
+    mapVideo: img('ARCHIVIO ROMANESE/archivio-video.mp4'),
     videos: [
       img('ARCHIVIO ROMANESE/archivio-video.mp4'),
       img('ARCHIVIO ROMANESE/archivio-screen.mp4'),
