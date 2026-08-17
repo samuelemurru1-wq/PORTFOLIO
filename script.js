@@ -411,6 +411,9 @@ function init() {
 
   initFilterPanel();
   moreBtn.addEventListener('click', toggleInfo);
+  document.addEventListener('click', e => {
+    if (infoOpen && !infoPanel.contains(e.target) && e.target !== moreBtn) toggleInfo();
+  });
   navItems.forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.view)));
   document.addEventListener('keydown', onKey);
   document.addEventListener('mousemove', onMouseMove);
