@@ -935,8 +935,8 @@ function buildList() {
     const header = document.createElement('div');
     header.className = 'project-header';
     header.innerHTML =
-      `<span>[${num}]</span><span>${p.client}</span>` +
-      `<span>${p.name}</span><span>${p.area}</span><span>${p.year}</span>`;
+      `<span>[${num}]</span><span>${p.name}</span>` +
+      `<span>${p.client}</span><span>${p.area}</span><span>${p.year}</span>`;
 
     const thumbsOuter = document.createElement('div');
     thumbsOuter.className = 'project-thumbs';
