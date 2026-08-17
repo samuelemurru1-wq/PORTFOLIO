@@ -303,17 +303,23 @@ const PROJECTS = [
   {
     id: '14',
     client: 'Personal Project',
-    name: 'Image Research',
-    area: 'Editorial Design',
+    name: 'Archivio Romanese',
+    area: 'Photography & Archive',
     year: '2026',
-    mapX: 10, mapY: 72, mapZ: 80,
-    description: '',
-    cover: img('IMAGE RESEARCH/cover 2.jpg'),
+    mapX: 48, mapY: 60, mapZ: 35,
+    description: 'Archivio Romanese is a project cataloguing the photographic memory of Romana, a municipality in the province of Sassari with fewer than five hundred inhabitants. Each photograph enters the archive with a record: subject, inscriptions, conservation status, provenance where known. Village football team, family photographs, celebrations, countryside, shops that no longer exist. Material that no institution records, but that continues to circulate in the drawers and albums of those who preserve it. The archive grows through donation. Anyone who holds polaroids, prints or negatives connected to Romana can reach the archive directly for a cataloguing record.',
+    videos: [
+      img('ARCHIVIO ROMANESE/archivio-video.mp4'),
+      img('ARCHIVIO ROMANESE/archivio-screen.mp4'),
+    ],
+    cover: img('ARCHIVIO ROMANESE/POSTER ROMAENESE.jpg'),
     images: [
-      img('IMAGE RESEARCH/cover 2.jpg'),
-      img('IMAGE RESEARCH/1:2.jpg'),
-      img('IMAGE RESEARCH/2:3.jpg'),
-      img('IMAGE RESEARCH/4:5.jpg'),
+      img('ARCHIVIO ROMANESE/POSTER ROMAENESE.jpg'),
+      img('ARCHIVIO ROMANESE/IMG_8585.PNG'),
+      img('ARCHIVIO ROMANESE/IMG_8587.PNG'),
+      img('ARCHIVIO ROMANESE/Screenshot 2026-07-31 alle 14.46.24.png'),
+      img('ARCHIVIO ROMANESE/Screenshot 2026-07-31 alle 14.46.38.png'),
+      img('ARCHIVIO ROMANESE/Screenshot 2026-07-31 alle 14.47.38.png'),
     ]
   },
 ];
@@ -334,7 +340,7 @@ const indexPicks = {
   '11': ['project-012.jpg', 'project-073.jpg', 'project-0104.jpg'],
   '12': ['Foto scan holy city/Foto scan holy city.jpg', 'Foto scan holy city/Foto scan holy city_5.jpg', 'Foto scan holy city/Foto scan holy city_11.jpg'],
   '13': ['project-0106.jpg', 'project-0109.jpg'],
-  '14': ['cover 2.jpg', '1:2.jpg', '2:3.jpg'],
+  '14': ['POSTER ROMAENESE.jpg', 'Screenshot 2026-07-31 alle 14.46.38.png', 'IMG_8585.PNG'],
 };
 
 const folderMap = {
@@ -351,7 +357,7 @@ const folderMap = {
   '11': 'ATELIER CORSA',
   '12': 'HOLY CITY',
   '13': 'ADIDAS OBD SCIARPE',
-  '14': 'IMAGE RESEARCH',
+  '14': 'ARCHIVIO ROMANESE',
 };
 
 let globalNum = 1;
