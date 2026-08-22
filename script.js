@@ -430,20 +430,32 @@ function init() {
     indexStage.scrollLeft += (e.deltaY + e.deltaX) * 0.5;
   }, { passive: false });
 
-  // Mobile: sia swipe orizzontale che verticale scorrono l'archive
-  let _atX = 0, _atY = 0;
+  // Mobile: swipe con inertia — sia orizzontale che verticale scorrono l'archive
+  let _atX = 0, _atY = 0, _vel = 0, _rafInertia = null;
   indexStage.addEventListener('touchstart', e => {
     _atX = e.touches[0].clientX;
     _atY = e.touches[0].clientY;
+    _vel = 0;
+    if (_rafInertia) { cancelAnimationFrame(_rafInertia); _rafInertia = null; }
   }, { passive: true });
   indexStage.addEventListener('touchmove', e => {
     const dx = _atX - e.touches[0].clientX;
     const dy = _atY - e.touches[0].clientY;
+    _vel = (dx + dy) * 2.8;
     _atX = e.touches[0].clientX;
     _atY = e.touches[0].clientY;
     e.preventDefault();
-    indexStage.scrollLeft += (dx + dy) * 2.8;
+    indexStage.scrollLeft += _vel;
   }, { passive: false });
+  indexStage.addEventListener('touchend', () => {
+    const decay = () => {
+      _vel *= 0.88;
+      if (Math.abs(_vel) < 0.5) { _rafInertia = null; return; }
+      indexStage.scrollLeft += _vel;
+      _rafInertia = requestAnimationFrame(decay);
+    };
+    _rafInertia = requestAnimationFrame(decay);
+  }, { passive: true });
 
   updateMeta();
 }
