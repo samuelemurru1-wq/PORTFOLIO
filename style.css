@@ -20,7 +20,7 @@
   --font:   'NeueHaas', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --fs:     11px;
   --bar-h:  24px;
-  --margin: 5px;
+  --margin: 0px;
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in:     cubic-bezier(0.4, 0, 1, 1);
   --ease-inout:  cubic-bezier(0.4, 0, 0.2, 1);
@@ -743,7 +743,6 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
   :root {
     --bar-h: 36px;
     --fs: 12px;
-    --margin: 0px;
   }
 
   /* Index list: 3 colonne su mobile */
