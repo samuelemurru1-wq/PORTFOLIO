@@ -743,7 +743,7 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
   :root {
     --bar-h: 36px;
     --fs: 12px;
-    --margin: 3px;
+    --margin: 0px;
   }
 
   /* Index list: 3 colonne su mobile */
