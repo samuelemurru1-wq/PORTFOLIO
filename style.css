@@ -495,80 +495,6 @@ body:has(.info-panel.open) #site-footer {
   transform-origin: 0 0;
 }
 
-/* ─── MAP: FASCIA DETTAGLIO IN BASSO ─── */
-.map-detail {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 40;
-  display: flex;
-  align-items: stretch;
-  height: 320px;
-  max-height: 52%;
-  background: var(--bg);
-  border-top: 1px solid var(--fg);
-  transform: translateY(101%);
-  transition: transform 0.5s var(--ease-out), background-color 0.5s var(--ease-inout);
-}
-.map-detail.open { transform: translateY(0); }
-
-.map-detail__info {
-  flex-shrink: 0;
-  width: 300px;
-  padding: 6px 0 12px;
-  overflow-y: auto;
-  scrollbar-width: none;
-  border-right: 1px solid var(--fg);
-  line-height: 1.4;
-  transition: border-color 0.5s var(--ease-inout);
-}
-.map-detail__info::-webkit-scrollbar { display: none; }
-
-.map-detail__strip {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: stretch;
-  gap: 2px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-}
-.map-detail__strip::-webkit-scrollbar { display: none; }
-
-.map-detail__thumb {
-  height: 100%;
-  width: auto;
-  flex-shrink: 0;
-  display: block;
-  object-fit: contain;
-  object-position: center;
-}
-img.map-detail__thumb { cursor: zoom-in; }
-video.map-detail__thumb { background: #000; }
-img.map-detail__thumb[src$=".svg"] {
-  padding: 24px;
-  background: #fff;
-}
-
-.map-detail__close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 41;
-  background: var(--bar-bg);
-  color: var(--bar-fg);
-  border: none;
-  font-family: var(--font);
-  font-size: var(--fs);
-  font-weight: 700;
-  height: var(--bar-h);
-  padding: 0 12px;
-  cursor: pointer;
-  transition: background-color 0.5s var(--ease-inout), color 0.5s var(--ease-inout);
-}
-
 /* ─── FILTER BTN + PANEL ─── */
 .filter-btn {
   font-weight: 700;
@@ -860,25 +786,6 @@ img.project-thumb[src$=".svg"] { max-width: 200px; object-fit: contain; object-p
   .map-photo-3d {
     max-height: 116px;
     max-width: 137px;
-  }
-
-  /* Mappa: fascia dettaglio impilata su mobile (info sopra, foto sotto) */
-  .map-detail {
-    flex-direction: column;
-    height: 56vh;
-    max-height: 56vh;
-  }
-  .map-detail__info {
-    width: 100%;
-    flex-shrink: 0;
-    max-height: 42%;
-    padding-right: 90px;
-    border-right: none;
-    border-bottom: 1px solid var(--fg);
-  }
-  .map-detail__strip {
-    flex: 1;
-    min-height: 0;
   }
 
   /* Mobile: layout colonna — testo sopra full-width, foto sotto in strip */

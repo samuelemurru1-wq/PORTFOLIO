@@ -502,7 +502,7 @@ function switchView(name) {
   const outEl = document.getElementById('view-' + currentView);
   const inEl  = document.getElementById('view-' + name);
 
-  if (currentView === 'map') { _hideMapPreview(); _hideDotPopup(); if (_openMapDot) _openMapDot(); }
+  if (currentView === 'map') { _hideMapPreview(); _hideDotPopup(); }
   navItems.forEach(btn => btn.classList.toggle('active', btn.dataset.view === name));
   currentView = name;
 
@@ -651,11 +651,7 @@ function lightboxNav(dir) {
 
 // ─── KEYBOARD ───
 function onKey(e) {
-  if (e.key === 'Escape') {
-    if (lightbox.classList.contains('open')) { closeLightbox(); return; }
-    if (_openMapDot) { _openMapDot(); return; }
-    return;
-  }
+  if (e.key === 'Escape') { closeLightbox(); return; }
   if (lightbox.classList.contains('open')) {
     if (e.key === 'ArrowRight') { lightboxNav(1);  return; }
     if (e.key === 'ArrowLeft')  { lightboxNav(-1); return; }
@@ -669,99 +665,6 @@ function onKey(e) {
 
 // ─── MAP 3D ───
 let _mapPreviewEl = null;
-
-// Callback che chiude il dot attualmente aperto (foto 3D + fascia in basso)
-let _openMapDot = null;
-
-// ─── MAP: FASCIA DETTAGLIO IN BASSO ───
-let _mapDetailEl = null;
-function _getMapDetail() {
-  if (!_mapDetailEl) {
-    _mapDetailEl = document.createElement('div');
-    _mapDetailEl.className = 'map-detail';
-    // Non far partire il drag di rotazione quando si interagisce con la fascia
-    _mapDetailEl.addEventListener('mousedown', e => e.stopPropagation());
-    _mapDetailEl.addEventListener('touchstart', e => e.stopPropagation(), { passive: true });
-    document.getElementById('view-map').appendChild(_mapDetailEl);
-  }
-  return _mapDetailEl;
-}
-
-function _showMapDetail(p) {
-  const el = _getMapDetail();
-  el.innerHTML = '';
-
-  const close = document.createElement('button');
-  close.className = 'map-detail__close';
-  close.textContent = 'Chiudi';
-  close.addEventListener('click', e => { e.stopPropagation(); if (_openMapDot) _openMapDot(); });
-  el.appendChild(close);
-
-  const info = document.createElement('div');
-  info.className = 'map-detail__info';
-
-  if (p.description) {
-    const descEl = document.createElement('div');
-    descEl.className = 'project-text';
-    descEl.textContent = p.description;
-    info.appendChild(descEl);
-  }
-
-  const metaFields = [];
-  if (p.role) metaFields.push(['Role', p.role]);
-  metaFields.push(['Categories', p.area]);
-  metaFields.push(['Client', p.client]);
-  metaFields.push(['Year', p.year]);
-  metaFields.forEach(([label, value]) => {
-    const sec = document.createElement('div');
-    sec.className = 'project-meta-section';
-    sec.innerHTML = `<div class="project-meta-label">${label}</div><div class="project-meta-value">${value}</div>`;
-    info.appendChild(sec);
-  });
-
-  if (p.link) {
-    const a = document.createElement('a');
-    a.className = 'project-link';
-    a.href = p.link.url; a.target = '_blank'; a.rel = 'noopener';
-    a.textContent = p.link.text;
-    info.appendChild(a);
-  }
-  el.appendChild(info);
-
-  const strip = document.createElement('div');
-  strip.className = 'map-detail__strip';
-  const lbSrcs = p.images.filter(s => !/\.svg$/i.test(s));
-  const media = [...(p.videos || []), ...p.images];
-  media.forEach(src => {
-    const isVideo = /\.(mp4|mov|webm)$/i.test(src);
-    if (isVideo) {
-      const v = document.createElement('video');
-      v.src = src; v.muted = true; v.loop = true; v.autoplay = true;
-      v.preload = 'metadata';
-      v.setAttribute('playsinline', '');
-      v.className = 'map-detail__thumb';
-      strip.appendChild(v);
-    } else {
-      const im = document.createElement('img');
-      im.src = src; im.alt = ''; im.loading = 'lazy';
-      im.className = 'map-detail__thumb';
-      if (!/\.svg$/i.test(src)) {
-        im.addEventListener('click', () => openLightbox(src, lbSrcs, lbSrcs.indexOf(src)));
-      }
-      strip.appendChild(im);
-    }
-  });
-  el.appendChild(strip);
-  strip.scrollLeft = 0;
-
-  requestAnimationFrame(() => el.classList.add('open'));
-}
-
-function _hideMapDetail() {
-  if (!_mapDetailEl) return;
-  _mapDetailEl.classList.remove('open');
-  _mapDetailEl.querySelectorAll('video').forEach(v => v.pause());
-}
 
 let _mapDotPopup = null;
 function _getDotPopup() {
@@ -926,15 +829,12 @@ function buildMap() {
     });
 
     const closeDotPhoto = () => {
-      if (photo3d) {
-        const idx = xyBB.findIndex(b => b.el === photo3d);
-        if (idx !== -1) xyBB.splice(idx, 1);
-        photo3d.remove(); photo3d = null;
-      }
+      if (!photo3d) return;
+      const idx = xyBB.findIndex(b => b.el === photo3d);
+      if (idx !== -1) xyBB.splice(idx, 1);
+      photo3d.remove(); photo3d = null;
       dot.style.opacity = '';
       dot.style.pointerEvents = '';
-      _hideMapDetail();
-      _openMapDot = null;
     };
 
     dot.addEventListener('click', e => {
@@ -942,10 +842,6 @@ function buildMap() {
       if (photo3d) {
         closeDotPhoto();
       } else {
-        // Chiudi un eventuale altro progetto aperto
-        if (_openMapDot) _openMapDot();
-        _showMapDetail(p);
-        _openMapDot = closeDotPhoto;
         if (!allMedia.length) return;
         const src = p.mapVideo || allMedia[Math.floor(Math.random() * allMedia.length)];
         const isVideo = /\.(mp4|mov|webm)$/i.test(src);
