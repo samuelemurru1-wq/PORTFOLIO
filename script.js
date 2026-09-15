@@ -400,6 +400,7 @@ const listBody     = document.getElementById('list-body');
 const navItems     = document.querySelectorAll('.view-nav__item');
 const lightbox     = document.getElementById('lightbox');
 const lightboxImg  = document.getElementById('lightbox-img');
+const lightboxCursor = document.getElementById('lightbox-cursor');
 
 // ─── INIT ───
 // Archive è l'unica vista visibile all'avvio: costruita subito.
@@ -430,6 +431,12 @@ function init() {
   lightbox.addEventListener('click', e => {
     if (lightboxImages.length <= 1) { closeLightbox(); return; }
     e.clientX < window.innerWidth / 2 ? lightboxNav(-1) : lightboxNav(1);
+  });
+  lightbox.addEventListener('mousemove', e => {
+    if (lightboxImages.length <= 1) return;
+    lightboxCursor.style.left = e.clientX + 'px';
+    lightboxCursor.style.top  = e.clientY + 'px';
+    lightboxCursor.textContent = e.clientX < window.innerWidth / 2 ? 'PREV' : 'NEXT';
   });
   initWorksLinks();
   window.addEventListener('resize', () => { updateMeta(); syncListColumns(); });
@@ -656,8 +663,20 @@ function openLightbox(src, images, index) {
   lightboxIndex  = index !== undefined ? index : 0;
   lightboxImg.src = lightboxImages[lightboxIndex];
   lightbox.classList.add('open');
+  const multi = lightboxImages.length > 1;
+  lightboxCursor.classList.toggle('visible', multi);
+  lightbox.style.cursor = multi ? 'none' : 'zoom-out';
+  if (multi) {
+    const x = lastMouse.clientX || window.innerWidth / 2;
+    lightboxCursor.style.left = x + 'px';
+    lightboxCursor.style.top  = (lastMouse.clientY || window.innerHeight / 2) + 'px';
+    lightboxCursor.textContent = x < window.innerWidth / 2 ? 'PREV' : 'NEXT';
+  }
 }
-function closeLightbox() { lightbox.classList.remove('open'); }
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  lightboxCursor.classList.remove('visible');
+}
 function lightboxNav(dir) {
   if (lightboxImages.length <= 1) return;
   lightboxIndex = (lightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
