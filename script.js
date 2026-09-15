@@ -1065,17 +1065,6 @@ function buildList() {
     thumbsInner.appendChild(thumbsRow);
     thumbsOuter.appendChild(thumbsInner);
 
-    // Wheel: redirect vertical → horizontal only when hovering the photo strip
-    thumbsRow.addEventListener('wheel', e => {
-      if (!item.classList.contains('active')) return;
-      if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
-      const atEnd   = e.deltaY > 0 && thumbsOuter.scrollLeft >= thumbsOuter.scrollWidth - thumbsOuter.clientWidth - 1;
-      const atStart = e.deltaY < 0 && thumbsOuter.scrollLeft <= 0;
-      if (atEnd || atStart) return;
-      e.preventDefault();
-      thumbsOuter.scrollLeft += e.deltaY;
-    }, { passive: false });
-
     item.appendChild(header);
     item.appendChild(thumbsOuter);
 
