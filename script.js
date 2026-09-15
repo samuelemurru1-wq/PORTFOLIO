@@ -436,7 +436,7 @@ function init() {
     if (lightboxImages.length <= 1) return;
     lightboxCursor.style.left = e.clientX + 'px';
     lightboxCursor.style.top  = e.clientY + 'px';
-    lightboxCursor.textContent = e.clientX < window.innerWidth / 2 ? 'PREV' : 'NEXT';
+    lightboxCursor.textContent = e.clientX < window.innerWidth / 2 ? 'Prev' : 'Next';
   });
   initWorksLinks();
   window.addEventListener('resize', () => { updateMeta(); syncListColumns(); });
@@ -670,7 +670,7 @@ function openLightbox(src, images, index) {
     const x = lastMouse.clientX || window.innerWidth / 2;
     lightboxCursor.style.left = x + 'px';
     lightboxCursor.style.top  = (lastMouse.clientY || window.innerHeight / 2) + 'px';
-    lightboxCursor.textContent = x < window.innerWidth / 2 ? 'PREV' : 'NEXT';
+    lightboxCursor.textContent = x < window.innerWidth / 2 ? 'Prev' : 'Next';
   }
 }
 function closeLightbox() {
