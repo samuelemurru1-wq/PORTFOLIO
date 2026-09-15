@@ -1055,6 +1055,7 @@ function buildList() {
         el.src = src; el.alt = ''; el.loading = 'lazy'; el.decoding = 'async';
         el.className = 'project-thumb';
         el.addEventListener('click', e => {
+          if (dragState.moved) return;
           if (item.classList.contains('active')) { e.stopPropagation(); openLightbox(src, allImgSrcs, idx); }
         });
         thumbsRow.appendChild(el);
@@ -1064,6 +1065,30 @@ function buildList() {
 
     thumbsInner.appendChild(thumbsRow);
     thumbsOuter.appendChild(thumbsInner);
+
+    // Click-and-drag col mouse per scorrere la striscia foto in orizzontale
+    // (niente scrollbar visibile; su trackpad resta lo swipe nativo)
+    const dragState = { down: false, moved: false, startX: 0, startScroll: 0 };
+    thumbsOuter.addEventListener('mousedown', e => {
+      dragState.down = true; dragState.moved = false;
+      dragState.startX = e.pageX; dragState.startScroll = thumbsOuter.scrollLeft;
+      thumbsOuter.classList.add('dragging');
+    });
+    document.addEventListener('mousemove', e => {
+      if (!dragState.down) return;
+      const dx = e.pageX - dragState.startX;
+      if (Math.abs(dx) > 4) dragState.moved = true;
+      thumbsOuter.scrollLeft = dragState.startScroll - dx;
+    });
+    document.addEventListener('mouseup', () => {
+      dragState.down = false;
+      thumbsOuter.classList.remove('dragging');
+    });
+    // Un drag che termina come "click" non deve risalire fino al toggle
+    // apri/chiudi del progetto (item), altrimenti il drag richiude la galleria.
+    thumbsOuter.addEventListener('click', e => {
+      if (dragState.moved) e.stopPropagation();
+    });
 
     item.appendChild(header);
     item.appendChild(thumbsOuter);

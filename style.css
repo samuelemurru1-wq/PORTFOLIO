@@ -607,6 +607,10 @@ body:has(.info-panel.open) #site-footer {
   overflow-x: auto;
   overflow-y: hidden;
   opacity: 1;
+  cursor: grab;
+}
+.project-item.active .project-thumbs.dragging {
+  cursor: grabbing;
 }
 .project-thumbs-inner { display: flex; gap: 2px; }
 .project-thumb-row { display: flex; gap: 2px; flex-shrink: 0; }
@@ -620,6 +624,8 @@ body:has(.info-panel.open) #site-footer {
   object-position: top left;
   transition: height 0.45s var(--ease-out);
   cursor: default;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 .project-item:hover:not(.active) .project-thumb { height: calc(400px / 3 * 0.7 * 1.1); }
 .project-item.active .project-thumb { height: 400px; max-height: 50vh; cursor: zoom-in; }
